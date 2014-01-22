@@ -17,4 +17,4 @@ Noncommercial: You may not use this work for commercial purposes.
 Share-Alike: If you alter, transform, or build upon this work, you may
 distribute the resulting work only under the same or similar license to this one.
 
-I also ask and advise you to give and maintain credit where due and not to claim it as your own work, if you made edits or such you may redistribute as long as not to gain monetary value[Digital or not].
+I also ask and advise you to give and maintain credit where due and not to claim it as your own work, if you made edits or such you may redistribute[As long as it complies with the above license] it as long as not to gain monetary value[Digital or not].

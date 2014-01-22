@@ -1,5 +1,3 @@
-Feel free to use these as you wish, they are no longer used by BHC.
-
 This is protected under the following copyright;
 
 Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
