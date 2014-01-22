@@ -1,0 +1,39 @@
+@name Serc-Door
+@outputs F
+@persist List:string Str:array E:entity
+if(first()){
+ List = owner():steamID()  
+ timer("a",0) 
+}
+#[
+if(duped()){
+ selfDestruct()   #Uncomment this block
+}
+]#
+if(clk("a")){
+findByClass("player")
+E = findClosest(entity():pos())
+if(E:pos():distance(entity():pos()) < 80 | changed(E:pos():distance(entity():pos()))&E:pos():distance(entity():pos()) < 80){
+    if(List:find(E:steamID())==1){
+        F = 1
+    }
+}else{
+ F = 0
+}
+ timer("a",1000)
+}
+runOnChat(1)
+if(chatClk(owner())){
+ Str=owner():lastSaid():lower():explode(" ")
+    if(Str[1,string] == "{door"){
+        if(Str[2,string] == "add"){
+            ID = findPlayerByName(Str[3,string]):steamID()
+            List = List+" "+ID
+            print(List)
+        }elseif(Str[2,string] == "rem"){
+            ID = findPlayerByName(Str[3,string]):steamID()
+            List:replace(ID,"")
+            print(List)
+        }
+    }
+}

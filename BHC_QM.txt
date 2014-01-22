@@ -1,0 +1,130 @@
+@name Minute Maths: BHC
+@inputs EGP:wirelink User:entity
+@persist Members:gtable [Player Scr]:entity Bet Page:string T N1 N2 F Qnumber Functions:array
+if(first()){  
+    Members = gTable("BlackHatMembers",1)
+    Members["STEAM_0:1:36951959",string] = "Corp. Owner"
+    Members["STEAM_0:0:40864958",string] = "Corp. Owner"
+    Members["STEAM_0:0:17884482",string] = "Corp. Owner"
+    Members["STEAM_0:1:36951959.cred",number] = 10000           
+    Members["STEAM_0:0:40864958.cred",number] = 10000
+    Members["STEAM_0:0:17884482.cred",number] = 10000
+    function normal entity:isMember(){
+        if(Members[This:steamID(),string] != ""){return 1}
+        return 0      
+    }
+    EGP:egpClear()
+    Scr = EGP:entity()
+    Bet = 0
+    Page = "Menu"
+    timer("cycle",200)
+    T = 10
+    Functions = array(" x "," + "," - ")
+}
+if(clk("cycle")){    
+    timer("cycle",200)
+}
+if(changed(Page)){
+    EGP:egpClear()
+    EGP:egpBox(1,vec2(256,256),vec2(400,400))    
+    EGP:egpColor(1,vec(255,0,0))
+}
+if(Page == "Menu"){
+    EGP:egpText(2,"BHC MINUTEMATHS",vec2(85,90))
+    EGP:egpSize(2,40)
+    EGP:egpText(3,"As many questions as you can answer",vec2(115,150))
+    EGP:egpText(4,"in (about) one minute",vec2(165,170))
+    EGP:egpText(5,"Numbers up to 12x12, using +x-",vec2(135,200))                                                     
+    EGP:egpText(6,"4 seconds per question but gets faster!",vec2(105,270))
+    EGP:egpText(7,"C$300 to play, taken from your account",vec2(105,320))
+    EGP:egpText(8,"Press E to begin!",vec2(155,370))
+    EGP:egpSize(8,30)
+    EGP:egpText(9,"(There might even be a few negatives)",vec2(105,230))
+    if(User & User:isMember() & Members[User:steamID()+".cred",number] >= 300){
+        Player = User
+        Page = "Countdown"    
+    }
+}
+elseif(Page == "Countdown"){
+    EGP:egpText(2,"Player: " + Player:name(),vec2(256-13*Player:name():length(),100))
+    EGP:egpSize(2,30)
+    timer("Cdown",1000)
+    if(clk("Cdown") & T>0){
+        T--
+        timer("Cdown",1000)    
+    }
+    elseif(clk("Cdown")){
+        Page = "Game"    
+    }
+    EGP:egpText(3,T:toString(),vec2(220,200))
+    EGP:egpSize(3,100)
+    timer("q1",100)
+}
+elseif(Page == "Game"){
+    if(clk("q1")){
+        Qnumber = -1
+        F = round(random(1,3))
+        N1 = round(random(0,12))
+        N2 = round(random(0,12))
+        EGP:egpText(2,N1:toString() + Functions[F,string] + N2:toString(),vec2(200,200)) 
+        EGP:egpSize(2,50)      
+        timer("nextq",4000)
+    }
+    if(clk("nextq")){
+        Qnumber++
+        if(F == 1){
+            if(owner():lastSaid():toNumber() == N1*N2){
+                N1 = round(random(0,12))
+                N2 = round(random(0,12))
+                EGP:egpText(2,N1:toString() + " x " + N2:toString(),vec2(200,200)) 
+                EGP:egpSize(2,50)   
+                timer("nextq",4000-(30*Qnumber))
+            }
+            else{
+                Page = "Fail"    
+            }  
+        }
+        elseif(F == 2){
+            if(owner():lastSaid():toNumber() == N1+N2){
+                F = round(random(1,3))
+                N1 = round(random(0,12))
+                N2 = round(random(0,12))
+                EGP:egpText(2,N1:toString() + Functions[F,string] + N2:toString(),vec2(200,200)) 
+                EGP:egpSize(2,50)   
+                timer("nextq",4000-(30*Qnumber))
+            }
+            else{
+                Page = "Fail"    
+            }
+        }
+        elseif(F == 3){
+            if(owner():lastSaid():toNumber() == N1-N2){
+                F = round(random(1,3))
+                N1 = round(random(0,12))
+                N2 = round(random(0,12))
+                EGP:egpText(2,N1:toString() + Functions[F,string] + N2:toString(),vec2(200,200)) 
+                EGP:egpSize(2,50)   
+                timer("nextq",4000-(30*Qnumber))
+            }
+            else{
+                Page = "Fail"    
+            }
+        }
+    }
+}
+elseif(Page == "Fail"){
+    EGP:egpText(2,"FAIL",vec2(130,150))
+    EGP:egpSize(2,150)
+    EGP:egpText(3,"You reached question " + Qnumber,vec2(150,350))
+    EGP:egpText(4,"You won a total of C$" + (-300+15*Qnumber):toString(),vec2(140,400))
+    timer("reset",5000)
+    if(clk("reset")){
+        Page = "Menu"  
+        T = 10
+        Qnumber = -1  
+    }
+}
+if(changed(Page) & Page == "Fail"){
+    Members[User:steamID()+".cred",number] = Members[User:steamID()+".cred",number] + (-300+15*Qnumber)  
+    print("Gained C$" + (-300+15*Qnumber):toString())  
+}

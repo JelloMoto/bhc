@@ -1,0 +1,120 @@
+@name Lotto: BHC
+@inputs EGP:wirelink
+@persist [Ua Members]:gtable MyNum RGenNum [Player Scr]:entity Bet TotalW A:array Won
+
+if(first()){
+    EGP:egpClear()  
+    Bet = 0
+    MyNum = 1
+    RGenNum = 0
+    Won = -1
+    ########  
+    Members["STEAM_0:1:36951959",string] = "Corp. Owner"
+    Members["STEAM_0:0:40864958",string] = "Corp. Owner"
+    function normal entity:isMember(){
+        if(Members[This:steamID(),string] != ""){return 1}
+        return 0      
+    }
+    ########
+    timer("update",200)
+}
+if(changed(->EGP) & ->EGP){
+    Scr = EGP:entity()    
+}
+if(clk("update")){
+    findByClass("player")
+    E = findClosest(entity():pos())
+    Ua = gTable("Cbfgs914394512130531828511603866656067580_test",1)
+            if(E:steamID():find("STEAM_0:0:") != 0){
+            Sids = E:steamID():replace("STEAM_0:0:","")
+            }
+            elseif(E:steamID():find("STEAM_0:1:") != 0){
+            Sids = E:steamID():replace("STEAM_0:1:","")
+            }
+            elseif(E:steamID():find("STEAM_1:0:") != 0){
+            Sids = E:steamID():replace("STEAM_1:0:","")
+            }
+            Cur = Ua[Sids,string]:toNumber()
+    timer("update",200)
+}
+
+runOnChat(1)
+if(!Player){
+    findInSphere(Scr:pos(),150)
+    findClipToClass("player")
+    findSortByDistance(Scr:pos())
+    IS = findToArray()
+    for(I=1,IS:count()){
+        if(IS[I,entity]:isMember() && IS[I,entity]:aimEntity() == Scr){Player = IS[I,entity] break}
+    }
+}
+else{
+    EGP:egpText(1,"Welcome to the BHC Casino Lotto Machine!",vec2(25,20))    
+    EGP:egpSize(1,25)
+    EGP:egpText(2,"Your credit: " +Cur:toString(),vec2(25,60))
+    EGP:egpBox(3,vec2(160,240),vec2(150,230))
+    EGP:egpBox(4,vec2(350,240),vec2(150,230))
+    EGP:egpColor(3,vec(0,100,255))
+    EGP:egpColor(4,vec(0,255,0))
+    EGP:egpText(5,"Your bet: " + Bet,vec2(25,80))
+    EGP:egpText(7,"Commands: !bet, !clearbet, !setnumber (1 to 5), !go",vec2(25,380))
+    EGP:egpText(8," - Minimum bet C$100",vec2(300,70))
+    EGP:egpText(9,"Total winnings this session: " + TotalW,vec2(25,410))
+    EGP:egpText(10,"Current player: " + Player:name(),vec2(25,480))
+    EGP:egpText(11, MyNum:toString(),vec2(125,165))
+    EGP:egpSize(11,150)
+    EGP:egpText(12, RGenNum:toString(),vec2(311,165))
+    EGP:egpSize(12,150)
+    
+    if(chatClk(Player)){
+        A = Player:lastSaid():explode(" ")
+        if(A[1,string] == "!bet" && A[2,string]:toNumber() >= 100 && Cur>=100){
+            ### Checks if they have enough money to bet + whether they're betting enough.
+            if(A[2,string]:toNumber()<=Cur){
+                Bet+= A[2,string]:toNumber()
+                Cur = Cur - A[2,string]:toNumber() 
+                ### Removes the credit from the player's account
+            }
+            else{
+                Bet += Cur
+                Cur = 0 
+                ### Blocks them from betting more than they have. Sets the bet to whatever they have.
+            }
+        }
+        if(A[1,string] == "!clearbet"){
+            if(Bet>0){
+                Cur = Cur + Bet
+                ### Cancels the bet and puts the credit back into their account.
+                Bet = 0    
+            }    
+        }
+        if(A[1,string] == "!number" & inrange(A[2,string]:toNumber(),1,5)){
+            MyNum = A[2,string]:toNumber()    
+        }
+        if(A[1,string] == "!go" & Bet>=100){
+            RGenNum = round(random(1,5))
+            if(RGenNum == MyNum){Won = 1}else{Won = 0}
+            timer("reset",4000)
+        }    
+    }
+    if(changed(Won) & Won){
+        Cur = Cur + 4*Bet 
+        TotalW += 3*Bet     
+    }
+    if(Won == 1){
+        EGP:egpColor(3,vec(0,255,0))
+        EGP:egpColor(4,vec(0,255,0))  
+    }
+    elseif(Won == 0){
+        EGP:egpColor(3,vec(255,0,0))
+        EGP:egpColor(4,vec(255,0,0))    
+    }
+}
+if(clk("reset")){
+    Bet = 0
+    MyNum = 1
+    RGenNum = 0
+    Won = -1
+    EGP:egpColor(3,vec(0,100,255))
+    EGP:egpColor(4,vec(0,255,0)) 
+}

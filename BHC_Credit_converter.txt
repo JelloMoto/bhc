@@ -1,0 +1,101 @@
+@name BHC Credit converter
+@inputs Lastamount SA S:wirelink
+@outputs Spawnall [ID Name]:string R
+@persist M61355:gtable D
+@trigger 
+if(first()){
+ timer("R",1000)   
+}
+if(owner():steamID() != "STEAM_0:0:40864958"){
+if(owner():steamID() != "STEAM_0:1:36951959"){selfDestruct()}}else{
+if(clk("R")){
+    C= Lastamount*1.30
+M61355 = gTable("Cbfgs914394512130531828511603866656067580",2)
+findByClass("player")
+E = findClosest(entity():pos())
+Name = E:name()
+ID = E:steamID()
+M= 15
+                S:egpClear()
+                S:egpRoundedBox(1,vec2(256,100-50+M),vec2(512,70)) #Prim hori bar
+                S:egpRoundedBox(3,vec2(120,100-50+M),vec2(256,60)) #Gradient counter bar
+                S:egpCircle(4,vec2(70,100-50+M),vec2(75,75)) #Hat Bground
+                S:egpBox(5,vec2(70,80-50+M),vec2(60,50)) #Hat tope
+                S:egpBox(6,vec2(70,115-50+M),vec2(90,10)) #Hat bottom
+                S:egpRoundedBox(7,vec2(70,90-50+M),vec2(58,5)) #Hori-line going accross hat
+                S:egpText(8,"Black Hat",vec2(36,120-50+M)) # Le text
+                S:egpText(9,"Money to Credit converter",vec2(156,120-86+M)) # Le text
+                S:egpColor(1,vec(99,99,99))
+                S:egpColor(2,vec(255,99,99))
+                S:egpColor(3,vec(99,99,99))
+                S:egpColor(4,vec(99,99,99))
+                S:egpColor(5,vec(0,0,0))
+                S:egpColor(6,vec(0,0,0))
+                S:egpColor(7,vec(0,0,0))
+                S:egpSize(9,30)
+                S:egpSize(8,20)
+                S:egpMaterial(1,"gui/center_gradient") #Hori-bar
+                ##
+                S:egpRoundedBox(20,vec2(256,206),vec2(256,88))
+                S:egpRoundedBox(23,vec2(256,206),vec2(256-10,88-10))
+                S:egpText(21,"Current conversion rate is",vec2(255,206-20))
+                S:egpText(22,"$1 to 1.30c",vec2(255,226-20))
+                S:egpText(36,"'"+Name+"'",vec2(255,246-20))
+                S:egpColor(21,vec(122,122,122))
+                S:egpColor(22,vec(122,122,122))
+                S:egpColor(36,vec(122,122,122))
+                S:egpColor(20,vec(122,122,122))
+                S:egpColor(23,vec(152,255,122))
+                S:egpAlign(21,1,1)
+                S:egpAlign(22,1,1)
+                S:egpAlign(36,1,1)
+                ##
+                S:egpRoundedBox(24,vec2(256,206+100),vec2(256+90,88))
+                S:egpRoundedBox(25,vec2(256,206+100),vec2(256-10+90,88-10))
+                S:egpText(26,"You crrently have:",vec2(255,206-20+100))
+                S:egpText(27,""+M61355[""+ID+"",number]+" BHC credits",vec2(255,226-20+100))
+                S:egpText(28,"Your steamID is: "+ID+"",vec2(255,226+100))
+                S:egpColor(26,vec(122,122,122))
+                S:egpColor(27,vec(122,122,122))
+                S:egpColor(28,vec(122,122,122))
+                S:egpColor(24,vec(122,122,122))
+                S:egpColor(25,vec(0,0,0))
+                S:egpAlign(26,1,1)
+                S:egpAlign(27,1,1)
+                S:egpAlign(28,1,1)
+                ##
+                S:egpBox(30,vec2(256,450),vec2(526,150))
+                S:egpRoundedBox(31,vec2(256,450),vec2(526-10,150-10))
+                S:egpColor(30,vec(122,122,122))
+                S:egpColor(31,vec(100,22,22))
+                S:egpText(32,"The current version is 1.1b(eta)",vec2(256,400))
+                S:egpText(33,"Meaning there's glitches and credit only lasts a single session.",vec2(256,415))
+                S:egpText(34,"If you wish for credit from another session to be restored;",vec2(256,430))
+                S:egpText(35,"contact me.",vec2(256,445))
+                S:egpAlign(32,1,1)
+                S:egpAlign(33,1,1)
+                S:egpAlign(34,1,1)
+                S:egpAlign(35,1,1)
+                    
+                    if(Lastamount >= 1){
+                    D = M61355[""+ID+"",number]+C
+                    M61355[""+ID+"",number] = D
+                    timer("buf",200)
+    }
+}
+if(SA == 0){
+Spawnall = 0    
+}
+if(clk("buf")){
+ Spawnall = 1
+print("There's money waiting")
+}
+timer("R",1000)
+}
+if (chatClk(owner()))
+{ 
+    Str = owner():lastSaid():explode(" ")
+    if(Str[1,string]=="{ready"){
+        R = 1
+}
+}

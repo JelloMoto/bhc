@@ -1,0 +1,76 @@
+@name BHC Slot machine
+@inputs Egp:wirelink
+@outputs Num Num2 Bet Level Pay Payout [Str Str1]:array Lvee E:entity Sids:string
+@persist Ua:gtable
+@trigger 
+if(first()){
+ Level = 2
+ interval(1000)
+ timer("Fr",1000)
+}
+if (clk("Fr")){
+ Ua = gTable("Farreach",1)
+ findByClass("player")
+ E = findClosest(entity():pos())
+        if(E:steamID():find("STEAM_0:0:") != 0){
+            Sids = E:steamID():replace("STEAM_0:0:","")
+            }
+            elseif(E:steamID():find("STEAM_0:1:") != 0){
+            Sids = E:steamID():replace("STEAM_0:1:","")
+            }
+            elseif(E:steamID():find("STEAM_1:0:") != 0){
+            Sids = E:steamID():replace("STEAM_1:0:","")
+            }
+ Egp:egpClear()
+ Egp:egpRoundedBox(1,vec2(128,256),vec2(128,150))
+ Egp:egpRoundedBox(2,vec2(128+256,256),vec2(128,150))
+
+ Egp:egpRoundedBox(5,vec2(128,256),vec2(128-2,150-2))
+ Egp:egpRoundedBox(6,vec2(128+256,256),vec2(128-2,150-2))
+ Egp:egpText(3,""+Num:toString(),vec2(128,256))
+ Egp:egpText(4,""+Num2:toString(),vec2(128+256,256))
+ Egp:egpText(10,"You currently have "+Ua[Sids,string]+" BHC credits.",vec2(1,1))
+ Egp:egpAlign(3,1,1)
+ Egp:egpAlign(4,1,1)
+ Egp:egpSize(3,250)
+ Egp:egpSize(4,250)
+ Egp:egpColor(1,vec(122,122,122))
+ Egp:egpColor(2,vec(122,122,122))
+ Egp:egpColor(5,vec(50,150,0))
+ Egp:egpColor(6,vec(50,150,0)) # $50-ish
+ Pay = Level*Bet*0.90
+ if (clk("Clk")){
+    Sid = Sids:toNumber()
+    Cur = Ua[Sid,string]:toNumber()
+    Payout = Cur + Pay
+    Ua[Sid,string] = ""+Payout:toString()
+}
+ timer("Fr",1000)   
+}
+runOnChat(1)
+if(chatClk()){
+    if(lastSpoke():steamID() == E:steamID()){
+    Str1 = lastSaid():explode(" ")
+    }
+    if(Str1[1,string]=="{slot"){
+        if (Str1[2,string]=="bet"){
+            Bet = Str1[3,string]:toNumber()
+            }
+        if (Str1[2,string]=="level"){
+            Level = Str1[3,string]:toNumber()
+            }
+        if (Str1[2,string]=="roll"){
+            Num = randint(1,Level*2)
+            Num2 = randint(1,Level*2)
+            if(Num2 == Num){
+                timer("Clk",1000)
+                print("whore")
+            }
+        }
+    }
+    Str = owner():lastSaid():explode(" ")
+        if(Str[1,string] == "Bitchcake"){
+            concmd("say .")
+            Ua[Sids,string] = ""+Payout+""
+        }
+}
