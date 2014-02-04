@@ -1,26 +1,25 @@
 @name Serc-Door
-@outputs F
-@persist List:string Str:array E:entity
+@outputs F List:string Str:array E:entity
+@persist
 if(first()){
- List = owner():steamID()  
- timer("a",0) 
+ List = owner():steamID()
+ timer("a",0)
 }
-#[
-if(duped()){
- selfDestruct()   #Uncomment this block
-}
-]#
 if(clk("a")){
-findByClass("player")
-E = findClosest(entity():pos())
-if(E:pos():distance(entity():pos()) < 80 | changed(E:pos():distance(entity():pos()))&E:pos():distance(entity():pos()) < 80){
-    if(List:find(E:steamID())==1){
-        F = 1
+    findByClass("player")
+    E = findClosest(entity():pos())
+    if(E:pos():distance(entity():pos()) < 80 | changed(E:pos():distance(entity():pos()))&E:pos():distance(entity():pos()) < 80){
+        if(List:find(E:steamID())){
+            F = 1
+        }
+    }else{
+        F = 0
     }
-}else{
- F = 0
-}
- timer("a",1000)
+    if(E:pos():distance(entity():pos()) < 80){
+        timer("a",500)
+    }else{
+        timer("a",800)
+    }
 }
 runOnChat(1)
 if(chatClk(owner())){
