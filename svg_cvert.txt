@@ -4,12 +4,14 @@ if(first()){
  BiggotRy= -999999
 # BiggotLy= -999999
  BiggotRx= -999999
-    function number rightFileLoad(S:string,S2:string){
+    function number rightFileLoad(S:string){
         runOnFile(1)
-        fileLoad(S)
-        if(fileClk()){
+        if(fileCanLoad()){
+            fileLoad(S)
+        }
+        if(fileLoaded()){
             if(fileRead()!=""){
-                S2 = fileRead()
+                Data = fileRead()
             }else{
                 fileLoad(S)
             }
@@ -122,6 +124,8 @@ if(chatClk(owner())){
             formatMe()
             rightFileSave(A[3,string],Fmat_s)
             timer("Bounds",5000)
+        }elseif(A[2,string]=="local-load-and-do"){
+            rightFileLoad(A[3,string])
         }
     }
 }
@@ -135,5 +139,13 @@ if(clk("Bounds")){
  local De = Splits
  rightFileSave(A[3,string]+"_bounds",findTL(De):toString()+findBR(De):toString())    
 }
+if(fileClk()){
+    if(fileLoaded()){
+        Data = fileRead()
+        Meep[1,array]=Data:explode(" ")
+        arraything(Meep[1,array])
+    }
+}
 #[
 {svg request-and-do http://www.felthatters.net/cords.txt
+{svg local-load-and-do cords.txt
