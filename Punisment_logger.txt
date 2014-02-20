@@ -10,6 +10,7 @@ if(first()){
  HostList = gTable("Host check",1)
  Ivelogged = gTable("I've logged",1)
     function void updateTitle(){
+        T_string = ""
         Ivelogged[1,number]=Ivelogged[1,number]+1
         Puns[Puns:count()+1,string]="Type = "+Type+", Admin = "+A_n+", \n Target = "+findPlayerByName(S[2,string]):name()+", \n Reason = "+Reason
         print(Puns)
