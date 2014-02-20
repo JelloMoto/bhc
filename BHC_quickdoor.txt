@@ -8,7 +8,7 @@ if(first()){
 if(clk("a")){
     findByClass("player")
     E = findClosest(entity():pos())
-    if(E:pos():distance(entity():pos()) < 80 | changed(E:pos():distance(entity():pos()))&E:pos():distance(entity():pos()) < 80){
+    if(E:pos():distance(entity():pos()) < 40 | changed(E:pos():distance(entity():pos()))&E:pos():distance(entity():pos()) < 40){
         if(List:find(E:steamID())){
             F = 1
         }
@@ -16,7 +16,7 @@ if(clk("a")){
         F = 0
     }
     if(E:pos():distance(entity():pos()) < 80){
-        timer("a",500)
+        timer("a",300)
     }else{
         timer("a",800)
     }
