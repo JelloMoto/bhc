@@ -1,25 +1,25 @@
 @name Punisment logger
-@persist [S]:array [Reason Message URL Name T_id A_id A_n Type T_string Time2]:string [Ivelogged HostList]:gtable
-@outputs [Mes S2]:string Puns:array Tes
+@persist [S Puns]:array [Reason Message URL Name T_id A_id A_n Type T_string]:string [Ivelogged HostList]:gtable Time2:string
+@outputs [Mes S2]:string Tes
 if(first()){
  runOnChat(1)
  runOnHTTP(1)
  Time2 = httpUrlEncode(time("year")+"/"+time("month")+"/"+time("day")+" "+time("hour")+":"+time("min"))
- print(Time2)
  S2 = httpUrlEncode(hostname())
  URL = "http://www.felthatters.net/smf/p_log.php?tid="
  HostList = gTable("Host check",1)
  Ivelogged = gTable("I've logged",1)
     function void updateTitle(){
         Ivelogged[1,number]=Ivelogged[1,number]+1
-        setName("Serconkers punnishmeant logger\n Punnishments logged so far ("+Ivelogged[1,number]+") \n last 5 punnishments; "+T_string)
-        Puns[Puns:count(),string]="Type = "+Type+", Admin = "+A_n+", Target = "+T_id+", Reason = "+Reason
+        Puns[Puns:count()+1,string]="Type = "+Type+", Admin = "+A_n+", \n Target = "+findPlayerByName(S[2,string]):name()+", \n Reason = "+Reason
         print(Puns)
-        for(I=1,5){
+        for(I=0,5){
             T_string = T_string+Puns[Puns:count()-I,string]+"\n"
-            print(I+Puns[Puns:count()-I,string])
+            print(I)
+            print(T_string)
+            print(Puns:count()-I)
             if(I==5){
-                setName("Serconkers punnishmeant logger\n Punnishments logged so far ("+Ivelogged[1,number]+") \n last 5 punnishments; "+T_string)
+                setName("Serconkers punnishmeant logger\n Punnishments logged so far ("+Ivelogged[1,number]+") \n last 5 punnishments; I BROKE IT JIM "+T_string)
             }
         }
     }
@@ -31,8 +31,7 @@ if(first()){
     }else{
         selfDestruct()
     }
-print(HostList[1,number])
-setName("Serconkers punnishmeant logger\n Punnishments logged so far ("+Ivelogged[1,number]+") \n last 5 punnishments; "+T_string)
+ setName("Serconkers punnishmeant logger \n punnishments logged so far ("+Ivelogged[1,number]+")")
 }
 if(duped()){
  selfDestruct()   
@@ -41,55 +40,51 @@ if(chatClk()){
  S = lastSaid():lower():explode(" ")
  Mes = lastSaid()
     if(S[1,string] == "!slap"&S[3,string]!=""){
-        print("2")
         T_id = httpUrlEncode(findPlayerByName(S[2,string]):steamID())
         A_id = httpUrlEncode(lastSpoke():steamID())
         A_n = httpUrlEncode(lastSpoke():name())
         Reason = lastSaid():lower():replace(""+S[1,string]+" "+S[2,string]+"","")
         Type = "slap"
         Time2 = httpUrlEncode(time("year")+"/"+time("month")+"/"+time("day")+" "+time("hour")+":"+time("min"))
+        updateTitle()
         if(httpCanRequest()){
             httpRequest(URL+T_id+"&reason="+Reason+"&type="+Type+"&aid="+A_id+"&an="+A_n+"&sn="+S2+"&inv="+Time2)
             print("Logged "+URL+T_id+"&reason="+Reason+"&type="+Type+"&aid="+A_id+"&an="+A_n+"&sn="+S2+"&inv="+Time2)
         }else{
             print("Wadafuuk mate?")
         }
-        updateTitle()
     }
     if(S[1,string] == "!slay"&S[3,string]!=""){
-        print("2")
         T_id = httpUrlEncode(findPlayerByName(S[2,string]):steamID())
         A_id = httpUrlEncode(lastSpoke():steamID())
         A_n = httpUrlEncode(lastSpoke():name())
         Reason = lastSaid():lower():replace("!slay "+S[2,string]+"","")
         Type = "slay"
         Time2 = httpUrlEncode(time("year")+"/"+time("month")+"/"+time("day")+" "+time("hour")+":"+time("min"))
+        updateTitle()
         if(httpCanRequest()){
             httpRequest(URL+T_id+"&reason="+Reason+"&type="+Type+"&aid="+A_id+"&an="+A_n+"&sn="+S2+"&inv="+Time2)
             print("Logged "+URL+T_id+"&reason="+Reason+"&type="+Type+"&aid="+A_id+"&an="+A_n+"&sn="+S2+"&inv="+Time2)
         }else{
             print("Wadafuuk mate?")
         }
-        updateTitle()
     }
     if(S[1,string] == "!kick"&S[3,string]!=""){
-        print("2")
         T_id = httpUrlEncode(findPlayerByName(S[2,string]):steamID())
         A_id = httpUrlEncode(lastSpoke():steamID())
         A_n = httpUrlEncode(lastSpoke():name())
         Reason = lastSaid():lower():replace("!kick "+S[2,string]+" ","")
         Type = "kick"
         Time2 = httpUrlEncode(time("year")+"/"+time("month")+"/"+time("day")+" "+time("hour")+":"+time("min"))
+        updateTitle()
         if(httpCanRequest()){
             httpRequest(URL+T_id+"&reason="+Reason+"&type="+Type+"&aid="+A_id+"&an="+A_n+"&sn="+S2+"&inv="+Time2)
             print("Logged "+URL+T_id+"&reason="+Reason+"&type="+Type+"&aid="+A_id+"&an="+A_n+"&sn="+S2+"&inv="+Time2)
         }else{
             print("Wadafuuk mate?")
         }
-        updateTitle()
     }
     if(S[1,string] == "!ban"){
-        print("2")
         T_id = httpUrlEncode(findPlayerByName(S[2,string]):steamID())
         A_id = httpUrlEncode(lastSpoke():steamID())
         A_n = httpUrlEncode(lastSpoke():name())
@@ -97,12 +92,12 @@ if(chatClk()){
         Time = S[3,string]:toNumber()
         Type = "ban"
         Time2 = httpUrlEncode(time("year")+"/"+time("month")+"/"+time("day")+" "+time("hour")+":"+time("min"))
+        updateTitle()
         if(httpCanRequest()){
             httpRequest(URL+T_id+"&reason="+Reason+"&type="+Type+"&aid="+A_id+"&an="+A_n+"&sn="+S2+"&time="+Time+"&inv="+Time2)
             print("Logged"+URL+T_id+"&reason="+Reason+"&type="+Type+"&aid="+A_id+"&an="+A_n+"&sn="+S2+"&time="+Time+"&inv="+Time2)
         }else{
             print("Wadafuuk mate?")
         }
-        updateTitle()
     }
 }
