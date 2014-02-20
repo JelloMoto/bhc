@@ -1,0 +1,139 @@
+@name SVG > E2 enterp'a
+@persist [Splits A]:array BiggotLx BiggotLy BiggotRx BiggotRy [Fmat_s Data]:string Meep:table
+if(first()){
+ BiggotRy= -999999
+# BiggotLy= -999999
+ BiggotRx= -999999
+    function number rightFileLoad(S:string,S2:string){
+        runOnFile(1)
+        fileLoad(S)
+        if(fileClk()){
+            if(fileRead()!=""){
+                S2 = fileRead()
+            }else{
+                fileLoad(S)
+            }
+        }
+    }
+    function number requestAndStore(S:string,S2:string){
+        runOnHTTP(1)
+        if(httpCanRequest()){
+            httpRequest(S)
+            Data = httpData()
+            runOnHTTP(0)
+        }else{
+            print("Failed to request: "+S+" with error ")
+            runOnHTTP(0)
+        }
+    }
+    function number rightFileSave(S:string,S2:string){
+        runOnFile(1)
+        if(fileCanWrite()){
+            S = S:replace(" ","_")
+            fileWrite(S,S2)
+            fileLoad(S)
+            if(fileRead()!=S2){
+                if(S:find(".txt")){
+                    fileWrite(S,S2)
+                    runOnFile(0)   
+                    return 1                 
+                }else{
+                    S = S+".txt"
+                    fileWrite(S,S2)
+                    runOnFile(0)
+                }
+            }else{
+                runOnFile(0)
+                return 1
+            }
+        }else{
+            print("Cannot write to file '"+S+"'")
+            runOnFile(0)
+            return 0
+        }
+    }
+    function array arraything(A:array){#Should work
+        for(I=1,A:count()){
+            local Split = vec2(A[I,string]:explode(",")[1,string]:toNumber(), A[I,string]:explode(",")[1,string]:toNumber())
+            Splits[I,vector2]=Split
+        }
+    }
+    function vector2 findTL(A:array){
+        for(I=1,A:count()){
+            local Formx=A[I,vector2]:toString():replace("[",""):replace("]",""):explode(",")[1,string]:toNumber()
+            local Formy=A[I,vector2]:toString():replace("[",""):replace("]",""):explode(",")[2,string]:toNumber()
+            if(Formx<BiggotLx){
+                BiggotLx = Formx
+            }
+            if(Formy<BiggotLy){
+                BiggotLy = Formy
+            }
+            if(I==A:count()){
+                return vec2(BiggotLx,BiggotLy)
+            }
+        }
+    }
+    function vector2 findBR(A:array){
+        for(I=1,A:count()){
+            local Formx=A[I,vector2]:toString():replace("[",""):replace("]",""):explode(",")[1,string]:toNumber()
+            local Formy=A[I,vector2]:toString():replace("[",""):replace("]",""):explode(",")[2,string]:toNumber()
+            if(Formx>BiggotRx){
+                print("X "+I+" "+Formx)
+                #print(A:count())
+                BiggotRx = Formx
+            }
+            if(Formy>BiggotRy){
+                print("Y "+I+" "+Formy)
+                BiggotRy = Formy
+            }
+            if(I==A:count()){
+                return vec2(BiggotRx,BiggotRy)
+            }
+        }
+    }
+    function number formatMe(){
+        local A = Splits
+        Fmat_s = "S:egpPolly(1,"
+        for(I=1,A:count()){
+            if(I!=A:count()){
+                Fmat_s = Fmat_s+"vec2("+A[I,vector2]:toString():replace("[",""):replace("]","")+"),"
+            }else{
+                Fmat_s = Fmat_s+"vec2("+A[I,vector2]:toString():replace("[",""):replace("]","")+"))"
+            }
+        }
+    }
+ setName("SVG coordinate converter for E2 useage.")
+ runOnChat(1)
+}
+if(chatClk(owner())){
+ A = lastSaid():lower():explode(" ")
+    if(A[1,string]=="{svg"){
+        if(A[2,string]=="request-and-do"){
+            runOnHTTP(1)
+            local S = A[3,string]
+            if(httpCanRequest()){
+                httpRequest(S)
+                timer("clk",5000)
+                print("Requesting "+S)
+            }else{
+                print("Failed to request: "+S+" with error ")
+            }
+        }elseif(A[2,string]=="save"){
+            formatMe()
+            rightFileSave(A[3,string],Fmat_s)
+            timer("Bounds",5000)
+        }
+    }
+}
+if(httpClk()){
+ Data=httpData()
+ Meep[1,array]=Data:explode(" ")
+ arraything(Meep[1,array])
+ printTable(Meep) 
+}
+if(clk("Bounds")){
+ local De = Splits
+ rightFileSave(A[3,string]+"_bounds",findTL(De):toString()+findBR(De):toString())    
+}
+#[
+{svg request-and-do http://www.felthatters.net/cords.txt
