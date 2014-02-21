@@ -1,0 +1,76 @@
+## For a ACF turret I made whle shtting about.
+@name Turret con
+@inputs W A S D Shift R
+@outputs Pan Length Fire_1 Fire_2 Fire_3 Fire_4 R1 R2 R3 R4
+@persist Fire_int
+@trigger 
+if(first()){
+    function fireCycle(){
+        timer("F",0)
+    }
+}
+if(Shift == 1){
+ fireCycle()   
+}
+if(clk("F")){
+    if(Fire_int != 6){
+        Fire_int++
+        if(Fire_int == 1){
+            Fire_1 = 1
+            Fire_4 = 0
+            timer("F",100)
+        }elseif(Fire_int==2){
+            Fire_2 = 1
+            Fire_1 = 0
+            timer("F",100)
+        }elseif(Fire_int==3){
+            Fire_3 = 1
+            Fire_2 = 0
+            timer("F",100)
+        }elseif(Fire_int==4){
+            Fire_4 = 1
+            Fire_3 = 0
+            timer("F",100)
+        }elseif(Fire_int==5){
+            Fire_4 = 0
+            timer("F",100)
+        }elseif(Fire_int==6){
+            Fire_int = 0
+        }
+    }
+}else{
+ Fire_1 = 0
+ Fire_2 = 0
+ Fire_3 = 0
+ Fire_4 = 0
+}
+if(clk("Up")){
+ Length--   
+}
+if(clk("Down")){
+ Length++
+}
+if(R){
+ R1 = 1
+ R2 = 1
+ R3 = 1
+ R4 = 1
+}else{
+ R1 = 0
+ R2 = 0
+ R3 = 0
+ R4 = 0
+}
+if(W==1){
+ timer("Up",0)   
+}
+if(S==1){
+ timer("Down",0)   
+}
+if(A == 1){
+ Pan = -1   
+}elseif(D==1){
+ Pan = 1
+}else{
+ Pan = 0
+}

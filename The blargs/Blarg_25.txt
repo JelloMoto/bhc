@@ -1,0 +1,26 @@
+@name Antlion Guard
+@inputs Damage
+@outputs Last Now Bear Ang:angle [Closest In]:entity
+@model models/antlion_guard.mdl
+setMass(2)
+runOnTick(1)
+findByClass("player")
+E = entity()
+In = findClosest(entity():pos())
+Dis = entity():pos():distance(In:pos())
+if(Dis < 300){
+    Bear = entity():bearing(In:pos())
+    Ang = -entity():angles()*5*ang(1,0,1)+ang(0,-Bear*2,0)
+    applyAngForce(Ang + $Ang*1)
+    Now = curtime() - Last
+    if(Now>=2){
+    Last = curtime()
+    }
+    if(Dis > 75){
+        applyForce((In:pos() - entity():pos())/2)
+    }
+} else {
+    soundPurge()
+}
+if (Damage > 80){selfDestruct()}
+

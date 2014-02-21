@@ -1,0 +1,24 @@
+@name Gerkrenik
+@persist A B C
+if(first()){
+A = 0
+B = 0
+C = 0
+timer("A",0)
+timer("B",0)
+timer("C",0)
+}
+if(clk("A")){
+ soundPitch(1,randint(100,155))
+ entity():soundPlay(1,0,"synth/tri.wav")  
+}
+if(clk("B")){
+ soundPitch(2,randint(50,100))
+ entity():soundPlay(2,1,"synth/square.wav")
+ timer("B",randint(100,500))   
+}
+if(clk("C")){
+ soundPitch(3,randint(0,255))
+ entity():soundPlay(3,1,"synth/square.wav")
+ timer("C",randint(0,1000))   
+}

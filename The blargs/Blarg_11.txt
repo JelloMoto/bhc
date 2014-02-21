@@ -1,0 +1,25 @@
+@name Keep my name
+@persist Name:string
+if(first()){
+ timer("clk",1000)
+ Name = ""   #Change this to something
+}
+if(clk("clk")){
+    if(owner():name() != Name){
+        timer("Nameme",5000)
+    }else{
+        timer("clk",1000)
+    }   
+}
+if(clk("Nameme")){
+ concmd("say /rpname "+randint(10000,99999))
+ timer("Lexify",5000)
+}
+if(clk("Lexify")){
+ concmd("say /rpname The Other Lexi")
+ timer("clk",1000)
+}
+runOnLast(1)
+if(last()){
+ print("I got removed!")   
+}

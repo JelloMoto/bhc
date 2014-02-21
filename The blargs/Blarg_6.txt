@@ -1,0 +1,12 @@
+@name Ding ding motherfuckers
+if (first()){
+ timer("1",2800)   
+}
+if (clk("1")){
+ entity():soundPlay(1,1,"ambient/misc/brass_bell_d.wav")
+ timer("C",2301)
+}
+if(clk("C")){
+ soundStop(1,1)
+ timer("1",100)
+}

@@ -1,0 +1,66 @@
+@name Auto GD check timer
+@inputs S0:wirelink
+@outputs 
+@persist T1 M1
+@trigger 
+runOnChat(1)
+if(first()){
+    }
+        Str = owner():lastSaid():explode(" ")
+        if(Str[1,string]=="{start"){
+        timer("an",1000)
+        timer("R1",1000)
+        C = !1
+    }
+        if(clk("an")){concmd("say /aadvert [AutoGDCHK]: Gun dealer check auto counter has begun counting!") stoptimer("an")}
+interval(1000)
+if(owner():steamID() != "STEAM_0:0:40864958"){
+if(owner():steamID() != "STEAM_0:1:36951959"){selfDestruct()}}else{
+ timer("Rf",1000)
+        if(clk("R1")& T1 >= 0 & T1 <=60)
+        {
+            T1+= 1
+            timer("R1",1000)
+            }
+        if(T1 == 60& M1 >= 0 & M1 <=30)
+        {
+            M1+= 1
+            T1 = 0
+        }
+if(clk("Rf")){
+            S0:egpClear()
+            Tm1 = 29-M1
+            Tt1 = 60-T1
+            S0:egpRoundedBox(5,vec2(256,256),vec2(692,652-225))
+            S0:egpRoundedBox(1,vec2(256,256),vec2(562,562-225))
+            S0:egpRoundedBox(4,vec2(256,256),vec2(542,542-225))
+            S0:egpColor(1,vec(50,50,50))
+            S0:egpColor(4,vec(0,0,50))
+            S0:egpColor(5,vec(0,0,0))
+            S0:egpText(2,""+Tm1+":"+Tt1+"",vec2(256,256))
+            S0:egpSize(2,250)
+            S0:egpColor(2,vec(255,255,255))
+            
+            S0:egpText(3,"Time until the next GD check:",vec2(256,156))
+            S0:egpText(6,"ADMIN COUNTER BOARD THING",vec2(256,115))
+            S0:egpColor(6,vec(255,0,0))
+            S0:egpSize(3,40)
+            S0:egpSize(6,40)
+            S0:egpAlign(2,1,1)
+            S0:egpAlign(6,1,1)
+            S0:egpAlign(3,1,1)
+            S0:egpMaterial(5,"gui/center_gradient")
+               if(M1 ==24 & T1 == 59)
+                    {
+               concmd("say /aadvert [AutoGDCHK]: Gun dealer check in 5 minutes!")   
+            }
+            if(M1 ==29 & T1 == 59){
+                concmd("say /aadvert [AutoGDCHK]: Gun deal check starting, expect to be TP'd to.")
+                }
+            if(M1 ==30 & T1 == 0){
+             M1 = 0
+             T1 = 0   
+             }
+      }
+}
+

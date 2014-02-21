@@ -1,0 +1,19 @@
+@name Sercronical random radio, playing to Owner (Derpy/broken)
+@inputs 
+@outputs R S
+@persist 
+@trigger 
+@model models/props_lab/citizenradio.mdl
+timer("1", 10000)
+if (clk("1")){timer("2", 14000)}
+if (clk("1")){S = randint(0,10)}
+if (S == 1){owner():soundPlay(6,6,"music/hl2_song8.mp3")}
+if (S == 2) {owner():soundPlay(7,7,"music/hl2_song8.mp3")}
+if (S == 3) {owner():soundPlay(8,8,"music/radio1.mp3")}
+if (S == 4) {owner():soundPlay(9,9,"music/ravenholm_1.mp3")}
+if (S == 5) {owner():soundPlay(10,10,"music/hl2_song23_suitsong3.mp3")}
+if (S == 6) {owner():soundPlay(11,11,"music/hl2_song17.mp3")}
+if (S == 7) {owner():soundPlay(12,12,"music/hl2_intro.mp3")}
+if (S == 8) {owner():soundPlay(13,13,"npc/scanner/combat_scan5.wav")}
+if (clk("2")){soundPurge() stoptimer("2")}
+setName("Last roll:  "+S+"")

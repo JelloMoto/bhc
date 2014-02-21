@@ -1,0 +1,16 @@
+@name Blarg2
+@inputs B Rset
+@outputs S A
+A = 1
+if(B == 1){
+timer("Spin",10)}else{
+timer("2",10)
+}
+if(Rset){
+ S = 0   
+}
+if (clk("Spin")){Ang = 1} else {Ang = 0}
+if(Ang == 1 & S >= 0 & S <=2.55){S+= 0.0025}
+if(S >= 2.55){S = 2.55}
+if (clk("2")){Ang = 1} else {Ang = 0}
+if(Ang == 1 & S >= 0 & S <=2.55){S-= 0.01}

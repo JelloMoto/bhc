@@ -1,0 +1,14 @@
+@name Blarg14
+@inputs [N E S W]:entity
+runOnTick(1)
+if(owner():keyUse()){
+    if(owner():aimEntity()==N){
+        setName("North")
+    }elseif(owner():aimEntity()==E){
+        setName("East")
+    }elseif(owner():aimEntity()==S){
+        setName("South")
+    }elseif(owner():aimEntity()==W){
+        setName("West")
+    }
+}

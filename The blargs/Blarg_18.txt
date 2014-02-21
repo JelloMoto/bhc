@@ -1,0 +1,24 @@
+@name Spa
+@inputs 
+@outputs 
+@persist [S F]:array [Dest Vec]:vector
+@trigger 
+if(first()){
+ findByClass("prop_physics")
+ F = findToArray()
+ runOnChat(1)
+}
+if(chatClk(owner())){
+    Dest = owner():aimPos()
+    Vec=(Dest-owner():pos())*owner():aimEntity():mass()*500000*owner():pos():distance(Dest)
+ S = owner():lastSaid():lower():explode(" ")
+    if(S[1,string]:find("hax")){
+        findByClass("prop_physics")
+        F = findToArray()
+            owner():aimEntity():applyForce(vec(Vec:x(),Vec:y(),Vec:z()/100)*100)
+#            owner():aimEntity():applyForce(owner():pos() - owner():aimEntity():pos():normalized()*-1*50000*owner():aimEntity():mass())
+#        for(X=1,F:count()){
+ #           F[X,entity]:applyForce(owner():pos() - owner():aimEntity():pos():normalized()*1*50000*F[X,entity]:mass())
+  #      }
+    }
+}

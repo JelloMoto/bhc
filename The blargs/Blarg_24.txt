@@ -1,0 +1,25 @@
+@name Yawyawyaw
+@inputs 
+@outputs Yaw
+@persist 
+@trigger 
+interval(1)
+if(first()){
+    function number inRange(A,N,N2){
+        if(A < N & A > N2){
+            return 1
+        }else{
+            return 0
+        }
+    }
+}
+Yaw = round(owner():angles():yaw())
+if(inRange(Yaw,45,-45)){
+ print("North")   
+}elseif(inRange(Yaw,-45,-135)){
+ print("East")
+}elseif(inRange(Yaw,-135,-179)|inRange(Yaw,179,135)){
+ print("South")
+}elseif(inRange(Yaw,135,45)){
+ print("West")
+}

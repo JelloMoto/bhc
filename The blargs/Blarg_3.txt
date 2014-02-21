@@ -1,0 +1,32 @@
+@name Crane lift op
+@inputs Call_d Call_u Up Down
+@outputs Whieght
+@persist C:entity
+@trigger 
+if(first()){
+ C = entity():isConstrainedTo()
+}
+if(Call_d){
+ Whieght = 1
+ C:setMass(1)   
+}
+if(Up){
+ timer("Up",0)
+}else{
+ stoptimer("Up")
+}
+if(clk("Up")){
+ Whieght+=800
+ C:setMass(Whieght)
+ timer("Up",10) 
+}
+if(Down){
+ timer("Down",0)
+}else{
+ stoptimer("Down")
+}
+if(clk("Down")){
+ Whieght-=800
+ C:setMass(Whieght)
+ timer("Down",10)
+}

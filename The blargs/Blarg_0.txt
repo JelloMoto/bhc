@@ -1,0 +1,25 @@
+@name Blarg
+@inputs S:wirelink
+interval(1)
+if (first()){
+ S:egpClear()
+}
+X = randint(0,255)
+Y = randint(0,255)
+Z = randint(0,255)
+S:egpText(1,"Other",vec2(256,256))
+S:egpText(2,"      Lexi",vec2(266,266))
+S:egpText(3,"             Is",vec2(276,276))
+S:egpText(4,"                Better",vec2(286,286))
+S:egpText(5,"                          Coder!",vec2(296,296))
+S:egpAlign(1,1,1)
+S:egpSize(1,50)
+S:egpSize(2,50)
+S:egpSize(3,50)
+S:egpSize(4,50)
+S:egpSize(5,50)
+S:egpColor(1,vec(Z,Y,X))
+S:egpColor(2,vec(Z,Z,X))
+S:egpColor(3,vec(Y,Y,X))
+S:egpColor(4,vec(Z,X,X))
+S:egpColor(5,vec(Z,Y,Y))

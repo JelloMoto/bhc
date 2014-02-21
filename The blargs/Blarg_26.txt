@@ -1,0 +1,29 @@
+@name City Scanner -H4
+@inputs Damage
+@outputs Last Now Bear Ang:angle [Closest In]:entity
+@model models/Combine_Scanner.mdl
+setMass(2)
+runOnTick(5)
+findByClass("player")
+E = entity()
+In = findClosest(entity():pos())
+Dis = entity():pos():distance(In:pos())
+if(Dis < 300){
+    Bear = entity():bearing(In:pos())
+    Ang = -entity():angles()*10*ang(1,0,1)+ang(0,-Bear*2,0)
+    applyAngForce(Ang + $Ang*1)
+    Now = curtime() - Last
+    
+    if(Now>=2){
+    Last = curtime()
+    }
+    
+    if(Dis > 75){
+        applyForce((In:pos() - entity():pos())/2)
+        E:applyForce((vec(0,0,40)))
+    }
+} else {
+    soundPurge()
+}
+        E:applyForce((vec(0,0,80)))
+if (Damage > 80){selfDestruct()}

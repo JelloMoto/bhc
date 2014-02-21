@@ -1,0 +1,35 @@
+@name Printer Counter
+@outputs PrintedAmount PrinterCount
+@persist Prints:array Array:array Refresh
+interval(3000)
+if(Refresh) {
+    Prints:clear()
+    findByModel("models/props_lab/reciever01a.mdl")
+    Array = findToArray()
+for(B=1,Array:count()) {
+    if(Array[B,entity]:pos():distance(entity():pos())<250) {
+        Prints:pushEntity(Array[B,entity])
+    }
+}
+}
+
+PrinterCount=Prints:count()
+
+if(first()|duped()) {
+timer("ref",1000)
+timer("Amount",1000)
+}
+
+if(clk("ref")) {
+    timer("ref",10000)
+    Refresh = 1
+}else{
+Refresh = 0
+}
+if(clk("Amount")) {
+timer("Amount",1000)
+PrintedAmount = 0
+for(B=1,Prints:count()) {
+    PrintedAmount = PrintedAmount + Prints[B,entity]:printedMoney()
+}
+}

@@ -1,0 +1,10 @@
+@name Magiz
+@persist A
+if(first()){
+ timer("!",1000)   
+}
+if(clk("!")){
+ A+=randint(1,40)   
+ concmd("say /job money printed $"+A:toString())
+ timer("!",11000)
+}

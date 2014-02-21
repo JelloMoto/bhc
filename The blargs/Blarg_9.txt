@@ -1,0 +1,7 @@
+@name Gunz
+@inputs S:wirelink
+S:egpClear()
+S:egpText(1,"It's a fucking gunshop, buy guns",vec2(256,256))
+S:egpAlign(1,1,1)
+S:egpSize(1,60)
+S:egpColor(1,vec(122,122,0))

@@ -1,0 +1,18 @@
+@name Trailer
+@persist E:entity Str:array S:string
+
+interval(1)
+S = (" ")
+if (first())
+{
+    E = owner()
+    runOnChat(1)
+}
+if (chatClk(owner()))
+{
+    Str = E:lastSaid():explode(" ")
+    if(Str[1,string]=="on"){owner():setTrails(20,50,20,"trails/smoke",vec(0,0,255),255)}
+    if(Str[1,string]=="off"){E:removeTrails()}
+}
+
+

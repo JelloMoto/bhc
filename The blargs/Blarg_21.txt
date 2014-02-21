@@ -1,0 +1,42 @@
+@name Trail-i-grab
+@persist Nade:entity Int
+interval(100)
+if(owner():keyUse()){
+ owner():aimEntity():setTrails(1,10,1,"trails/smoke",vec(randint(0,255),randint(0,255),randint(0,255)),255)
+ Nade = owner():aimEntity()
+ timer("B",7000)
+ timer("a",0)
+}
+if(clk("B")){
+ Nade:setTrails(1000,10,50,"trails/smoke",vec(randint(0,255),randint(0,255),randint(0,255)),255)
+ Nade:soundPlay(1,0,"ambient/gas/steam2.wav")
+ Int = 0
+ stoptimer("a")
+ timer("K",10000)
+ timer("S",0)
+}
+if(clk("a")){
+ Int++
+    if(Int==1){
+        owner():soundPlay(2,0,"npc/combine_soldier/vo/one.wav")
+    }elseif(Int==2){
+        owner():soundPlay(2,0,"npc/combine_soldier/vo/two.wav")
+    }elseif(Int==3){
+        owner():soundPlay(2,0,"npc/combine_soldier/vo/three.wav")
+    }elseif(Int==4){
+        owner():soundPlay(2,0,"npc/combine_soldier/vo/four.wav")
+    }elseif(Int==5){
+        owner():soundPlay(2,0,"npc/combine_soldier/vo/five.wav")
+    }elseif(Int==6){
+        owner():soundPlay(2,0,"npc/combine_soldier/vo/six.wav")
+    }elseif(Int==7){
+        owner():soundPlay(2,0,"npc/combine_soldier/vo/seven.wav")
+    }
+ print(Int)
+ timer("a",1000)
+}
+if(clk("K")){
+ Nade:removeTrails()
+ soundStop(1,0)
+ stoptimer("S")
+}

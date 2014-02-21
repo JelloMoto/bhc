@@ -1,0 +1,18 @@
+@name Follower
+@persist E:entity Follow:entity
+if(tickClk()){
+    Dir = Follow:pos() - E:pos()
+    E:applyForce(Dir*E:mass()*10)
+}elseif(first() || duped()){
+    runOnTick(1)
+    runOnChat(1)
+    E = entity():isWeldedTo()
+    E:setMass(5000)
+    Follow = owner()
+}elseif(chatClk(owner())){
+    if(lastSaid() == "fol"){
+        if(owner():aimEntity() != noentity()){
+            Follow = owner():aimEntity()
+        }
+    }
+}

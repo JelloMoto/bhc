@@ -1,0 +1,24 @@
+@name Derp
+@inputs 
+@outputs 
+@persist F:array
+@trigger 
+#fortress_reel_loop.wav
+if(first()){
+ findByClass("prop_physics")
+ F = findToArray()
+ print(F)
+}
+for(I=1,F:count()){
+ perf(90)
+ F[I,entity]:soundPlay(I,0,"music/fortress_reel_loop.wav")
+    if(I==F:count()){
+        timer("end",10000)
+    }
+}
+if(clk("end")){
+    for(I=1,F:count()){
+        perf(90)
+        soundStop(I,0)
+    }
+}

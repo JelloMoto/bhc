@@ -1,0 +1,58 @@
+@name ID card manager
+@outputs Imholding:string
+@persist [IDs HostList]:gtable Tes Saftey S:array Applic_int Target:entity
+if(first()){
+ function entity entity:isLookingAt(){
+    return This:aimEntity()
+ }
+ HostList = gTable("OOAAT",1)
+ IDs= gTable("IDs",1)
+ Tes = entity():toString():explode(" ")[2,string]:replace("[",""):replace("]",""):replace("gmod_wire_expression2",""):toNumber()
+    if(entity(HostList[1,number]):toString() == "(null)"){
+        HostList[1,number] = Tes
+    }elseif(!entity(HostList[1,number]):toString():find("expression2")){
+        HostList[1,number] = Tes
+    }else{
+        selfDestruct()
+    }
+ timer("A",0)
+ print(HostList[1,number])
+}
+if(duped()){
+ selfDestruct()   
+}
+if(clk("A")){
+    if(owner():keyAttack2()){
+        Imholding = owner():weapon():toString()
+        if(Imholding:find("pocket")){
+            if(owner():aimEntity():type()=="player"&Saftey == 0){
+                print("You were looking at "+owner():aimEntity():toString()+" with "+owner():weapon():toString())
+                Saftey = 1
+            }
+        }
+    }else{
+        Saftey = 0
+    }
+ timer("A",100)
+}
+if(clk("Send")){
+ Ent_id = owner():isLookingAt():toString():explode("[")[1,string]:replace("]",""):toNumber()
+ print(Ent_id)
+ concmd("say /pm "+owner():isLookingAt():name()+" just gave you a ID card")
+ IDs[1,table][1,array][Applic_int,entity]==owner():isLookingAt()
+ print(IDs[1,table][1,array][Applic_int,entity]:toString())
+ Applic_int++
+}
+runOnChat(1)
+if(chatClk(owner())){
+ S = owner():lastSaid():lower():explode(" ")
+    if(S[1,string]=="{id"){
+        if(S[2,string]=="give"){
+            timer("Send",1000)
+        }
+    }
+    if(S[1,string]=="a"){
+        print(IDs[1,table][1,array][S[2,string]:toNumber(),entity]:toString())
+    }
+}
+#[8][Superkarl223]

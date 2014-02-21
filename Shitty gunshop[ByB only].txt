@@ -1,0 +1,265 @@
+@name Basic gunshop
+@inputs [R1 R2 R3 R4 R5 R6 R7 R8]:entity Egp:wirelink LastAmount
+@outputs U1 U2 U3 U4 U5 U6 U7 U8 Empty [S1 S2 S3 S4 S5 S6 S7 S8 Mel]:string P1 P2 P3 P4 P5 P6 P7 P8 A1 A2 A3 A4 A5 A6 A7 A8
+@persist Censor
+@trigger 
+if(first()){
+    #[
+        If you want to hide 'Quantity' change "Censor" to 1
+    ]#
+ timer("RF",1000) 
+ timer("Sfr",500)
+ Censor = 0
+Mel = "Serconical gunshop, by The other Lexi"
+}
+LA = LastAmount
+if(clk("RF")){
+    A1 = R1:shipmentAmount()
+    A2 = R1:shipmentAmount()
+    A3 = R1:shipmentAmount()
+    A4 = R1:shipmentAmount()
+    A5 = R1:shipmentAmount()
+    A6 = R1:shipmentAmount()
+    A7 = R1:shipmentAmount()
+    A8 = R1:shipmentAmount()
+    S1 = R1:shipmentName()
+    S2 = R2:shipmentName()
+    S3 = R3:shipmentName()
+    S4 = R4:shipmentName()
+    S5 = R5:shipmentName()
+    S6 = R6:shipmentName()
+    S7 = R7:shipmentName()
+    S8 = R8:shipmentName()
+    P1 = R1:shipmentIndividualCost()+ R1:shipmentIndividualCost()/80
+    P2 = R2:shipmentIndividualCost()+ R1:shipmentIndividualCost()/80
+    P3 = R3:shipmentIndividualCost()+ R1:shipmentIndividualCost()/80
+    P4 = R4:shipmentIndividualCost()+ R1:shipmentIndividualCost()/80
+    P5 = R5:shipmentIndividualCost()+ R1:shipmentIndividualCost()/80
+    P6 = R6:shipmentIndividualCost()+ R1:shipmentIndividualCost()/80
+    P7 = R7:shipmentIndividualCost()+ R1:shipmentIndividualCost()/80
+    P8 = R8:shipmentIndividualCost()+ R1:shipmentIndividualCost()/80
+    timer("FR",1000)
+}
+if(LA == P1){
+    timer("B1",1000)
+}
+if(LA == P2){
+    timer("B2",1000)
+}
+if(LA == P3){
+    timer("B3",1000)
+}
+if(LA == P4){
+    timer("B4",1000)
+}
+if(LA == P5){
+    timer("B5",1000)
+}
+if(LA == P6){
+    timer("B6",1000)
+}
+if(LA == P7){
+    timer("B7",1000)
+}
+if(LA == P8){
+    timer("B8",1000)
+}
+if(clk("B1")){
+    Empty = 1 U1 = 1 timer("c",100)
+}
+if(clk("B2")){
+    Empty = 1 U2 = 1 timer("c",100)
+}
+if(clk("B3")){
+    Empty = 1 U3 = 1 timer("c",100)
+}
+if(clk("B4")){
+    Empty = 1 U4 = 1 timer("c",100)
+}
+if(clk("B5")){
+    Empty = 1 U5 = 1 timer("c",100)
+}
+if(clk("B6")){
+    Empty = 1 U6 = 1 timer("c",100)
+}
+if(clk("B7")){
+    Empty = 1 U7 = 1 timer("c",100)
+}
+if(clk("B8")){
+    Empty = 1 U8 = 1 timer("c",100)
+}
+if(clk("c")){
+        Empty = 0
+        U1 = 0   
+        U2 = 0   
+        U3 = 0   
+        U4 = 0   
+        U5 = 0   
+        U6 = 0   
+        U7 = 0   
+        U8 = 0   
+    }
+if(clk("Sfr")){
+ Egp:egpClear()   
+ Egp:egpBox(1,vec2(256,256),vec2(512,512))
+ Egp:egpBox(2,vec2(256,512),vec2(700,600))
+ Egp:egpBox(3,vec2(256,35),vec2(512,50))
+ Egp:egpRoundedBox(4,vec2(45,45),vec2(90,20))
+ Egp:egpRoundedBox(5,vec2(255,45),vec2(250,20))
+ Egp:egpRoundedBox(6,vec2(450,45),vec2(100,20))
+ Egp:egpBox(10,vec2(256,55+45),vec2(512,25))
+ Egp:egpBox(11,vec2(256,80+5+45),vec2(512,25))
+ Egp:egpBox(12,vec2(256,105+10+45),vec2(512,25))
+ Egp:egpBox(13,vec2(256,130+15+45),vec2(512,25))
+ Egp:egpBox(14,vec2(256,155+20+45),vec2(512,25))
+ Egp:egpBox(15,vec2(256,180+25+45),vec2(512,25))
+ Egp:egpBox(16,vec2(256,205+30+45),vec2(512,25))
+ Egp:egpBox(17,vec2(256,230+35+45),vec2(512,25))
+ Egp:egpText(30,""+Mel+" (Bassic)",vec2(256,20))
+ Egp:egpText(31,"Quantity",vec2(45,45))
+ Egp:egpText(32,"Type",vec2(255,45))
+ Egp:egpText(33,"Cost",vec2(450,45))
+if(S1 == "Not a shipment"){
+    Egp:egpText(50,"Empty",vec2(255,55+45))}
+    else{
+    Egp:egpText(50,""+S1+"",vec2(255,55+45))
+}
+if(S2 == "Not a shipment"){
+    Egp:egpText(51,"Empty",vec2(255,80+5+45))}
+    else{
+    Egp:egpText(51,""+S2+"",vec2(255,80+5+45))
+}
+if(S3 == "Not a shipment"){
+    Egp:egpText(52,"Empty",vec2(255,105+10+45))}
+    else{
+    Egp:egpText(52,""+S3+"",vec2(255,105+10+45))
+}
+if(S4 == "Not a shipment"){
+    Egp:egpText(53,"Empty",vec2(255,130+15+45))}
+    else{
+    Egp:egpText(53,""+S4+"",vec2(255,130+15+45))
+}
+if(S5 == "Not a shipment"){
+    Egp:egpText(54,"Empty",vec2(255,155+20+45))}
+    else{
+    Egp:egpText(54,""+S5+"",vec2(255,155+20+45))
+}
+if(S6 == "Not a shipment"){
+    Egp:egpText(55,"Empty",vec2(255,180+25+45))}
+    else{
+    Egp:egpText(55,""+S6+"",vec2(255,180+25+45))
+}
+if(S7 == "Not a shipment"){
+    Egp:egpText(56,"Empty",vec2(255,205+30+45))}
+    else{
+    Egp:egpText(56,""+S7+"",vec2(255,205+30+45))
+}
+if(S8 == "Not a shipment"){
+    Egp:egpText(57,"Empty",vec2(255,230+35+45))}
+    else{
+    Egp:egpText(57,""+S8+"",vec2(255,230+35+45))
+}
+if(Censor == 0){
+    Egp:egpText(60,""+A1+"",vec2(45,55+45))
+    Egp:egpText(61,""+A2+"",vec2(45,80+5+45))
+    Egp:egpText(62,""+A3+"",vec2(45,105+10+45))
+    Egp:egpText(63,""+A4+"",vec2(45,130+15+45))
+    Egp:egpText(64,""+A5+"",vec2(45,155+20+45))
+    Egp:egpText(65,""+A6+"",vec2(45,180+25+45))
+    Egp:egpText(66,""+A7+"",vec2(45,205+30+45))
+    Egp:egpText(67,""+A8+"",vec2(45,230+35+45))
+    }else{
+    Egp:egpText(60,"",vec2(45,55+45))
+    Egp:egpText(61,"",vec2(45,80+5+45))
+    Egp:egpText(62,"",vec2(45,105+10+45))
+    Egp:egpText(63,"",vec2(45,130+15+45))
+    Egp:egpText(64,"",vec2(45,155+20+45))
+    Egp:egpText(65,"",vec2(45,180+25+45))
+    Egp:egpText(66,"",vec2(45,205+30+45))
+    Egp:egpText(67,"",vec2(45,230+35+45))
+}
+if(P1 == 0){
+    Egp:egpText(40,"Empty",vec2(450,55+45))}
+    else{
+    Egp:egpText(40,"$"+P1+"",vec2(450,55+45))
+}
+if(P2 == 0){
+    Egp:egpText(41,"Empty",vec2(450,80+5+45))}
+    else{
+    Egp:egpText(41,"$"+P2+"",vec2(450,80+5+45))
+}
+if(P3 == 0){
+    Egp:egpText(42,"Empty",vec2(450,105+10+45))}
+    else{
+    Egp:egpText(42,"$"+P3+"",vec2(450,105+10+45))
+}
+if(P4 == 0){
+    Egp:egpText(43,"Empty",vec2(450,130+15+45))}
+    else{
+    Egp:egpText(43,"$"+P4+"",vec2(450,130+15+45))
+}
+if(P5 == 0){
+    Egp:egpText(44,"Empty",vec2(450,155+20+45))}
+    else{
+    Egp:egpText(44,"$"+P5+"",vec2(450,155+20+45))
+}
+if(P6 == 0){
+    Egp:egpText(45,"Empty",vec2(450,180+25+45))}
+    else{
+    Egp:egpText(45,"$"+P6+"",vec2(450,180+25+45))
+}
+if(P7 == 0){
+    Egp:egpText(46,"Empty",vec2(450,205+30+45))}
+    else{
+    Egp:egpText(46,"$"+P7+"",vec2(450,205+30+45))
+}
+if(P8 == 0){
+    Egp:egpText(47,"Empty",vec2(450,230+35+45))}
+    else{
+    Egp:egpText(47,"$"+P8+"",vec2(450,230+35+45))
+}
+ Egp:egpAlign(30,1,1)
+ Egp:egpAlign(31,1,1)
+ Egp:egpAlign(32,1,1)
+ Egp:egpAlign(33,1,1)
+ Egp:egpAlign(40,1,1)
+ Egp:egpAlign(41,1,1)
+ Egp:egpAlign(42,1,1)
+ Egp:egpAlign(43,1,1)
+ Egp:egpAlign(44,1,1)
+ Egp:egpAlign(45,1,1)
+ Egp:egpAlign(46,1,1)
+ Egp:egpAlign(47,1,1)
+ Egp:egpAlign(50,1,1)
+ Egp:egpAlign(51,1,1)
+ Egp:egpAlign(52,1,1)
+ Egp:egpAlign(53,1,1)
+ Egp:egpAlign(54,1,1)
+ Egp:egpAlign(55,1,1)
+ Egp:egpAlign(56,1,1)
+ Egp:egpAlign(57,1,1)
+ Egp:egpAlign(60,1,1)
+ Egp:egpAlign(61,1,1)
+ Egp:egpAlign(62,1,1)
+ Egp:egpAlign(63,1,1)
+ Egp:egpAlign(64,1,1)
+ Egp:egpAlign(65,1,1)
+ Egp:egpAlign(66,1,1)
+ Egp:egpAlign(67,1,1)
+ Egp:egpColor(1,vec(0,0,50))
+ Egp:egpColor(2,vec(0,0,10))
+ Egp:egpColor(3,vec(50,0,0))
+ Egp:egpColor(4,vec(0,50,50))
+ Egp:egpColor(5,vec(100,0,0))
+ Egp:egpColor(6,vec(100,0,0))
+ Egp:egpColor(10,vec(40,40,40))
+ Egp:egpColor(11,vec(40,40,40))
+ Egp:egpColor(12,vec(40,40,40))
+ Egp:egpColor(13,vec(40,40,40))
+ Egp:egpColor(14,vec(40,40,40))
+ Egp:egpColor(15,vec(40,40,40))
+ Egp:egpColor(16,vec(40,40,40))
+ Egp:egpColor(17,vec(40,40,40))
+ Egp:egpAngle(2,90)
+ Egp:egpMaterial(2,"gui/center_gradient")
+}

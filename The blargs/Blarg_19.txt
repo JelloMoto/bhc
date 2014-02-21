@@ -1,0 +1,15 @@
+@name Supper arrest gun
+@trigger
+if(first()){
+ timer("a",0)   
+}
+if(clk("a")){
+ timer("a",10)   
+}
+E = owner():keySprint()
+D = owner():keyAttack2()
+if(E&D){
+    if(owner():pos():distance(owner():aimEntity():pos())<120){
+        concmd("rp_arrest "+owner():aimEntity():name()+" 300")
+    }
+}

@@ -1,0 +1,662 @@
+@name Sounds and music
+@inputs 
+@outputs Ops
+@persist E:entity Str:array
+@trigger 
+#if(owner():name() != "Yorik Yobonchov"){selfDestruct()}
+#if(owner():name() != "The other Lexi"){selfDestruct()}
+if(owner():steamID() != "STEAM_0:0:40864958"){if (owner():steamID() != "STEAM_0:0:26662649")
+
+    {selfDestruct()}}
+Ops = ops()
+interval(100)
+soundPitch(1,100)
+soundPitch(2,130)
+if (first())
+{
+    E = owner()
+    runOnChat(1)
+}
+# If Owner Talks
+if (chatClk(owner()))
+{ 
+    # Chat String
+    Str = owner():lastSaid():explode(" ")
+    if(Str[1,string]=="helpmeh")
+    {
+           E:soundPlay(1,0,"/vo/demoman_helpmecapture03.wav")           
+    }
+    if(Str[1,string]=="dude")
+    {
+           E:soundPlay(1,0,"/bot/im_on_your_side.wav")
+    }
+    if(Str[1,string]=="zizbang")
+    {
+           E:soundPlay(1,0,"/vo/heavy_yell14.wav")
+    }
+    if(Str[1,string]=="babbies")
+    {
+           E:soundPlay(1,0,"/vo/heavy_yell10.wav")
+    }
+    if(Str[1,string]=="bringit")
+    {
+           E:soundPlay(1,0,"/vo/npc/barney/ba_bringiton.wav")
+    }
+    if(Str[1,string]=="bags")
+    {
+           E:soundPlay(2,0,"/ambient/medieval_dooropen.wav")
+    }
+    if(Str[1,string]=="opera")
+    {
+           E:soundPlay(1,0,"/ambient/opera.wav")
+    }
+    if(Str[1,string]=="g1")
+    {
+           E:soundPlay(1,0,"/vo/demoman_gibberish01.wav")
+    }
+    if(Str[1,string]=="g2")
+    {
+           E:soundPlay(1,0,"/vo/demoman_gibberish04.wav")
+    }
+    if(Str[1,string]=="g3")
+    {
+           E:soundPlay(1,0,"/vo/demoman_gibberish06.wav")
+    }
+    if(Str[1,string]=="g4")
+    {
+           E:soundPlay(1,0,"/vo/demoman_gibberish09.wav")
+    }
+    if(Str[1,string]=="g5")
+    {
+           E:soundPlay(1,0,"/vo/demoman_gibberish12.wav")
+    }
+    if(Str[1,string]=="balls2")
+    {
+           E:soundPlay(1,0,"/vo/spy_DominationDemoMan04.wav")
+    }
+    if(Str[1,string]=="suck")
+    {
+           E:soundPlay(1,0,"/vo/spy_DominationMedic04.wav")
+    }
+    if(Str[1,string]=="shutit")
+    {
+           E:soundPlay(1,0,"/vo/spy_DominationScout07.wav")
+    }
+    if(Str[1,string]=="ihateu")
+    {
+           E:soundPlay(1,0,"/vo/spy_JarateHit03.wav")
+    }
+    if(Str[1,string]=="bybsmeg")
+    {
+           E:soundPlay(2,0,"/byb/test.mp3")
+    }
+    if(Str[1,string]=="stillalive")
+    {
+           E:soundPlay(2,0,"/music/portal_still_alive.mp3")
+    }
+    if(Str[1,string]=="-play_mus_cus_levas")
+    {
+           E:soundPlay(2,0,"/ex sound emiters/levas break.mp3")
+    }
+    if(Str[1,string]=="-play_mus_cus_sos_ny")
+    {
+           E:soundPlay(2,0,"/ex sound emiters/sos new york.wav")
+    }
+    if(Str[1,string]=="-play_mus_cus_me_still")
+    {
+           E:soundPlay(2,0,"/ex sound emiters/mirror's edge main theme - still alive.wav")
+    }
+   if(Str[1,string]=="-play_mus_cus_harmonic")
+    {
+           E:soundPlay(2,0,"/ex sound emiters/jaime y los chamacos- los dos laredos acordeones.wav")
+    }
+  if(Str[1,string]=="-play_mus_cus_m_r")
+    {
+           E:soundPlay(2,0,"/ex sound emiters/iron maiden -mother russia.wav")
+    }
+ if(Str[1,string]=="-play_ear_rape")
+    {
+           E:soundPlay(2,0,"/synth/saw_inverted_440.wav")
+    }
+ if(Str[1,string]=="-play_song1")
+    {
+           E:soundPlay(2,0,"/music/hl2_song12_long.mp3")
+    }
+ if(Str[1,string]=="-play_song2")
+    {
+           E:soundPlay(2,0,"/music/hl2_song14.mp3")
+    }
+ if(Str[1,string]=="-play_song3")
+    {
+           E:soundPlay(2,0,"/music/hl2_song15.mp3")
+    }
+ if(Str[1,string]=="-play_song4")
+    {
+           E:soundPlay(2,0,"/music/hl2_song31.mp3")
+    }
+ if(Str[1,string]=="-play_song5")
+    {
+           E:soundPlay(2,0,"/music/hl2_song26.mp3")
+    }
+ if(Str[1,string]=="-play_song6")
+    {
+           E:soundPlay(2,0,"/music/hl2_song25_teleporter.mp3")
+    }
+ if(Str[1,string]=="-play_song7")
+    {
+           E:soundPlay(2,0,"/music/hl2_song23_suitsong3.mp3")
+    }
+ if(Str[1,string]=="-play_song8")
+    {
+           E:soundPlay(2,0,"/music/hl2_song20_submix0.mp3")
+    }
+ if(Str[1,string]=="-play_song9")
+    {
+           E:soundPlay(2,0,"/music/hl2_song16.mp3")
+    }
+  if(Str[1,string]=="-play_mus_cus_fortunate")
+    {
+           E:soundPlay(2,0,"/ex sound emiters/fortunate son.wav")
+    }
+   if(Str[1,string]=="-play_mus_cus_texg")
+    {
+           E:soundPlay(2,0,"/ex sound emiters/a girl named tex.wav")
+    }
+   if(Str[1,string]=="-play_mus_cus_earth")
+    {
+           E:soundPlay(2,0,"/ex sound emiters/fired earth music - man of steel remix.wav")
+    }
+   if(Str[1,string]=="-play_mus_cus_butter")
+    {
+           E:soundPlay(2,0,"/ex sound emiters/hot butter- popcorn song.wav")
+    }
+  if(Str[1,string]=="-play_mus_cus_engywriter")
+    {
+           E:soundPlay(2,0,"/ex sound emiters/grifspda - engywriter - fixed full version.mp3")
+    }
+ if(Str[1,string]=="-play_mus_cus_zias")
+    {
+           E:soundPlay(2,0,"/ex sound emiters/bastion/zias theme.mp3")
+    }
+if(Str[1,string]=="-play_mus_cus_holiday")
+    {
+           E:soundPlay(2,0,"/ex sound emiters/berh-mach indie/holiday(high tempo).mp3")
+    }
+if(Str[1,string]=="-play_mus_cus_smove")
+    {
+           E:soundPlay(2,0,"/ex sound emiters/berh-mach indie/smooth move (heavy on base + ellectric guitar, med temp).mp3")
+    }
+if(Str[1,string]=="-play_mvm1")
+    {
+           E:soundPlay(2,0,"/mvm/mvm_used_powerup.wav")
+    }
+if(Str[1,string]=="-play_mvm2")
+    {
+           E:soundPlay(2,0,"/music/mvm_end_last_wave.wav")
+    }
+if(Str[1,string]=="-play_mvm3")
+    {
+           E:soundPlay(2,0,"/music/mvm_end_mid_wave.wav")
+    }
+if(Str[1,string]=="-play_mvm4")
+    {
+           E:soundPlay(2,0,"/music/mvm_end_wave.wav")
+    }
+if(Str[1,string]=="-play_mvm5")
+    {
+           E:soundPlay(2,0,"/music/mvm_start_wave.wav")
+    }
+if(Str[1,string]=="BEERTHEEME")
+    {
+           E:soundPlay(2,0,"/music/mvm_end_last_wave.wav")
+    }
+if(Str[1,string]=="-play_mvm6")
+    {
+           E:soundPlay(2,0,"/mvm/mvm_tank_deploy.wav")
+    }
+if(Str[1,string]=="-play_mvm7")
+    {
+           E:soundPlay(2,0,"/mvm/mvm_tank_horn.wav")
+    }
+if(Str[1,string]=="ping")
+    {
+           E:soundPlay(1,0,"/mvm/mvm_tank_ping.wav")
+    }
+if(Str[1,string]=="Ohmahgouawd")
+    {
+           E:soundPlay(2,0,"/mvm/giant_soldier/giant_soldier_rocket_shoot.wav")
+    }
+if(Str[1,string]=="fire!")
+    {
+           E:soundPlay(1,0,"/vo/spy_autoonfire03.wav")
+    }
+if(Str[1,string]=="gentalmen")
+    {
+           E:soundPlay(1,0,"/vo/spy_battlecry01.wav")
+    }
+if(Str[1,string]=="donewell")
+    {
+           E:soundPlay(1,0,"/vo/spy_goodjob03.wav")
+    }
+if(Str[1,string]=="left!")
+    {
+           E:soundPlay(1,0,"/vo/spy_headleft03.wav")
+    }
+if(Str[1,string]=="right!")
+    {
+           E:soundPlay(1,0,"/vo/spy_headright03.wav")
+    }
+if(Str[1,string]=="help!")
+    {
+           E:soundPlay(1,0,"/vo/spy_helpme03.wav")
+    }
+if(Str[1,string]=="-play_mus_cus_111")
+    {
+           E:soundPlay(2,0,"/ex sound emiters/111.wav")
+    }
+if(Str[1,string]=="yousuck")
+    {
+           E:soundPlay(1,0,"/vo/test_two.wav")
+    }
+if(Str[1,string]=="haha")
+    {
+           E:soundPlay(1,0,"/vo/spy_laughlong01.wav")
+    }
+if(Str[1,string]=="no")
+    {
+           E:soundPlay(1,0,"/vo/spy_no02.wav")
+    }
+if(Str[1,string]=="wrench")
+    {
+           E:soundPlay(1,0,"/vo/spy_DominationEngineer04.wav")
+    }
+if(Str[1,string]=="fatman")
+    {
+           E:soundPlay(1,0,"/vo/spy_DominationHeavy01.wav")
+    }
+if(Str[1,string]=="lolmedicen")
+    {
+           E:soundPlay(1,0,"/vo/spy_DominationMedic01.wav")
+    }
+if(Str[1,string]=="medicmedic")
+    {
+           E:soundPlay(1,0,"/vo/spy_DominationMedic02.wav")
+    }
+if(Str[1,string]=="ithurt?")
+    {
+           E:soundPlay(1,0,"/vo/spy_DominationMedic06.wav")
+    }
+if(Str[1,string]=="-play_mus_cus_sparta")
+    {
+           E:soundPlay(2,0,"/ex sound emiters/littlesparter.wav")
+    }
+if(Str[1,string]=="comeon")
+    {
+           E:soundPlay(1,0,"/vo/taunts/spy_highfive13.wav")
+    }
+if(Str[1,string]=="joinme")
+    {
+           E:soundPlay(1,0,"/vo/taunts/spy_highfive14.wav")
+    }
+if(Str[1,string]=="imcomp")
+    {
+           E:soundPlay(1,0,"/vo/taunts/spy_taunts03.wav")
+    }
+if(Str[1,string]=="five")
+    {
+           E:soundPlay(1,0,"/vo/taunts/spy_highfive01.wav")
+    }
+if(Str[1,string]=="trustme")
+    {
+           E:soundPlay(1,0,"/vo/taunts/spy_highfive04.wav")
+    }
+if(Str[1,string]=="docter")
+    {
+           E:soundPlay(1,0,"/vo/spy_activatecharge03.wav")
+    }
+if(Str[1,string]=="fire")
+    {
+           E:soundPlay(1,0,"/vo/spy_autoonfire01.wav")
+    }
+if(Str[1,string]=="move")
+    {
+           E:soundPlay(1,0,"/vo/spy_go01.wav")
+    }
+if(Str[1,string]=="yes")
+    {
+           E:soundPlay(1,0,"/vo/spy_yes01.wav")
+    }
+if(Str[1,string]=="-play_mus_cus_river")
+    {
+           E:soundPlay(2,0,"/erectriver.mp3")
+    }
+if(Str[1,string]=="-play_saxxy")
+    {
+           E:soundPlay(2,0,"/ui/holiday/gamestartup_saxxy.mp3")
+    }
+if(Str[1,string]=="-play_smvm")
+    {
+           E:soundPlay(2,0,"/ui/holiday/gamestartup_mann_vs_machine.mp3")
+    }
+if(Str[1,string]=="thanks")
+    {
+           E:soundPlay(1,0,"/vo/spy_thanks02.wav")
+    }
+if(Str[1,string]=="suprise")
+    {
+           E:soundPlay(1,0,"/vo/spy_specialcompleted12.wav")
+    }
+if(Str[1,string]=="pardonme")
+    {
+           E:soundPlay(1,0,"/vo/spy_specialcompleted06.wav")
+    }
+if(Str[1,string]=="exerlant")
+    {
+           E:soundPlay(1,0,"/vo/spy_positivevocalization01.wav")
+    }
+if(Str[1,string]=="ohplease")
+    {
+           E:soundPlay(1,0,"/vo/spy_negativevocalization04.wav")
+    }
+if(Str[1,string]=="incoming")
+    {
+           E:soundPlay(1,0,"/vo/spy_incoming01.wav")
+    }
+if(Str[1,string]=="scout")
+    {
+           E:soundPlay(1,0,"/vo/spy_cloakedspyidentify01.wav")
+    }
+if(Str[1,string]=="soldier")
+    {
+           E:soundPlay(1,0,"/vo/spy_cloakedspyidentify02.wav")
+    }
+if(Str[1,string]=="heavy")
+    {
+           E:soundPlay(1,0,"/vo/spy_cloakedspyidentify03.wav")
+    }
+if(Str[1,string]=="pyro")
+    {
+           E:soundPlay(1,0,"/vo/spy_cloakedspyidentify04.wav")
+    }
+if(Str[1,string]=="demoman")
+    {
+           E:soundPlay(1,0,"/vo/spy_cloakedspyidentify05.wav")
+    }
+if(Str[1,string]=="spy")
+    {
+           E:soundPlay(1,0,"/vo/spy_cloakedspyidentify06.wav")
+    }
+if(Str[1,string]=="smedic")
+    {
+           E:soundPlay(1,0,"/vo/spy_cloakedspyidentify08.wav")
+    }
+if(Str[1,string]=="engenier")
+    {
+           E:soundPlay(1,0,"/vo/spy_cloakedspyidentify09.wav")
+    }
+if(Str[1,string]=="ssniper")
+    {
+           E:soundPlay(1,0,"/vo/spy_cloakedspyidentify10.wav")
+    }
+if(Str[1,string]=="-play_mus_cus_river")
+    {
+           E:soundPlay(2,0,"/erectriver.mp3")
+    }
+if(Str[1,string]=="-play_mus_cus_rave")
+    {
+           E:soundPlay(2,0,"/ravebreak.mp3")
+    }
+if(Str[1,string]=="-t1")
+    {
+           E:soundPlay(2,0,"/misc/taps_02.wav")
+    }
+if(Str[1,string]=="-t2")
+    {
+           E:soundPlay(2,0,"/misc/taps_03.wav")
+    }
+if(Str[1,string]=="-play_gs1")
+    {
+           E:soundPlay(2,0,"/ui/gamestartup11.mp3")
+    }
+if(Str[1,string]=="-play_gs2")
+    {
+           E:soundPlay(2,0,"/ui/gamestartup6.mp3")
+    }
+if(Str[1,string]=="-play_gs3")
+    {
+           E:soundPlay(2,0,"/ui/gamestartup9.mp3")
+    }
+if(Str[1,string]=="-play_gs4")
+    {
+           E:soundPlay(2,0,"/ui/gamestartup15.mp3")
+    }
+if(Str[1,string]=="-play_gs5")
+    {
+           E:soundPlay(2,0,"/ui/gamestartup14.mp3")
+    }
+if(Str[1,string]=="-play_gs6")
+    {
+           E:soundPlay(2,0,"/ui/gamestartup12.mp3")
+    }
+if(Str[1,string]=="-play_gs7")
+    {
+           E:soundPlay(2,0,"/ui/gamestartup1.mp3")
+    }
+if(Str[1,string]=="-play_gs8")
+    {
+           E:soundPlay(2,0,"/ui/gamestartup7.mp3")
+    }
+if(Str[1,string]=="-play_gs9")
+    {
+           E:soundPlay(2,0,"/ui/gamestartup5.mp3")
+    }
+if(Str[1,string]=="-play_gs10")
+    {
+           E:soundPlay(2,0,"/ui/gamestartup2.mp3")
+    }
+if(Str[1,string]=="-play_bongo")
+    {
+           E:soundPlay(2,0,"/ambient/music/bongo.wav")
+    }
+if(Str[1,string]=="-play_crock")
+    {
+           E:soundPlay(2,0,"/ambient/music/country_rock_am_radio_loop.wav")
+    }
+if(Str[1,string]=="-play_cuban")
+    {
+           E:soundPlay(2,0,"/ambient/music/cubanmusic1.wav")
+    }
+if(Str[1,string]=="-play_d1")
+    {
+           E:soundPlay(2,0,"/ambient/music/dustmusic1.wav")
+    }
+if(Str[1,string]=="-play_d2")
+    {
+           E:soundPlay(2,0,"/ambient/music/dustmusic2.wav")
+    }
+if(Str[1,string]=="-play_d3")
+    {
+           E:soundPlay(2,0,"/ambient/music/dustmusic3.wav")
+    }
+if(Str[1,string]=="-play_flam")
+    {
+           E:soundPlay(2,0,"/ambient/music/flamenco.wav")
+    }
+if(Str[1,string]=="-play_latin")
+    {
+           E:soundPlay(2,0,"/ambient/music/latin.wav")
+    }
+if(Str[1,string]=="-play_prs")
+    {
+           E:soundPlay(2,0,"/ambient/music/looping_radio_mix.wav")
+    }
+if(Str[1,string]=="-play_pianio1")
+    {
+           E:soundPlay(2,0,"/ambient/music/piano1.wav")
+    }
+if(Str[1,string]=="-play_pianio2")
+    {
+           E:soundPlay(2,0,"/ambient/music/piano2.wav")
+    }
+if(Str[1,string]=="1")
+    {
+           E:soundPlay(1,0,"/npc/combine_soldier/vo/one.wav")
+    }
+if(Str[1,string]=="2")
+    {
+           E:soundPlay(1,0,"/npc/combine_soldier/vo/two.wav")
+    }
+if(Str[1,string]=="3")
+    {
+           E:soundPlay(1,0,"/npc/combine_soldier/vo/three.wav")
+    }
+if(Str[1,string]=="4")
+    {
+           E:soundPlay(1,0,"/npc/combine_soldier/vo/four.wav")
+    }
+if(Str[1,string]=="5")
+    {
+           E:soundPlay(1,0,"/npc/combine_soldier/vo/five.wav")
+    }
+if(Str[1,string]=="6")
+    {
+           E:soundPlay(1,0,"/npc/combine_soldier/vo/six.wav")
+    }
+if(Str[1,string]=="7")
+    {
+           E:soundPlay(1,0,"/npc/combine_soldier/vo/seven.wav")
+    }
+if(Str[1,string]=="8")
+    {
+           E:soundPlay(1,0,"/npc/combine_soldier/vo/eight.wav")
+    }
+if(Str[1,string]=="9")
+    {
+           E:soundPlay(1,0,"/npc/metropolice/vo/nine.wav")
+    }
+if(Str[1,string]=="0")
+    {
+           E:soundPlay(1,0,"/npc/combine_soldier/vo/zero.wav")
+    }
+if(Str[1,string]=="lol")
+    {
+           E:soundPlay(1,0,"/npc/metropolice/vo/chuckle.wav")
+    }
+if(Str[1,string]=="moveit")
+    {
+           E:soundPlay(1,0,"/npc/metropolice/vo/moveit2.wav")
+    }
+if(Str[1,string]=="shit")
+    {
+           E:soundPlay(1,0,"/npc/metropolice/vo/shit.wav")
+    }
+if(Str[1,string]=="-play_gs11")
+    {
+           E:soundPlay(2,0,"/ui/gamestartup13.mp3")
+    }
+if(Str[1,string]=="-play_gs12")
+    {
+           E:soundPlay(2,0,"/ui/gamestartup10.mp3")
+    }
+if(Str[1,string]=="-play_mus_cus_sd&rum")
+    {
+           E:soundPlay(2,0,"/ex sound emiters/wote/sunny d and rum.wav")
+    }
+if(Str[1,string]=="-play_mus_cus_magic")
+    {
+           E:soundPlay(2,0,"/ex sound emiters/wote/magic.wav")
+    }
+if(Str[1,string]=="-play_mus_cus_rollup")
+    {
+           E:soundPlay(2,0,"/ex sound emiters/wote/roll up.wav")
+    }
+ if(Str[1,string]=="-play_song10")
+    {
+           E:soundPlay(2,0,"/music/hl1_song24.mp3")
+    }
+if(Str[1,string]=="SHIT!")
+    {
+           E:soundPlay(1,0,"/weapons/diamond_back_03.wav")
+    }
+ if(Str[1,string]=="rocketjumpwaltz")
+    {
+           E:soundPlay(2,0,"/ui/gamestartup3.mp3")
+    }
+ if(Str[1,string]=="hedied")
+    {
+           E:soundPlay(2,0,"/vo/spy_DominationHeavy05.wav")
+    }
+if(Str[1,string]=="-play_mus_cus_zs1")
+    {
+           E:soundPlay(2,0,"/lasthuman.mp3")
+    }
+if(Str[1,string]=="-play_mus_cus_zs2")
+    {
+           E:soundPlay(2,0,"/music/cvg_humanwin.mp3")
+    }
+if(Str[1,string]=="-play_mus_cus_zs3")
+    {
+           E:soundPlay(2,0,"/music/cvg_lasthuman.mp3")
+    }
+if(Str[1,string]=="-play_mvm8")
+    {
+           E:soundPlay(2,0,"/music/mvm_end_tank_wave.wav")
+    }
+if(Str[1,string]=="-play_mvm9")
+    {
+           E:soundPlay(2,0,"/music/mvm_class_menu_bg.wav")
+    }
+if(Str[1,string]=="prepcharges")
+    {
+           E:soundPlay(1,0,"/npc/combine_soldier/vo/readycharges.wav")
+    }
+if(Str[1,string]=="prepweps")
+    {
+           E:soundPlay(1,0,"/npc/combine_soldier/vo/readyweapons.wav")
+    }
+if(Str[1,string]=="apply")
+    {
+           E:soundPlay(1,0,"/npc/metropolice/vo/apply.wav")
+    }
+if(Str[1,string]=="amp")
+    {
+           E:soundPlay(1,0,"/npc/metropolice/vo/amputate.wav")
+    }
+if(Str[1,string]=="citizen")
+    {
+           E:soundPlay(1,0,"/npc/metropolice/vo/citizen.wav")
+    }
+if(Str[1,string]=="copy")
+    {
+           E:soundPlay(1,0,"/npc/metropolice/vo/copy.wav")
+    }
+if(Str[1,string]=="dontmove")
+    {
+           E:soundPlay(1,0,"/npc/metropolice/vo/dontmove.wav")
+    }
+if(Str[1,string]=="-gman_rise")
+    {
+           E:soundPlay(1,0,"/vo/gman_misc/gman_riseshine.wav")
+    }
+if(Str[1,string]=="-gman_1")
+    {
+           E:soundPlay(1,0,"/vo/gman_misc/gman_02.wav")
+    }
+if(Str[1,string]=="-gman_2")
+    {
+           E:soundPlay(1,0,"/vo/gman_misc/gman_03.wav")
+    }
+if(Str[1,string]=="-gman_3")
+    {
+           E:soundPlay(1,0,"/vo/gman_misc/gman_04.wav")
+    }
+    if(Str[1,string]=="-stop")
+    {
+        soundStop(1)
+    }
+    if(Str[1,string]=="-stop")
+    {
+        soundStop(2)
+    }
+}
+

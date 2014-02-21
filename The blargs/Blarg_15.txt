@@ -1,0 +1,18 @@
+@name Quick base checker
+#[
+Made by Serconker/The other Lexi, do not remove this.
+You may edit or add on to this as you please.
+]#
+
+runOnChat(1)
+        Str = owner():lastSaid():explode(" ")
+        if(Str[1,string]=="{bc"){
+            TP = findPlayerByName(Str[2,string])
+            Name = findPlayerByName(Str[2,string]):name()
+            if(TP:isPlayer()){
+                timer("1",500)
+                if(clk("1")){
+                    stopAllTimers()
+        concmd("say /aadvert "+Name+" I am going to cheack your base for breaches of the base building guidlines.")}
+    }
+}

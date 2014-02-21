@@ -1,0 +1,209 @@
+@name Lui
+@inputs S1:wirelink
+
+@inputs [R1 R2 R3 R4 R5 R6 R7 R8]:entity
+
+@outputs Poser Curpos:vector2 Y_offest_right
+
+@outputs U1 U2 U3 U4 U5 U6 U7 U8 Col_1 Col_2 Col_3 Col_4 Col_5 Col_6 Col_7 Col_8 In Total_ships Tabs_drawn
+@outputs Names:array
+@persist E:entity Pa Y_offest_right F Dlat
+
+@persist
+@trigger 
+if(first()){
+ Names = array(
+""+R1:shipmentName(),
+""+R2:shipmentName(),
+""+R3:shipmentName(),
+""+R4:shipmentName(),
+""+R5:shipmentName(),
+""+R6:shipmentName(),
+""+R7:shipmentName(),
+""+R8:shipmentName()
+)
+while(In != 7){
+    Total_ships = 4
+    if(Names[1+In,string] != "Not a shipment" & Names[1+In,string] != "Air"){
+        Total_ships++
+    }
+ In++
+}
+ F = 0
+ Y_offest_right = 70
+ S1:egpClear()
+#Shapes
+ S1:egpBox(1,vec2(256,256),vec2(512,512))
+ S1:egpRoundedBox(5,vec2(-100,256),vec2(300,460))
+ S1:egpRoundedBox(6,vec2(-100,256),vec2(296,456))
+ S1:egpRoundedBox(8,vec2(-130,70),vec2(250,50))
+ S1:egpRoundedBox(9,vec2(-130,70),vec2(250,50))
+ S1:egpRoundedBox(10,vec2(-130,70),vec2(250,50))
+ S1:egpRoundedBox(11,vec2(-130,70),vec2(250,50))
+ S1:egpRoundedBox(12,vec2(-130,70),vec2(250,50))
+ S1:egpRoundedBox(13,vec2(-130,70),vec2(250,50))
+ S1:egpRoundedBox(14,vec2(-130,70),vec2(250,50))
+ S1:egpRoundedBox(15,vec2(-130,70),vec2(250,50))
+ S1:egpRoundedBox(2,vec2(616,306),vec2(300,402))
+ S1:egpRoundedBox(3,vec2(616,306),vec2(296,398))
+ S1:egpLine(7,vec2(500,107),vec2(500,505))
+#Texts
+ S1:egpTextLayout(4,"<-
+
+<-",vec2(466,350),vec2(466,450))
+#Colours 106 - 504
+ S1:egpColor(1,vec(40,40,60))
+ S1:egpColor(2,vec(50,50,70))
+ S1:egpColor(3,vec(45,45,55))
+ S1:egpColor(4,vec(4,5,55))
+ S1:egpColor(5,vec(40,40,50))
+ S1:egpColor(6,vec(45,45,55))
+ S1:egpColor(7,vec(40,40,55))
+ S1:egpColor(8,vec(45,45,55))
+ S1:egpColor(9,vec(45,45,55))
+ S1:egpColor(10,vec(45,45,55))
+ S1:egpColor(11,vec(45,45,55))
+ S1:egpColor(12,vec(45,45,55))
+ S1:egpColor(13,vec(45,45,55))
+ S1:egpColor(14,vec(45,45,55))
+ S1:egpColor(15,vec(45,45,55))
+ timer("curs",1)
+}
+if(clk("dla") & F != 1){
+ Dlat = Y_offest_right / 55
+    if(Dlat == 1& Total_ships > 0){
+        entity():soundPlay(1,0,"buttons/blip1.wav")
+    }elseif(Dlat == 2& Total_ships > 1){
+        entity():soundPlay(1,0,"buttons/blip1.wav")
+    }elseif(Dlat == 3& Total_ships > 2){
+        entity():soundPlay(1,0,"buttons/blip1.wav")
+    }elseif(Dlat == 4& Total_ships > 3){
+        entity():soundPlay(1,0,"buttons/blip1.wav")
+    }elseif(Dlat == 5& Total_ships > 4){
+        entity():soundPlay(1,0,"buttons/blip1.wav")
+    }elseif(Dlat == 6& Total_ships > 5){
+        entity():soundPlay(1,0,"buttons/blip1.wav")
+    }elseif(Dlat == 7& Total_ships > 6){
+        entity():soundPlay(1,0,"buttons/blip1.wav")
+    }elseif(Dlat == 8& Total_ships > 7){
+        entity():soundPlay(1,0,"buttons/blip1.wav")
+    }
+ Y_offest_right+= 2.5
+    if(Y_offest_right > 0){
+        if(Y_offest_right < 125 & Total_ships > 0){
+            if(Total_ships >= 1){
+                S1:egpRoundedBox(9,vec2(130,Y_offest_right),vec2(250,50))
+            }
+            S1:egpRoundedBox(8,vec2(130,70),vec2(250,50))
+            Col_1+=0.2381
+            S1:egpColor(8,vec(45-Col_1,45-Col_1,55-Col_1))
+        }else{
+            S1:egpRoundedBox(9,vec2(130,125),vec2(250,50))
+        }
+
+        if(Y_offest_right < 180 & Total_ships >= 2){
+            S1:egpRoundedBox(10,vec2(130,Y_offest_right),vec2(250,50))
+            Col_2+=0.11629
+            S1:egpColor(9,vec(45-Col_2,45-Col_2,55-Col_2))
+        }else{
+            S1:egpRoundedBox(10,vec2(130,180),vec2(250,50))
+        }
+
+        if(Y_offest_right < 235 & Total_ships >= 3){
+            S1:egpRoundedBox(11,vec2(130,Y_offest_right),vec2(250,50))
+            Col_3+=0.07692
+            S1:egpColor(10,vec(45-Col_3,45-Col_3,55-Col_3))
+
+        }else{
+            S1:egpRoundedBox(11,vec2(130,235),vec2(250,50))
+        }
+
+        if(Y_offest_right < 290 & Total_ships >= 4){
+            S1:egpRoundedBox(12,vec2(130,Y_offest_right),vec2(250,50))
+            Col_4+=0.05747
+            S1:egpColor(11,vec(45-Col_4,45-Col_4,55-Col_4))
+
+        }else{
+            S1:egpRoundedBox(12,vec2(130,290),vec2(250,50))
+        }
+        if(Y_offest_right < 345 & Total_ships >= 5){
+            S1:egpRoundedBox(13,vec2(130,Y_offest_right),vec2(250,50))
+            Col_5+=0.04587
+            S1:egpColor(12,vec(45-Col_5,45-Col_5,55-Col_5))
+
+        }else{
+            S1:egpRoundedBox(13,vec2(130,345),vec2(250,50))
+        }
+        if(Y_offest_right < 400 & Total_ships >= 6){
+            S1:egpRoundedBox(14,vec2(130,Y_offest_right),vec2(250,50))
+            Col_6+=0.038165
+            S1:egpColor(13,vec(45-Col_6,45-Col_6,55-Col_6))
+        }else{
+            S1:egpRoundedBox(14,vec2(130,400),vec2(250,50))
+        }
+        if(Y_offest_right < 455 & Total_ships >= 7){
+            S1:egpRoundedBox(15,vec2(130,Y_offest_right),vec2(250,50))
+            Col_7+=0.03268
+            S1:egpColor(14,vec(45-Col_7,45-Col_7,55-Col_7))
+        }elseif(Total_ships > 8){
+            S1:egpRoundedBox(15,vec2(130,455),vec2(250,50))
+        }
+        if(Y_offest_right < 510 & Y_offest_right > 455){
+            Col_8+=0.2381
+            S1:egpColor(15,vec(45-Col_8,45-Col_8,55-Col_8)) 
+        }
+        if(Y_offest_right > 510){
+            F=1
+        }
+    }
+    if(Tabs_drawn >= Total_ships){
+        stoptimer("dla")
+        soundStop(1,0)   
+    }
+ timer("dla",10)
+}
+if(clk("curs")){
+ findByClass("player")
+ E = findClosest(entity():pos())
+ Curpos = S1:egpCursor(E)
+ Obpos_right = S1:egpPos(2):x()-150
+ Obpos_left = S1:egpPos(5):x()+100
+ Poser = Obpos_left
+    if(E:keyUse()){
+        #Curpos:x() >= Obpos_right & Curpos:x() >= Obpos_right+50 & 
+        if(Obpos_right > 220 & inrange(Curpos,vec2(Obpos_right-50,0),vec2(Obpos_right+50,512))){
+            S1:egpRoundedBox(2,vec2(Curpos:x()+125,306),vec2(300,402))
+            S1:egpRoundedBox(3,vec2(Curpos:x()+125,306),vec2(296,398))
+            S1:egpTextLayout(4,"<-
+
+<-",vec2(Curpos:x()-25,350),vec2(Curpos:x()-25,450))
+            S1:egpLine(7,vec2(Curpos:x()+10,107),vec2(Curpos:x()+10,505))
+            S1:egpColor(2,vec(90,50,70))
+            Poser = Obpos_right
+            if(Pa != 1){
+                entity():soundPlay(1,0,"buttons/blip1.wav")
+                Pa = 1
+            }
+        }
+        if(Obpos_left < 220 & inrange(Curpos,vec2(Obpos_left-25,0),vec2(Obpos_left+50,512))){
+            S1:egpRoundedBox(5,vec2(Curpos:x()-125,256),vec2(300,460))
+            S1:egpRoundedBox(6,vec2(Curpos:x()-125,256),vec2(296,456))
+        }
+    }elseif(Obpos_right < 220){
+        S1:egpRoundedBox(2,vec2(390,306),vec2(300,402))
+        S1:egpRoundedBox(3,vec2(390,306),vec2(296,398))
+        S1:egpColor(2,vec(50,50,70))
+        S1:egpTextLayout(4,"<-
+        
+<-",vec2(240,350),vec2(240,450))
+        S1:egpLine(7,vec2(270,107),vec2(270,505))
+        Pa = 0
+    }else{
+        S1:egpColor(2,vec(50,50,70))
+        Pa = 0
+    }
+ timer("curs",10)
+}
+if(Obpos_left >= 210){
+ timer("dla",1)   
+}
