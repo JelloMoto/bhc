@@ -4,144 +4,121 @@
 @persist M61355:gtable En:string
 @trigger 
 if(owner():steamID() != "STEAM_0:0:40864958"){
-if(owner():steamID() != "STEAM_0:1:36951959"){selfDestruct()}}else{
-M61355 = gTable("Cbfgs914394512130531828511603866656067580",1)
-#    M61355["STEAM_0:1:36951959",number] = 9000
-#    M61355["STEAM_0:0:40864958",number] = 9000
-function alliasTable(S:string,New:table) {
-    local All=gTable(S)
-    All:clear()
+    if(owner():steamID() != "STEAM_0:1:36951959"){
+        selfDestruct()
+    }
+}else{
+ M61355 = gTable("Cbfgs914394512130531828511603866656067580",1)
+    function alliasTable(S:string,New:table) {
+        local All=gTable(S)
+        All:clear()
         foreach (I,V:number=New) {
-        All[I,number]=V
-        print("Copying")
-    }
-}
-runOnChat(1)
-interval(1000)
-
-Bitchcake = M61355:toTable()
-if (lastSpoke():steamID() != "STEAM_0:1:36951959") #Chikan's ID
-    {
-                Str1 = lastSpoke():lastSaid():explode(" ")
-                if(Str1[1,string]=="{acc"){
-                    if(Str1[2,string]=="givecred"){
-                        concmd("Buffer.")
-                        N1 = lastSpoke():name()
-                        N2 = lastSpoke():steamID()
-                        N = lastSpoke():steamID()
-                        TP = findPlayerByName(Str1[3,string])
-                        Am = Str1[4,string]:toNumber()
-                        ID = TP:steamID()
-                            if(TP:isPlayer()){
-                
-                                if(M61355[""+N+"",number]>=Am){
-                                    D = M61355[""+ID+"",number]+Am
-                                    M61355[""+ID+"",number] = D
-                
-                                    D = M61355[""+N+"",number]-Am
-                                    M61355[""+N+"",number] = D
-                                    
-                                    print(""+N1+" just gave '"+TP:name()+"' '"+Am+"c'")
-                                    concmd("say /pm "+Str1[3,string]+" "+N1+" just gave you "+Am+"c, your ballance is now "+M61355[""+ID+"",number]+"")
-                                    }else
-                                    {
-                                        print(""+N1+" just gave '"+TP:name()+"' '"+Am+"c' but failed to to a lack of Credits in their account!")
-                                        concmd("say /pm "+N1+" I'm sorry but you don't have enough credits to preform that action!")
-                                    }
-                          }
-               }
-    }
-    if(Str1[1,string]=="{checkbal"){
-        concmd("say /pm "+lastSpoke():name()+" You currently have "+M61355[""+lastSpoke():steamID()+"",number]+" BHC credits.")
-    }
-}else
-{
-    Str1 = lastSpoke():lastSaid():explode(" ")
-    if(Str1[1,string]=="{acc"){
-    if(Str1[2,string]=="create"){
-                TP = findPlayerByName(Str1[3,string])
-                ID = TP:steamID()
-                if(TP:isPlayer()){
-                M61355[""+ID+"",number] = 0
-            }
+            All[I,number]=V
+            print("Copying")
         }
-    if(Str1[2,string]=="setcred"){
+    }
+ runOnChat(1)
+ interval(1000)
+ Bitchcake = M61355:toTable()
+ Str1 = lastSpoke():lastSaid():explode(" ")
+    if(lastSpoke():steamID() != "STEAM_0:1:36951959"){
+        if(Str1[1,string]=="{acc"){
+            if(Str1[2,string]=="givecred"){
+                concmd("Buffer.")
+                N1 = lastSpoke():name()
+                N2 = lastSpoke():steamID()
+                N = lastSpoke():steamID()
                 TP = findPlayerByName(Str1[3,string])
                 Am = Str1[4,string]:toNumber()
                 ID = TP:steamID()
                 if(TP:isPlayer()){
-                M61355[""+ID+"",number] = Am
-                print(""+lastSpoke():name()+" set the Credits for "+TP:name()+" to "+Am+"")
+                    if(M61355[""+N+"",number]>=Am){
+                        D = M61355[""+ID+"",number]+Am
+                        M61355[""+ID+"",number] = D
+                        D = M61355[""+N+"",number]-Am
+                        M61355[""+N+"",number] = D
+                        print(""+N1+" just gave '"+TP:name()+"' '"+Am+"c'")
+                        concmd("say /pm "+Str1[3,string]+" "+N1+" just gave you "+Am+"c, your ballance is now "+M61355[""+ID+"",number]+"")
+                    }else{
+                        print(""+N1+" just gave '"+TP:name()+"' '"+Am+"c' but failed to to a lack of Credits in their account!")
+                        concmd("say /pm "+N1+" I'm sorry but you don't have enough credits to preform that action!")
+                    }
+                }
             }
-        }
-    if(Str1[2,string]=="get"){
-            TP = findPlayerByName(Str1[3,string])
-            print(""+M61355[""+TP:steamID()+"",number])
-        }
-    }
-}
-    if(Str1[1,string]=="{db"){
-    if(Str1[2,string]=="dump"){
-        if (fileCanWrite()){
-            fileWrite("T6.txt",En)
-            }else{
-                print("You broke it Jim!")
-            
-        }
-    }
-    if(Str1[2,string]=="load"){
-    }
-    print("Trying.")
-    fileLoad("T2.txt")
-    if(fileLoaded()){
-        RS = fileRead()
-        M61355l = vonDecodeTable(RS)
-        }
-    }
-}
-    if(chatClk(owner())){
-    Str1 = owner():lastSaid():explode(" ")
-    if(Str1[1,string]=="{acc"){
-    if(Str1[2,string]=="create"){
+        }elseif(Str1[1,string]=="{checkbal"){
+            concmd("say /pm "+lastSpoke():name()+" You currently have "+M61355[""+lastSpoke():steamID()+"",number]+" BHC credits.")
+        }elseif(Str1[1,string]=="{acc"){
+            if(Str1[2,string]=="create"){
                 TP = findPlayerByName(Str1[3,string])
                 ID = TP:steamID()
                 if(TP:isPlayer()){
-                M61355[""+ID+"",number] = 0
-            }
-        }
-    if(Str1[2,string]=="setcred"){
+                    M61355[""+ID+"",number] = 0
+                }
+            }elseif(Str1[2,string]=="setcred"){
                 TP = findPlayerByName(Str1[3,string])
                 Am = Str1[4,string]:toNumber()
                 ID = TP:steamID()
                 if(TP:isPlayer()){
-                M61355[""+ID+"",number] = Am
-                print(""+lastSpoke():name()+" set the Credits for "+TP:name()+" to "+Am+"")
+                    M61355[""+ID+"",number] = Am
+                    print(""+lastSpoke():name()+" set the Credits for "+TP:name()+" to "+Am+"")
+                }
+            }elseif(Str1[2,string]=="get"){
+                TP = findPlayerByName(Str1[3,string])
+                print(""+M61355[""+TP:steamID()+"",number])
             }
         }
-        if(Str1[2,string]=="get"){
-            TP = findPlayerByName(Str1[3,string])
-            print(""+M61355[""+TP:steamID()+"",number])
+    }elseif(Str1[1,string]=="{db"){
+        if(Str1[2,string]=="dump"){
+            if (fileCanWrite()){
+                fileWrite("T6.txt",En)
+            }else{
+                print("You broke it Jim!")
+            }
+        }elseif(Str1[2,string]=="load"){
+            print("Trying.")
+            fileLoad("T2.txt")
+            if(fileLoaded()){
+                RS = fileRead()
+                M61355l = vonDecodeTable(RS)
+            }
+        }
+        if(chatClk(owner())){
+            Str1 = owner():lastSaid():explode(" ")
+            if(Str1[1,string]=="{acc"){
+                if(Str1[2,string]=="create"){
+                    TP = findPlayerByName(Str1[3,string])
+                    ID = TP:steamID()
+                    if(TP:isPlayer()){
+                        M61355[""+ID+"",number] = 0
+                    }
+                }elseif(Str1[2,string]=="setcred"){
+                    TP = findPlayerByName(Str1[3,string])
+                    Am = Str1[4,string]:toNumber()
+                    ID = TP:steamID()
+                    if(TP:isPlayer()){
+                        M61355[""+ID+"",number] = Am
+                        print(""+lastSpoke():name()+" set the Credits for "+TP:name()+" to "+Am+"")
+                    }
+                }elseif(Str1[2,string]=="get"){
+                    TP = findPlayerByName(Str1[3,string])
+                    print(""+M61355[""+TP:steamID()+"",number])
+                }
+            }
+        }elseif(Str1[1,string]=="{db"){
+            if(Str1[2,string]=="dump"){
+                if(fileCanWrite()){
+                    fileWrite("T3.txt",En)
+                }else{
+                    print("You broke it Jim!")
+                }
+            }elseif(Str1[2,string]=="load"){
+                print("Trying.")
+                fileLoad("T6.txt")
+                if(fileLoaded()){
+                    RS = fileRead()
+                    M61355la = vonDecodeTable(RS)
+                }
+            }
         }
     }
 }
-    if(Str1[1,string]=="{db"){
-    if(Str1[2,string]=="dump"){
-        if (fileCanWrite()){
-            fileWrite("T3.txt",En)
-            }else{
-                print("You broke it Jim!")
-            
-        }
-    }
-    if(Str1[2,string]=="load"){
-    }
-    print("Trying.")
-    fileLoad("T6.txt")
-    if(fileLoaded()){
-        RS = fileRead()
-        M61355la = vonDecodeTable(RS)
-        }
-    }
-
-            M61355l = M61355:toTable()
-            En = vonEncode(M61355l)
