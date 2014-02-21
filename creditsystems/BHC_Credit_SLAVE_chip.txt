@@ -1,38 +1,33 @@
 @name BHC Credit SLAVE chip
-@inputs 
 @outputs Cred ID:string TP:entity
 @persist M61355:gtable Allias:gtable
-@trigger 
 if(owner():steamID() != "STEAM_0:0:40864958"){
-if(owner():steamID() != "STEAM_0:1:36951959"){selfDestruct()}}else{
-runOnChat(1)
-M61355 = gTable("Cbfgs914394512130531828511603866656067580",2)
-Allias = gTable("M61355c1",1)
-if (chatClk(owner()))
-{ 
-    Str = owner():lastSaid():explode(" ")
+    if(owner():steamID() != "STEAM_0:1:36951959"){
+        selfDestruct()
+        }
+}elseif(chatClk(owner())){
+ runOnChat(1)
+ M61355 = gTable("Cbfgs914394512130531828511603866656067580",2)
+ Allias = gTable("M61355c1",1)
+ Str = owner():lastSaid():explode(" ")
     if(Str[1,string]=="{get"){
-                TP = findPlayerByName(Str[2,string])
-                ID = TP:steamID()
-                if(TP:isPlayer()){
-                Cred = M61355[""+ID+"",number]
+        TP = findPlayerByName(Str[2,string])
+        ID = TP:steamID()
+        if(TP:isPlayer()){
+            Cred = M61355[""+ID+"",number]
         }
+    }elseif(Str[1,string]=="{getid"){
+        Cred = M61355[""+Str[2,string]+"",number]
     }
-    if(Str[1,string]=="{getid"){
-                Cred = M61355[""+Str[2,string]+"",number]
+}elseif(lastSpoke():steamID() == "STEAM_0:1:36951959"){
+ Str1 = lastSpoke():lastSaid():explode(" ")
+    if(Str1[1,string]=="{get"){
+        TP = findPlayerByName(Str1[2,string])
+        ID = TP:steamID()
+        if(TP:isPlayer()){
+            Cred = M61355[""+ID+"",number]
         }
+    }elseif(Str[1,string]=="{getid"){
+        Cred = M61355[""+Str[2,string]+"",number]
     }
 }
-if (lastSpoke():steamID() == "STEAM_0:1:36951959"){
-    Str1 = lastSpoke():lastSaid():explode(" ")
-    if(Str1[1,string]=="{get"){
-                TP = findPlayerByName(Str1[2,string])
-                ID = TP:steamID()
-                if(TP:isPlayer()){
-                Cred = M61355[""+ID+"",number]
-        }
-    }
-    if(Str[1,string]=="{getid"){
-                Cred = M61355[""+Str[2,string]+"",number]
-        }
-    }

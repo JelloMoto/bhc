@@ -1,8 +1,6 @@
 @name BHC Credit MASTER chip
-@inputs
 @outputs [M61355la Bitchcake]:table
 @persist M61355:gtable En:string
-@trigger 
 if(owner():steamID() != "STEAM_0:0:40864958"){
     if(owner():steamID() != "STEAM_0:1:36951959"){
         selfDestruct()
