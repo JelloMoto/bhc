@@ -4,15 +4,36 @@
 @persist Speakers:array [HostList Channles]:gtable
 @trigger 
 if(first()){
+ #include "bhc/some_function_libaries/fileFuncs"
+ #include "bhc/some_function_libaries/arrayFuncs"
+ runOnChat(1)
+ runOnLast(1)
  Channles = gTable("S_radio, chans",1)
  HostList = gTable("S_radio, hosts",1)
  Speakers = array(Speaker_1,
                   Speaker_2,
                   Speaker_3,
                   Speaker_4)
+    function void playOnEnts(S:string){
+        entity():soundPlay(1,0,S)
+        for(I=1,4){
+            Speakers[I,entity]:soundPlay(I+1,0,S)
+        }
+    }
+    function number aicdj(N){
+        if(HostList[N,string]){
+            
+        }
+    }
 }
-
-
+if(chatClk(owner())){
+ local A = owner():lastSaid():lower():explode(" ")
+    if(A[1,string]=="{rad"){
+        if(A[2,string]=="setchan"){
+                        
+        }        
+    }
+}
 #[
 local Tes = entity():toString():explode(" ")[2,string]:replace("[",""):replace("]",""):replace("gmod_wire_expression2",""):toNumber()
     if(entity(HostList[1,number]):toString() == "(null)"){

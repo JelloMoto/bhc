@@ -1,0 +1,39 @@
+function number rightFileLoad(S:string,S2:string){
+    runOnFile(1)
+    if(fileCanLoad()){
+        fileLoad(S)
+    }
+    if(fileLoaded()){
+        if(fileRead()!=""){
+            S2 = fileRead()
+        }else{
+            fileLoad(S)
+        }
+    }
+}
+function number rightFileSave(S:string,S2:string){
+    runOnFile(1)
+    if(fileCanWrite()){
+        S = S:replace(" ","_")
+        fileWrite(S,S2)
+        fileLoad(S)
+        if(fileRead()!=S2){
+            if(S:find(".txt")){
+                fileWrite(S,S2)
+                runOnFile(0)   
+                return 1                 
+            }else{
+                S = S+".txt"
+                fileWrite(S,S2)
+                runOnFile(0)
+            }
+        }else{
+            runOnFile(0)
+            return 1
+        }
+    }else{
+        print("Cannot write to file '"+S+"'")
+        runOnFile(0)
+        return 0
+    }
+}

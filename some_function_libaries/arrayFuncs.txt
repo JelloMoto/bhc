@@ -1,0 +1,8 @@
+function number array:find(S:string){
+ A = This
+    for(I=1,A:count()){
+        if(A[I,string]==S){
+            return I
+        }
+    }
+}
