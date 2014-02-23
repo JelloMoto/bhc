@@ -1,7 +1,7 @@
 @name 'The' Radio
 @inputs [Speaker_1 Speaker_2 Speaker_3 Speaker_4]:entity
 @outputs 
-@persist Speakers:array [HostList Channles]:gtable
+@persist Speakers:array [HostList Channles]:gtable Channle
 @trigger 
 if(first()){
  #include "bhc/some_function_libaries/fileFuncs"
@@ -20,9 +20,11 @@ if(first()){
             Speakers[I,entity]:soundPlay(I+1,0,S)
         }
     }
-    function number aicdj(N){
-        if(HostList[N,string]){
-            
+    function number aicdj(N){ #Am I Channle DJ
+        if(HostList[N,string]:explode("."):afind(owner():steamID())){
+            return 1
+        }else{
+            return 0
         }
     }
 }
@@ -30,8 +32,23 @@ if(chatClk(owner())){
  local A = owner():lastSaid():lower():explode(" ")
     if(A[1,string]=="{rad"){
         if(A[2,string]=="setchan"){
-                        
-        }        
+            Channle = A[3,string]:toNumber()
+            if(Channles[Channle:toString()+"_Playing",number]==1){
+                print("A song is in progress, waiting for it to end")                
+            }else{
+                playOnEnts(Channles[Channle:toString()+"_Playing",string])
+            }
+        }
+    }elseif(A[2,string]=="addtoplaylist"){
+        if(Channle != 0){
+            if(aicdj(Channle)){
+                
+            }else{
+                print("You're not the channle DJ, you can't do that!")
+            }
+        }else{
+            print("You must set a channle first!")
+        }
     }
 }
 #[
