@@ -1,0 +1,24 @@
+@name 'The' Radio
+@inputs [Speaker_1 Speaker_2 Speaker_3 Speaker_4]:entity
+@outputs 
+@persist Speakers:array [HostList Channles]:gtable
+@trigger 
+if(first()){
+ Channles = gTable("S_radio, chans",1)
+ HostList = gTable("S_radio, hosts",1)
+ Speakers = array(Speaker_1,
+                  Speaker_2,
+                  Speaker_3,
+                  Speaker_4)
+}
+
+
+#[
+local Tes = entity():toString():explode(" ")[2,string]:replace("[",""):replace("]",""):replace("gmod_wire_expression2",""):toNumber()
+    if(entity(HostList[1,number]):toString() == "(null)"){
+        HostList[1,number] = Tes
+    }elseif(!entity(HostList[1,number]):toString():find("expression2")){
+        HostList[1,number] = Tes
+    }else{
+        selfDestruct()
+    }
