@@ -7,9 +7,9 @@ if(first()){
  #include "bhc/some_function_libaries/fileFuncs"
  #include "bhc/some_function_libaries/arrayFuncs"
  runOnChat(1)
- runOnLast(1)
  Channles = gTable("S_radio, chans",1)
  HostList = gTable("S_radio, hosts",1)
+ HostList[104,string]="Steamrasd.adada"
  Speakers = array(Speaker_1,
                   Speaker_2,
                   Speaker_3,
@@ -33,21 +33,25 @@ if(chatClk(owner())){
     if(A[1,string]=="{rad"){
         if(A[2,string]=="setchan"){
             Channle = A[3,string]:toNumber()
+            print(Channle)
             if(Channles[Channle:toString()+"_Playing",number]==1){
                 print("A song is in progress, waiting for it to end")                
             }else{
                 playOnEnts(Channles[Channle:toString()+"_Playing",string])
             }
-        }
-    }elseif(A[2,string]=="addtoplaylist"){
-        if(Channle != 0){
-            if(aicdj(Channle)){
-                
+        }elseif(A[2,string]=="addtoplaylist"){
+            if(Channle != 0){
+                if(aicdj(Channle)==1){
+                    Channles[Channle:toString()+"_Playlist",string]= Channles[Channle:toString()+"_Playlist",string]+A[3,string]+"."
+                    print(Channles[Channle:toString()+"_Playlist",string])
+                }else{
+                    print("You're not the channle DJ, you can't do that!")
+                }
             }else{
-                print("You're not the channle DJ, you can't do that!")
+                print("You must set a channle first!")
             }
         }else{
-            print("You must set a channle first!")
+            print("Whut?")
         }
     }
 }
