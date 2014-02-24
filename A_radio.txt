@@ -80,12 +80,3 @@ if(clk("play")){
  local Tmer = whatsLarger(Channles[Channle+"_at",number],Channles[Channle+"_songlength",number])-whatsSmaller(Channles[Channle+"_at",number],Channles[Channle+"_songlength",number])
  timer("play",Tmer)
 }
-#[
-local Tes = entity():toString():explode(" ")[2,string]:replace("[",""):replace("]",""):replace("gmod_wire_expression2",""):toNumber()
-    if(entity(HostList[1,number]):toString() == "(null)"){
-        HostList[1,number] = Tes
-    }elseif(!entity(HostList[1,number]):toString():find("expression2")){
-        HostList[1,number] = Tes
-    }else{
-        selfDestruct()
-    }
