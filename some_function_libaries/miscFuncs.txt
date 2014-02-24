@@ -1,4 +1,10 @@
-function number whatsLarger(N,N2){ #These two are for 'dynamic' vallue definitions where you can't use '>' or '<'
+#These two are for 'dynamic' vallue definitions where you can't use '>' or '<' 
+#I.E:local Tmer = whatsLarger(Channles[Channle+"_at",number],
+#                             Channles[Channle+"_songlength",number])
+#                             -
+#                 whatsSmaller(Channles[Channle+"_at",number],
+#                              Channles[Channle+"_songlength",number])
+function number whatsLarger(N,N2){    
     if(N>=N2){
         return N
     }elseif(N2>=N){

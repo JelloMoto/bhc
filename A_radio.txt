@@ -37,7 +37,8 @@ if(chatClk(owner())){
             print(Channle)
             if(Channles[Channle:toString()+"_Playing",number]==1){
                 print("A song is in progress, waiting for it to end")  
-                #local Tmer =               
+                local Tmer = whatsLarger(Channles[Channle+"_at",number],Channles[Channle+"_songlength",number])-whatsSmaller(Channles[Channle+"_at",number],Channles[Channle+"_songlength",number])
+                timer("play",Tmer)
             }else{
                 playOnEnts(Channles[Channle:toString()+"_Playing",string])
             }
@@ -64,6 +65,11 @@ if(chatClk(owner())){
 if(clk("sClk")){
  Channles[Channle+"_at",number]=Channles[Channle+"_at",number]+1
  timer("sClk",1000)
+}
+if(clk("play")){
+ playOnEnts(Channles[Channle:toString()+"_Playlist",string]:explode(".")[1,string])
+ local Tmer = whatsLarger(Channles[Channle+"_at",number],Channles[Channle+"_songlength",number])-whatsSmaller(Channles[Channle+"_at",number],Channles[Channle+"_songlength",number])
+ timer("play",Tmer)
 }
 #[
 local Tes = entity():toString():explode(" ")[2,string]:replace("[",""):replace("]",""):replace("gmod_wire_expression2",""):toNumber()
