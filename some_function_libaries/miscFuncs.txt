@@ -1,0 +1,14 @@
+function number whatsLarger(N,N2){ #These two are for 'dynamic' vallue definitions where you can't use '>' or '<'
+    if(N>=N2){
+        return N
+    }elseif(N2>=N){
+        return N2
+    }
+}
+function number whatsSmaller(N,N2){
+    if(N<=N2){
+        return N
+    }elseif(N2<=N){
+        return N2
+    }
+}

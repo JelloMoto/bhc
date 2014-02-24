@@ -6,6 +6,7 @@
 if(first()){
  #include "bhc/some_function_libaries/fileFuncs"
  #include "bhc/some_function_libaries/arrayFuncs"
+ #include "bhc/some_function_libaries/miscFuncs"
  runOnChat(1)
  Channles = gTable("S_radio, chans",1)
  HostList = gTable("S_radio, hosts",1)
@@ -35,7 +36,8 @@ if(chatClk(owner())){
             Channle = A[3,string]:toNumber()
             print(Channle)
             if(Channles[Channle:toString()+"_Playing",number]==1){
-                print("A song is in progress, waiting for it to end")                
+                print("A song is in progress, waiting for it to end")  
+                #local Tmer =               
             }else{
                 playOnEnts(Channles[Channle:toString()+"_Playing",string])
             }
@@ -50,10 +52,18 @@ if(chatClk(owner())){
             }else{
                 print("You must set a channle first!")
             }
-        }else{
-            print("Whut?")
+        }elseif(A[2,string]=="broad-cast"){
+            Channles[Channle+"_songlength",number]=soundDuration(Channles[Channle:toString()+"_Playlist",string]:explode(".")[1,string])
+            Channles[Channle+"_at",number]=0
+            Channles[Channle:toString()+"_Playing",number]=1
+            playOnEnts(Channles[Channle:toString()+"_Playlist",string]:explode(".")[1,string])
+            timer("sClk",1000)
         }
     }
+}
+if(clk("sClk")){
+ Channles[Channle+"_at",number]=Channles[Channle+"_at",number]+1
+ timer("sClk",1000)
 }
 #[
 local Tes = entity():toString():explode(" ")[2,string]:replace("[",""):replace("]",""):replace("gmod_wire_expression2",""):toNumber()
