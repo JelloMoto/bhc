@@ -1,7 +1,7 @@
 @name 'The' Radio
 @inputs [Speaker_1 Speaker_2 Speaker_3 Speaker_4]:entity
 @outputs 
-@persist Speakers:array [HostList Channles]:gtable Channle
+@persist [A Speakers]:array [HostList Channles]:gtable Channle [S]:string
 @trigger 
 if(first()){
  #include "bhc/some_function_libaries/fileFuncs"
@@ -11,6 +11,8 @@ if(first()){
  Channles = gTable("S_radio, chans",1)
  HostList = gTable("S_radio, hosts",1)
  HostList[104,string]="Steamrasd.adada"
+ Channles["104_Playlst",string]="/music/hl2_song12_long./music/hl2_song14./music/hl2_song23_suitsong3"
+ Channles["104_song",number]=1
  Speakers = array(Speaker_1,
                   Speaker_2,
                   Speaker_3,
@@ -40,7 +42,9 @@ if(chatClk(owner())){
                 local Tmer = whatsLarger(Channles[Channle+"_at",number],Channles[Channle+"_songlength",number])-whatsSmaller(Channles[Channle+"_at",number],Channles[Channle+"_songlength",number])
                 timer("play",Tmer)
             }else{
-                playOnEnts(Channles[Channle:toString()+"_Playing",string])
+                timer("Sheep",3000)
+                S = Channles[Channle+"_Playlist",string]
+                A = S:explode(".")
             }
         }elseif(A[2,string]=="addtoplaylist"){
             if(Channle != 0){
@@ -76,7 +80,20 @@ if(clk("sClk")){
     }
 }
 if(clk("play")){
- playOnEnts(Channles[Channle:toString()+"_Playlist",string]:explode(".")[Channles[Channle+"_song",number],string])
+ playOnEnts(Channles[Channle:toString()+"_Playlist",string]:explode(".")[Channles[Channle+"_song",number],string]+".mp3")
  local Tmer = whatsLarger(Channles[Channle+"_at",number],Channles[Channle+"_songlength",number])-whatsSmaller(Channles[Channle+"_at",number],Channles[Channle+"_songlength",number])
  timer("play",Tmer)
 }
+if(clk("Sheep")){
+ playOnEnts(Channles[Channle:toString()+"_Playlist",string]:explode(".")[Channles[Channle+"_song",number],string]+".mp3")
+ print(Channles[Channle+"_Playlist",string])
+ print(Channles["104_Playlst",string])
+ print(Channle+"_Playlist")
+ print(Channles[Channle+"_song",number])
+ print(A)
+}
+
+
+
+
+
