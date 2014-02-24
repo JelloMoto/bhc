@@ -64,10 +64,19 @@ if(chatClk(owner())){
 }
 if(clk("sClk")){
  Channles[Channle+"_at",number]=Channles[Channle+"_at",number]+1
- timer("sClk",1000)
+    if(Channles[Channle+"_at",number]>=Channles[Channle+"_songlength",number]){
+        if(Channles[Channle+"_song",number]>=Channles[Channle:toString()+"_Playlist",string]:explode("."):count()){
+            Channles[Channle+"_song",number]=1
+        }else{
+            Channles[Channle+"_song",number]=Channles[Channle+"_song",number]+1
+        }
+        Channles[Channle+"_at",number]=Channles[Channle+"_at",number]+1
+    }else{
+        timer("sClk",1000)
+    }
 }
 if(clk("play")){
- playOnEnts(Channles[Channle:toString()+"_Playlist",string]:explode(".")[1,string])
+ playOnEnts(Channles[Channle:toString()+"_Playlist",string]:explode(".")[Channles[Channle+"_song",number],string])
  local Tmer = whatsLarger(Channles[Channle+"_at",number],Channles[Channle+"_songlength",number])-whatsSmaller(Channles[Channle+"_at",number],Channles[Channle+"_songlength",number])
  timer("play",Tmer)
 }
