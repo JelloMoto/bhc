@@ -15,3 +15,15 @@
             return 0
         }
     }
+    function number entity:touchingl(W:wirelink,I){
+        local Y1 = W:egpPos(I):x()
+        local X1 = W:egpPos(I):x()
+        local Y2 = W:egpPos(I):y()+W:egpSize(I):y()
+        local X2 = W:egpPos(I):x()+W:egpSize(I):x()+10
+        local Vpos = W:egpCursor(This)
+        if(inrange(Vpos,vec2(X1,Y1),vec2(X2,Y2))){
+            return 1
+        }else{
+            return 0
+        }
+    }

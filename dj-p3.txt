@@ -1,7 +1,14 @@
-@inputs S:wirelink
-@persist [P R Speakers]:array
+@inputs S:wirelink [S1 S2 S3 S4]:entity
+@outputs [P1 P2 P3 P4 R Speakers]:array
+@persist
+@persist T
 if(first()){
  #include "bhc/some_function_libaries/fileFuncs"
+ #include "bhc/some_function_libaries/egpFuncs"
+ Speakers=array(S1,
+                S2,
+                S3,
+                S4)
     function void playOnEnts(S:string){
         entity():soundPlay(1,0,S)
         for(I=1,4){
@@ -10,9 +17,60 @@ if(first()){
     }
  setName("DJ -P3 \n By Serconker[Aka The Other Lexi]")
  S:egpClear()
+ S:egpDrawTopLeft(1)
+ S:egpBox(1,vec2(),vec2(512,512))
+ S:egpBox(2,vec2(),vec2(512,512))
+
+ S:egpBox(3,vec2(0,128),vec2(126,32))
+ S:egpBox(4,vec2(S:egpPos(3):x(),S:egpPos(3):y()+2),vec2(S:egpSize(3):x()-2,S:egpSize(3):y()-4))
+
+ S:egpBox(5,vec2(0,S:egpPos(3):y()+64),vec2(126,32))
+ S:egpBox(6,vec2(S:egpPos(5):x(),S:egpPos(5):y()+2),vec2(S:egpSize(5):x()-2,S:egpSize(5):y()-4))
+
+ S:egpBox(7,vec2(0,S:egpPos(5):y()+64),vec2(126,32))
+ S:egpBox(8,vec2(S:egpPos(7):x(),S:egpPos(7):y()+2),vec2(S:egpSize(7):x()-2,S:egpSize(7):y()-4))
+
+ S:egpBox(9,vec2(0,S:egpPos(7):y()+64),vec2(126,32))
+ S:egpBox(10,vec2(S:egpPos(9):x(),S:egpPos(9):y()+2),vec2(S:egpSize(9):x()-2,S:egpSize(9):y()-4))
+
+ S:egpColor(1,vec(120,120,155))
+ S:egpColor(2,vec(155,155,255))
+
+ S:egpColor(3,vec(155,155,255))
+ S:egpColor(4,S:egpColor(1))
+
+ S:egpColor(5,vec(155,155,255))
+ S:egpColor(6,S:egpColor(1))
+
+ S:egpColor(7,vec(155,155,255))
+ S:egpColor(8,S:egpColor(1))
+
+ S:egpColor(9,vec(155,155,255))
+ S:egpColor(10,S:egpColor(1))
+
+ S:egpMaterial(2,"gui/center_gradient")
  timer("clk",0)
  runOnChat(1)
 }
 if(chatClk(owner())){
  local A = owner():lastSaid():lower():explode(" ")
+}
+if(clk("clk")){
+ P1[1,number]=S:egpSize(3):x()/1.90
+    if(owner():keyUse()){
+        if(owner():touchingl(S,3)){
+            S:egpBox(3,vec2(0,128),vec2(S:egpCursor(owner()):x()+40,32))
+            S:egpBox(4,vec2(S:egpPos(3):x(),S:egpPos(3):y()+2),vec2(S:egpSize(3):x()-2,S:egpSize(3):y()-4))
+        }elseif(owner():touchingl(S,5)){
+            S:egpBox(5,vec2(0,S:egpPos(3):y()+64),vec2(S:egpCursor(owner()):x()+40,32))
+            S:egpBox(6,vec2(S:egpPos(5):x(),S:egpPos(5):y()+2),vec2(S:egpSize(5):x()-2,S:egpSize(5):y()-4))
+        }elseif(owner():touchingl(S,7)){
+            S:egpBox(7,vec2(0,S:egpPos(5):y()+64),vec2(S:egpCursor(owner()):x()+40,32))
+            S:egpBox(8,vec2(S:egpPos(7):x(),S:egpPos(7):y()+2),vec2(S:egpSize(7):x()-2,S:egpSize(7):y()-4))
+        }elseif(owner():touchingl(S,9)){
+            S:egpBox(9,vec2(0,S:egpPos(7):y()+64),vec2(S:egpCursor(owner()):x()+40,32))
+            S:egpBox(10,vec2(S:egpPos(9):x(),S:egpPos(9):y()+2),vec2(S:egpSize(9):x()-2,S:egpSize(9):y()-4))
+        }
+    }
+ timer("clk",100)
 }
