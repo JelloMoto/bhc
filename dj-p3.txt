@@ -1,7 +1,7 @@
 @inputs S:wirelink [S1 S2 S3 S4]:entity
 @outputs [P1 P2 P3 P4 R Speakers]:array
 @persist
-@persist T
+@persist T1 T2 T3 T4
 if(first()){
  #include "bhc/some_function_libaries/fileFuncs"
  #include "bhc/some_function_libaries/egpFuncs"
@@ -9,6 +9,10 @@ if(first()){
                 S2,
                 S3,
                 S4)
+ T1 = 1
+ T2 = 1
+ T3 = 1
+ T4 = 1
     function void playOnEnts(S:string){
         entity():soundPlay(1,0,S)
         for(I=1,4){
@@ -56,7 +60,10 @@ if(chatClk(owner())){
  local A = owner():lastSaid():lower():explode(" ")
 }
 if(clk("clk")){
- P1[1,number]=S:egpSize(3):x()/1.90
+ P1[T1,number]=S:egpSize(3):x()/1.90
+ P2[T2,number]=S:egpSize(5):x()/1.90
+ P3[T3,number]=S:egpSize(7):x()/1.90
+ P4[T4,number]=S:egpSize(9):x()/1.90
     if(owner():keyUse()){
         if(owner():touchingl(S,3)){
             S:egpBox(3,vec2(0,128),vec2(S:egpCursor(owner()):x()+40,32))
