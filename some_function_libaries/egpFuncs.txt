@@ -1,0 +1,17 @@
+    function void wirelink:etc(I,S:string,V:vector2,Z){
+        This:egpText(I,S,V)
+        This:egpSize(I,Z)
+        This:egpAlign(I,1,1)
+    }
+    function number entity:touching(W:wirelink,I){
+        local Y1 = W:egpPos(I):y()-(W:egpSize(I):y()/2)
+        local X1 = W:egpPos(I):x()-(W:egpSize(I):x()/2)
+        local Y2 = W:egpPos(I):y()+(W:egpSize(I):y()/2)
+        local X2 = W:egpPos(I):x()+(W:egpSize(I):x()/2)
+        local Vpos = W:egpCursor(This)
+        if(inrange(Vpos,vec2(X1,Y1),vec2(X2,Y2))){
+            return 1
+        }else{
+            return 0
+        }
+    }

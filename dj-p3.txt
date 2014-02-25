@@ -1,0 +1,18 @@
+@inputs S:wirelink
+@persist [P R Speakers]:array
+if(first()){
+ #include "bhc/some_function_libaries/fileFuncs"
+    function void playOnEnts(S:string){
+        entity():soundPlay(1,0,S)
+        for(I=1,4){
+            Speakers[I,entity]:soundPlay(I+1,0,S)
+        }
+    }
+ setName("DJ -P3 \n By Serconker[Aka The Other Lexi]")
+ S:egpClear()
+ timer("clk",0)
+ runOnChat(1)
+}
+if(chatClk(owner())){
+ local A = owner():lastSaid():lower():explode(" ")
+}
