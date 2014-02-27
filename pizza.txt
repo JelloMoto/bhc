@@ -26,5 +26,5 @@ if(chatClk(owner())){
     }
 }
 if(clk("a")){
- concmd("say /advert Pizza has been delievered to " + Name + "; on time as always!")
+ concmd("say /advert Pizza has been delievered to " + Name + ", on time as always!")
 }
