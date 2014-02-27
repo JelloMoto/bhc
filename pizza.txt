@@ -1,0 +1,30 @@
+@name Pizza Ordering System
+@inputs E:wirelink
+@outputs
+@persist Name:string A:array
+@trigger
+if(first()|duped()){
+ Name = "Yolo"
+    function normal commands(){
+        print("--------------------------Commands--------------------------")
+        print("!Help - Print commands")  
+        print("!HC - Hit complete - Adverts Pizza Delievered To <Name>")  
+    }
+    commands()
+    interval(500)
+    runOnChat(1)
+}
+if(chatClk(owner())){
+ A=owner():lastSaid():lower():explode(" ")
+    if(A[1,string]== "!help"){
+        commands()
+        hideChat(1)
+    }
+    if(A[1,string] == "!hc"){
+        timer("a",300)
+    }
+}
+if(clk("a")){
+ concmd("say Pizza has been delievered to " + Name + "; on time as always!")
+ hideChat(1)    
+}
