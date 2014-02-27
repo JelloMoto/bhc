@@ -1,0 +1,15 @@
+@name Blarg_28
+@inputs La
+@outputs Da
+@persist P
+@trigger La
+if(first()){
+ P=3
+}
+if(La>P){
+ Da=(La-P)    
+}elseif(La==P){
+ Da=0
+}else{
+ Da=0
+}
