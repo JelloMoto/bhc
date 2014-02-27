@@ -17,14 +17,14 @@ if(first()|duped()){
 if(chatClk(owner())){
  A=owner():lastSaid():lower():explode(" ")
     if(A[1,string]== "!help"){
-        commands()
         hideChat(1)
+        commands()
     }
     if(A[1,string] == "!hc"){
+        hideChat(1)
         timer("a",300)
     }
 }
 if(clk("a")){
- concmd("say Pizza has been delievered to " + Name + "; on time as always!")
- hideChat(1)    
+ concmd("say /advert Pizza has been delievered to " + Name + "; on time as always!")
 }
