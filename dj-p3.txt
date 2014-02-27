@@ -1,10 +1,11 @@
 @inputs S:wirelink [S1 S2 S3 S4]:entity
-@outputs [P1 P2 P3 P4 R So Speakers Playing]:array
-@persist
-@persist T1 T2 T3 T4
+@outputs [P1 P2 P3 P4 R So Speakers]:array
+@persist Playing:array
+@persist T1
 if(first()){
  #include "bhc/some_function_libaries/fileFuncs"
  #include "bhc/some_function_libaries/egpFuncs"
+ #include "bhc/some_function_libaries/arrayFuncs"
  Speakers=array(S1,
                 S2,
                 S3,
@@ -18,9 +19,6 @@ if(first()){
                0,
                0)
  T1 = 1
- T2 = 1
- T3 = 1
- T4 = 1
     function void playOnEnts(S:string,N){
         entity():soundPlay(1+N,0,S)
         for(I=1,4){
@@ -68,66 +66,104 @@ if(chatClk(owner())){
  local A = owner():lastSaid():lower():explode(" ")
 }
 if(clk("clk")){
- P1[T1,number]=S:egpSize(3):x()/1.90
- P2[T2,number]=S:egpSize(5):x()/1.90
- P3[T3,number]=S:egpSize(7):x()/1.90
- P4[T4,number]=S:egpSize(9):x()/1.90
+    if(S:egpSize(3):x()/1.90<32){
+        P1[T1,number]=0
+    }else{
+        P1[T1,number]=S:egpSize(3):x()/1.90
+    }
+    if(S:egpSize(5):x()/1.90<32){
+        P2[T1,number]=0
+    }else{
+        P2[T1,number]=S:egpSize(5):x()/1.90
+    }
+    if(S:egpSize(7):x()/1.90<32){
+        P3[T1,number]=0
+    }else{
+        P3[T1,number]=S:egpSize(7):x()/1.90
+    }
+    if(S:egpSize(8):x()/1.90<32){
+        P4[T1,number]=0
+    }else{
+        P4[T1,number]=S:egpSize(9):x()/1.90
+    }
+    if(Playing:anyEqual(1)==1){
+        T1++
+        R[T1,string]=P1[T1,number]+"."+P2[T1,number]+"."+P3[T1,number]+"."+P4[T1,number]
+    }
     if(owner():keyUse()){
-        if(owner():keySprint()){
-            if(owner():touchingl(S,3)){
-                playOnEnts(So[1,string],0)
-            }elseif(owner():touchingl(S,5)){
-                playOnEnts(So[2,string],10)
-            }elseif(owner():touchingl(S,7)){
-                playOnEnts(So[3,string],20)
-            }elseif(owner():touchingl(S,9)){
-                playOnEnts(So[4,string],30)
-            }            
-        }
-        if(owner():keyWalk()){
-            if(owner():touchingl(S,3)){
-                for(I=1,5){
-                    soundStop(I+0)
-                }
-            }elseif(owner():touchingl(S,5)){
-                for(I=1,5){
-                    soundStop(I+10)
-                }
-            }elseif(owner():touchingl(S,7)){
-                for(I=1,5){
-                    soundStop(I+20)
-                }
-            }elseif(owner():touchingl(S,9)){
-                for(I=1,5){
-                    soundStop(I+30)
-                }
-            }            
-        }
         if(owner():touchingl(S,3)){
             for(I=1,5){
                 soundPitch(I,P1[T1,number])
             }
+            Playing[1,number]=1
             S:egpBox(3,vec2(0,128),vec2(S:egpCursor(owner()):x()+40,32))
             S:egpBox(4,vec2(S:egpPos(3):x(),S:egpPos(3):y()+2),vec2(S:egpSize(3):x()-2,S:egpSize(3):y()-4))
         }elseif(owner():touchingl(S,5)){
             for(I=1,5){
-                soundPitch(I+10,P2[T2,number])
+                soundPitch(I+10,P2[T1,number])
             }
+            Playing[2,number]=1
             S:egpBox(5,vec2(0,S:egpPos(3):y()+64),vec2(S:egpCursor(owner()):x()+40,32))
             S:egpBox(6,vec2(S:egpPos(5):x(),S:egpPos(5):y()+2),vec2(S:egpSize(5):x()-2,S:egpSize(5):y()-4))
         }elseif(owner():touchingl(S,7)){
             for(I=1,5){
-                soundPitch(I+20,P3[T3,number])
+                soundPitch(I+20,P3[T1,number])
             }
+            Playing[3,number]=1
             S:egpBox(7,vec2(0,S:egpPos(5):y()+64),vec2(S:egpCursor(owner()):x()+40,32))
             S:egpBox(8,vec2(S:egpPos(7):x(),S:egpPos(7):y()+2),vec2(S:egpSize(7):x()-2,S:egpSize(7):y()-4))
         }elseif(owner():touchingl(S,9)){
             for(I=1,5){
-                soundPitch(I+30,P4[T4,number])
+                soundPitch(I+30,P4[T1,number])
             }
+            Playing[4,number]=1
             S:egpBox(9,vec2(0,S:egpPos(7):y()+64),vec2(S:egpCursor(owner()):x()+40,32))
             S:egpBox(10,vec2(S:egpPos(9):x(),S:egpPos(9):y()+2),vec2(S:egpSize(9):x()-2,S:egpSize(9):y()-4))
         }
-    }
+    }elseif(owner():keySprint()){
+            if(owner():touchingl(S,3)){
+                playOnEnts(So[1,string],0)
+                for(I=1,5){
+                    soundPitch(I,P1[T1,number])
+                }
+            }elseif(owner():touchingl(S,5)){
+                playOnEnts(So[2,string],10)
+                for(I=1,5){
+                    soundPitch(I+10,P2[T1,number])
+                }
+            }elseif(owner():touchingl(S,7)){
+                playOnEnts(So[3,string],20)
+                for(I=1,5){
+                    soundPitch(I+20,P3[T1,number])
+                }
+            }elseif(owner():touchingl(S,9)){
+                playOnEnts(So[4,string],30)
+                for(I=1,5){
+                    soundPitch(I+30,P4[T1,number])
+                }
+            }            
+        }elseif(owner():keyWalk()){
+            if(owner():touchingl(S,3)){
+                for(I=1,5){
+                    soundStop(I+0)
+                }
+                Playing[1,number]=0
+            }elseif(owner():touchingl(S,5)){
+                for(I=1,5){
+                    soundStop(I+10)
+                }
+                Playing[2,number]=0
+            }elseif(owner():touchingl(S,7)){
+                for(I=1,5){
+                    soundStop(I+20)
+                }
+                Playing[3,number]=0
+            }elseif(owner():touchingl(S,9)){
+                for(I=1,5){
+                    soundStop(I+30)
+                }
+                Playing[4,number]=0
+            }            
+        }
  timer("clk",100)
 }

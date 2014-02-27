@@ -6,3 +6,13 @@ function number array:afind(S:string){
         }
     }
 }
+function number array:anyEqual(N){
+ A = This
+    for(I=1,A:count()){
+        if(A[I,number]==N){
+            return 1
+        }else{
+            return 2
+        }
+    }
+}
