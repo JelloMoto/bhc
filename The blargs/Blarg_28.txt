@@ -1,15 +1,15 @@
 @name Blarg_28
-@inputs La
-@outputs Da
-@persist P
-@trigger La
+@inputs La #This is the last amount put into the pot
+@outputs Da #This is how much to drop from the money pot
+@persist P #Price
+@trigger La #Triggered by the Last Amount output from the pot changing
 if(first()){
- P=3
+ P=3 #P is the price of the object
 }
-if(La>P){
- Da=(La-P)    
-}elseif(La==P){
+if(La>P){ #Seeing if 
+ Da=(La-P) #Droping the difference of what was put into the pot with the price of the object.
+}elseif(La==P){ #But if La and P are equal, drop nothing
  Da=0
-}else{
+}else{ #If anything else; drop nothing.
  Da=0
 }
