@@ -11,6 +11,19 @@ function number rightFileLoad(S:string,S2:string){
         }
     }
 }
+function string rightFileLoad(S:string,){
+    runOnFile(1)
+    if(fileCanLoad()){
+        fileLoad(S)
+    }
+    if(fileLoaded()){
+        if(fileRead()!=""){
+            return fileRead()
+        }else{
+            fileLoad(S)
+        }
+    }
+}
 function number rightFileSave(S:string,S2:string){
     runOnFile(1)
     if(fileCanWrite()){
