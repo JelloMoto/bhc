@@ -104,28 +104,28 @@ if(clk("clk")){
             }
             S:egpBox(3,vec2(0,128),vec2(S:egpCursor(owner()):x()+40,32))
             S:egpBox(4,vec2(S:egpPos(3):x(),S:egpPos(3):y()+2),vec2(S:egpSize(3):x()-2,S:egpSize(3):y()-4))
-#            S:egpColor(4,S:egpColor(4)+(P1[T1,number]/10))
+            S:egpColor(4,S:egpColor(4)+(P1[T1,number]/10))
         }elseif(owner():touchingl(S,5)){
             for(I=1,5){
                 soundPitch(I+10,P2[T1,number])
             }
             S:egpBox(5,vec2(0,S:egpPos(3):y()+64),vec2(S:egpCursor(owner()):x()+40,32))
             S:egpBox(6,vec2(S:egpPos(5):x(),S:egpPos(5):y()+2),vec2(S:egpSize(5):x()-2,S:egpSize(5):y()-4))
-#            S:egpColor(6,S:egpColor(6)+(P2[T1,number]/10))
+            S:egpColor(6,S:egpColor(6)+(P2[T1,number]/10))
         }elseif(owner():touchingl(S,7)){
             for(I=1,5){
                 soundPitch(I+20,P3[T1,number])
             }
             S:egpBox(7,vec2(0,S:egpPos(5):y()+64),vec2(S:egpCursor(owner()):x()+40,32))
             S:egpBox(8,vec2(S:egpPos(7):x(),S:egpPos(7):y()+2),vec2(S:egpSize(7):x()-2,S:egpSize(7):y()-4))
-#            S:egpColor(8,S:egpColor(8)+(P3[T1,number]/10))
+            S:egpColor(8,S:egpColor(8)+(P3[T1,number]/10))
         }elseif(owner():touchingl(S,9)){
             for(I=1,5){
                 soundPitch(I+30,P4[T1,number])
             }
             S:egpBox(9,vec2(0,S:egpPos(7):y()+64),vec2(S:egpCursor(owner()):x()+40,32))
             S:egpBox(10,vec2(S:egpPos(9):x(),S:egpPos(9):y()+2),vec2(S:egpSize(9):x()-2,S:egpSize(9):y()-4))
-#            S:egpColor(10,S:egpColor(10)+(P1[T1,number]/10))
+            S:egpColor(10,S:egpColor(10)+(P1[T1,number]/10))
         }else{
             for(I=1,5){
                 soundPitch(I+0,P1[T1,number])
