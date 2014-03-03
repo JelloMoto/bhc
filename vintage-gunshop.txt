@@ -1,0 +1,394 @@
+@name
+@inputs MX MY CS:wirelink Use PPU1 PPU2 PPU3 PPU4 PPU5 PPU6
+@inputs RE1:entity RE2:entity RE3:entity
+@inputs RE4:entity RE5:entity RE6:entity
+@inputs P1 P2 P3 P4 P5 P6 MoneyBox Reset
+@outputs FixedX FixedY ShopTable:array ShopReady OrderComplete
+@outputs U1 U2 U3 U4 U5 U6
+@persist Location Item1Q Item2Q Item3Q Item4Q Item5Q Item6Q TotalCost FirstLocation2
+@persist Location3First CurrentTable:array
+@trigger 
+#interval(100)
+FixedX = round(MX*29)
+FixedY = round(MY*17)
+#Screen codes
+if (first()) 
+    {
+        U1Done = 0
+        U2Done = 0
+        U3Done = 0
+        U4Done = 0
+        U5Done = 0
+        U6Done = 0
+        OrderComplete = 0
+        Location3First = 1
+        FirstLocation2 = 1
+        CS[2041] = 1
+        Location = 0
+        CS[2046] = 0
+        CS:writeString("Do you want to buy something?",0,0)
+        CS:writeString("        ~Press Use~          ",0,1)
+        CS:writeString("                             ",0,2)
+        CS:writeString("        -----------          ",0,3,191)
+        CS:writeString("        - Y  E  S -          ",0,4,191)
+        CS:writeString("        -----------          ",0,5,191)
+        CS:writeString("                             ",0,6)
+        CS:writeString("        -----------          ",0,7,900)
+        CS:writeString("        -   N O   -          ",0,8,900)
+        CS:writeString("        -----------          ",0,9,900)
+        CS:writeString("                             ",0,10)
+        CS:writeString("                             ",0,11)
+        CS:writeString("                             ",0,12)
+    }
+if(~Use&Use&Location==0&(FixedY>=3&FixedY<=5))
+    {
+        Location = 1
+        CS[2041] = 1
+        CS:writeString("Excellent!  What do you want?",0,0)
+        CS:writeString("Press Use To Select Items :) ",0,1)
+        CS:writeString(RE1:shipmentName(),0,2,999,500)
+        CS:writeString("   Price: "+"$"+P1,0,3)
+        CS:writeString("Left: "+RE1:shipmentAmount(),20,3)
+        CS:writeString(RE2:shipmentName(),0,4,999,500)
+        CS:writeString("   Price: "+"$"+P2,0,5)
+        CS:writeString("Left: "+RE2:shipmentAmount(),20,5)
+        CS:writeString(RE3:shipmentName(),0,6,999,500)
+        CS:writeString("   Price: "+"$"+P3,0,7)
+        CS:writeString("Left: "+RE3:shipmentAmount(),20,7)
+        CS:writeString(RE4:shipmentName(),0,8,999,500)
+        CS:writeString("   Price: "+"$"+P4,0,9)
+        CS:writeString("Left: "+RE4:shipmentAmount(),20,9)
+        CS:writeString(RE5:shipmentName(),0,10,999,500)
+        CS:writeString("   Price: "+"$"+P5,0,11)
+        CS:writeString("Left: "+RE5:shipmentAmount(),20,11)
+        CS:writeString(RE6:shipmentName(),0,12,999,500)
+        CS:writeString("   Price: "+"$"+P6,0,13)
+        CS:writeString("Left: "+RE6:shipmentAmount(),20,13)
+        ########
+        CS:writeString("-----------------------------",0,14)
+        CS:writeString(" Total Cost:         +-----+ ",0,15)
+        CS:writeString(" -CANCEL-            |ORDER| ",0,16)
+        CS:writeString("ORDER",22,16,181)
+        CS:writeString("CANCEL",2,16,800)
+        CS:writeString(" +------+            +-----+ ",0,17)
+        timer("writeQTs",20)
+        timer("writeTotal",500)
+    }
+if(clk("writeTotal")&Location == 1)
+    {
+        TotalCost = Item1Q*PPU1+Item2Q*PPU2+Item3Q*PPU3+Item4Q*PPU4+Item5Q*PPU5+Item6Q*PPU6
+        CS:writeString("______",13,15)
+        CS:writeString("$"+TotalCost:toString(),13,15)
+        timer("writeTotal",500)
+    }
+if(clk("writeQTs")&Location == 1)
+    {
+        ### Item 1
+        CS:writeString("-",21,2)
+        CS:writeString(Item1Q:toString(),23,2)
+        CS:writeString("+",25,2)
+        ### Item 2
+        CS:writeString("-",21,4)
+        CS:writeString(Item2Q:toString(),23,4)
+        CS:writeString("+",25,4)
+        ### Item 3
+        CS:writeString("-",21,6)
+        CS:writeString(Item3Q:toString(),23,6)
+        CS:writeString("+",25,6)
+        ### Item 4
+        CS:writeString("-",21,8)
+        CS:writeString(Item4Q:toString(),23,8)
+        CS:writeString("+",25,8)
+        ### Item 5
+        CS:writeString("-",21,10)
+        CS:writeString(Item5Q:toString(),23,10)
+        CS:writeString("+",25,10)
+        ### Item 6
+        CS:writeString("-",21,12)
+        CS:writeString(Item6Q:toString(),23,12)
+        CS:writeString("+",25,12)
+    }
+if(~Use&Use&Location==1)
+    {
+        if((FixedX<22)&(FixedY==3|FixedY==4))
+            {
+                if(Item1Q>0)
+                    {
+                        Item1Q--
+                    }            
+            }
+        if((FixedX>23)&(FixedY==3|FixedY==4))
+            {
+                if(Item1Q<9&Item1Q<RE1:shipmentAmount())
+                    {
+                        Item1Q++
+                    }            
+            }
+        ###########################################
+        if((FixedX<22)&(FixedY==5|FixedY==5))
+            {
+                if(Item2Q>0)
+                    {
+                        Item2Q--
+                    }            
+            }
+        if((FixedX>23)&(FixedY==5|FixedY==5))
+            {
+                if(Item2Q<9&Item2Q<RE2:shipmentAmount())
+                    {
+                        Item2Q++
+                    }            
+            }
+        ###########################################
+        if((FixedX<22)&(FixedY==6|FixedY==7))
+            {
+                if(Item3Q>0)
+                    {
+                        Item3Q--
+                    }            
+            }
+        if((FixedX>23)&(FixedY==6|FixedY==7))
+            {
+                if(Item3Q<9&Item3Q<RE3:shipmentAmount())
+                    {
+                        Item3Q++
+                    }            
+            }
+        ###########################################
+        if((FixedX<22)&(FixedY==8|FixedY==9))
+            {
+                if(Item4Q>0)
+                    {
+                        Item4Q--
+                    }            
+            }
+        if((FixedX>23)&(FixedY==8|FixedY==9))
+            {
+                if(Item4Q<9&Item4Q<RE4:shipmentAmount())
+                    {
+                        Item4Q++
+                    }            
+            }
+        ###########################################
+        if((FixedX<22)&(FixedY==10|FixedY==11))
+            {
+                if(Item5Q>0)
+                    {
+                        Item5Q--
+                    }            
+            }
+        if((FixedX>23)&(FixedY==10|FixedY==11))
+            {
+                if(Item5Q<9&Item5Q<RE5:shipmentAmount())
+                    {
+                        Item5Q++
+                    }            
+            }
+        ###########################################
+        if((FixedX<22)&(FixedY==12|FixedY==13))
+            {
+                if(Item6Q>0)
+                    {
+                        Item6Q--
+                    }            
+            }
+        if((FixedX>23)&(FixedY==12|FixedY==13))
+            {
+                if(Item6Q<9&Item6Q<RE6:shipmentAmount())
+                    {
+                        Item6Q++
+                    }            
+            }
+        ########CANCEL
+        if((FixedX<15)&(FixedY>=14))
+            {
+                Location = 999
+                timer("cancel",50)           
+            }
+        #########FFFF
+        if((FixedX>20)&(FixedY>=14))
+            {
+                if(TotalCost!=0)
+                    {
+                        Location=2
+                    }     
+            }
+        timer("writeQTs",100)
+    }
+if(Location == 2&FirstLocation2)
+    {
+        FirstLocation2 = 0
+        CS[2041] = 1
+        CS:writeString("Please Insert $"+TotalCost+".",0,0)
+        CS:writeString("                             ",0,12)
+        CS:writeString("                    Feel free",0,15)
+        CS:writeString("                       to add",0,16)
+        CS:writeString("                    a tip. :)",0,17)
+        CS:writeString(" +------+                    ",0,15)
+        CS:writeString(" -CANCEL-                    ",0,16)
+        CS:writeString("CANCEL",2,16,800)
+        CS:writeString(" +------+                    ",0,17)
+        timer("w1",500)
+    }
+if(Location==2)
+    {
+        if((FixedX<14)&(FixedY>=14)&~Use&Use)
+            {
+                Location = 999
+                timer("cancel",100)           
+            }
+    }
+if(clk("w1")&Location==2)
+    {
+        CS:writeString("           W                 ",0,10)
+        CS:writeString("            AITING           ",0,11)
+        CS:writeString("-----------------------------",0,12)
+        timer("w2",500)
+    }
+if(clk("w2")&Location==2)
+    {
+        CS:writeString("            A                ",0,10)
+        CS:writeString("           W ITING           ",0,11)
+        timer("w3",500)
+    }
+if(clk("w3")&Location==2)
+    {
+        CS:writeString("             I               ",0,10)
+        CS:writeString("           WA TING           ",0,11)
+        timer("w4",500)
+    }
+if(clk("w4")&Location==2)
+    {
+        CS:writeString("              T              ",0,10)
+        CS:writeString("           WAI ING           ",0,11)
+        timer("w5",500)
+    }
+if(clk("w5")&Location==2)
+    {
+        CS:writeString("               I             ",0,10)
+        CS:writeString("           WAIT NG           ",0,11)
+        timer("w6",500)
+    }
+if(clk("w6")&Location==2)
+    {
+        CS:writeString("                N            ",0,10)
+        CS:writeString("           WAITI G           ",0,11)
+        timer("w7",500)
+    }
+if(clk("w7")&Location==2)
+    {
+        CS:writeString("                 G           ",0,10)
+        CS:writeString("           WAITIN            ",0,11)
+        timer("w1",500)
+    }
+if(Location == 2&~MoneyBox)
+    {
+        if($MoneyBox>=TotalCost)
+            {
+                CS[2041] = 1
+                Location = 3
+            }
+        elseif($MoneyBox<TotalCost)
+            {
+                TotalCost-=$MoneyBox
+                FirstLocation2 = 1
+            }
+    }
+if(Use&Location==0&(FixedY>=7&FixedY<=9))
+    {
+        timer("cancel",100)
+    }
+if(Location == 3&Location3First)
+    {
+        ShopReady = 1
+        Location3First = 0
+        CurrentTable[1,number] = RE1:shipmentAmount()
+        CurrentTable[2,number] = RE2:shipmentAmount()
+        CurrentTable[3,number] = RE3:shipmentAmount()
+        CurrentTable[4,number] = RE4:shipmentAmount()
+        CurrentTable[5,number] = RE5:shipmentAmount()
+        CurrentTable[6,number] = RE6:shipmentAmount()
+        CS:writeString("   Your order is being       ",0,2,950)
+        CS:writeString("   processed.                ",0,3,950)
+        CS:writeString("   Please imagine            ",0,6,950)
+        CS:writeString("   elevator music            ",0,7,950)
+        CS:writeString("   for now.  :)              ",0,8,950)
+    }
+if((RE1:shipmentAmount()!=(CurrentTable[1,number]-Item1Q))&Location==3&!U1Done)
+    {
+        U1 = 1
+    }
+elseif(Location==3)
+    {
+        U1 = 0
+        U1Done = 1
+    }
+if((RE2:shipmentAmount()!=(CurrentTable[2,number]-Item2Q))&Location==3&!U2Done)
+    {
+        U2 = 1
+    }
+elseif(Location==3)
+    {
+        U2 = 0
+        U2Done = 1
+    }
+if((RE3:shipmentAmount()!=(CurrentTable[3,number]-Item3Q))&Location==3&!U3Done)
+    {
+        U3 = 1
+    }
+elseif(Location==3)
+    {
+        U3 = 0
+        U3Done = 1
+    }
+if((RE4:shipmentAmount()!=(CurrentTable[4,number]-Item4Q))&Location==3&!U4Done)
+    {
+        U4 = 1
+    }
+elseif(Location==3)
+    {
+        U4 = 0
+        U4Done = 1
+    }
+if((RE5:shipmentAmount()!=(CurrentTable[5,number]-Item5Q))&Location==3&!U5Done)
+    {
+        U5 = 1
+    }
+elseif(Location==3)
+    {
+        U5 = 0
+        U5Done = 1
+    }
+if((RE6:shipmentAmount()!=(CurrentTable[6,number]-Item6Q))&Location==3&!U6Done)
+    {
+        U6 = 1
+    }
+elseif(Location==3)
+    {
+        U6 = 0
+        U6Done = 1
+    }
+if((U6Done+U5Done+U4Done+U3Done+U2Done+U1Done)==6)
+    {
+        Location = 4
+        CS[2041] = 1
+        CS:writeString("   Thank you for shopping    ",0,2,950)
+        CS:writeString("   with us.                  ",0,3,950)
+        CS:writeString("                             ",0,6,950)
+        CS:writeString("   Come back soon!           ",0,7,950)
+        timer("reset", 3000)
+    }
+if(clk("cancel"))
+    {
+        CS[2041] = 1
+        CS:writeString("     Okay.  Bye then. :)     ",0,6)
+        timer("reset",3000)
+    }
+if(Reset&~Reset)
+    {
+        reset()
+    }
+if(clk("reset"))
+    {
+        reset()
+    }
