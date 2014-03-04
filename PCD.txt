@@ -1,0 +1,52 @@
+@name The simple Prop-Core Duplicator[PCD]
+@persist [P1 P2 P3 File F_con]:string
+@persist P:array T:array
+if(first()){
+ #include "bhc/some_function_libaries/fileFuncs"
+    function number formatForFile(){
+        setName("[P-C-D]\n[Formating coppied entities to usable strings]\n[Stage 1/4, Models]")
+        for(I=1,T:count()){
+            P1 = P1+T[I,entity]:model()+"\n"
+            if(I==T:count()){
+                setName("[P-C-D]\n[Formating coppied entities to usable strings]\n[Stage 2/4, Rotations]")
+                for(I=1,T:count()){
+                    P2=P2+T[I,entity]:angles():toString():replace("[",""):replace("]","")+"\n"
+                    if(I==T:count()){
+                        setName("[P-C-D]\n[Formating coppied entities to usable strings]\n[Stage 3/4, Positions]")
+                        for(I=1,T:count()){
+                            P3=P3+T[I,entity]:pos():toString():replace("[",""):replace("]","")+"\n"
+                            if(I==T:count()){
+                                setName("[P-C-D]\n[Formating coppied entities to usable strings]\n[Stage 4/4, Patchwork, complete]")
+                                F_con = P1+";"+P2+";"+P3
+                                print(F_con)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+ File = "PLEASE GIVE INPUT"
+ setName("[P-C-D]\n[Idling]")
+ runOnChat(1)
+}
+if(chatClk(owner())){
+ local A = owner():lastSaid():lower():explode(" ")
+    if(A[1,string]=="{pcd"){
+        if(A[2,string]=="copyrad"){
+            findInSphere(owner():pos(),A[3,string]:toNumber())
+            P = findToArray()
+            printTable(P)
+            for(I=1,P:count()){
+                if(P[I,entity]:toString():find("prop_physics")){
+                    T[T:count()+1,entity]=P[I,entity]
+                }
+                if(I==P:count()){
+                    printTable(T)
+                }
+            }
+        }elseif(A[2,string]=="preform"){
+            formatForFile()        
+        }     
+    } 
+}
