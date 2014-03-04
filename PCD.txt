@@ -1,20 +1,21 @@
 @name The simple Prop-Core Duplicator[PCD]
-@persist [P1 P2 P3 File F_con]:string
-@persist P:array T:array
+@persist Step Cur State Bufd This_step
+@persist [P1 P2 P3 Stage F_con]:string
+@persist [S P T]:array
 if(first()){
  #include "bhc/some_function_libaries/fileFuncs"
     function number formatForFile(){
         setName("[P-C-D]\n[Formating coppied entities to usable strings]\n[Stage 1/4, Models]")
         for(I=1,T:count()){
-            P1 = P1+T[I,entity]:model()+"\n"
+            P1 = P1+T[I,entity]:model()+"!\n"
             if(I==T:count()){
                 setName("[P-C-D]\n[Formating coppied entities to usable strings]\n[Stage 2/4, Rotations]")
                 for(I=1,T:count()){
-                    P2=P2+T[I,entity]:angles():toString():replace("[",""):replace("]","")+"\n"
+                    P2=P2+T[I,entity]:angles():toString():replace("[",""):replace("]","")+"!\n"
                     if(I==T:count()){
                         setName("[P-C-D]\n[Formating coppied entities to usable strings]\n[Stage 3/4, Positions]")
                         for(I=1,T:count()){
-                            P3=P3+T[I,entity]:pos():toString():replace("[",""):replace("]","")+"\n"
+                            P3=P3+T[I,entity]:pos():toString():replace("[",""):replace("]","")+"!\n"
                             if(I==T:count()){
                                 setName("[P-C-D]\n[Formating coppied entities to usable strings]\n[Stage 4/4, Patchwork, complete]")
                                 F_con = P1+";"+P2+";"+P3
@@ -26,7 +27,6 @@ if(first()){
             }
         }
     }
- File = "PLEASE GIVE INPUT"
  setName("[P-C-D]\n[Idling]")
  runOnChat(1)
  runOnFile(1)
@@ -44,6 +44,7 @@ if(chatClk(owner())){
                 }
                 if(I==P:count()){
                     printTable(T)
+                    print(T[1,entity]:toString():replace("Entity [",""):replace("][prop_physics]","")+"#")
                 }
             }
         }elseif(A[2,string]=="pre-form"){
@@ -53,7 +54,53 @@ if(chatClk(owner())){
         }elseif(A[2,string]=="load"){
             rightFileLoad(A[3,string],F_con)
         }elseif(A[2,string]=="paste"){
+            Cur=0
+            Bufd=0
             timer("paste",0)
         }
     } 
 }
+if(clk("paste")){
+ local Pa = F_con:explode(";")
+ This_Step = F_con:explode(";")[1,string]:explode("!"):count()+1
+ TStep = F_con:explode(";")[1,string]:explode("!"):count()+1*3
+ Step++
+ Cur++
+ setName("[P-C-D]\n[Pasting]\n[Derp?]")
+ print(Cur+"#")
+ print(Step+"##")
+    if(Cur>0&Cur<This_Step){
+        local Model = Pa[1,string]:explode("!")[Step,string]
+        P[Step,entity]=propSpawn(Model,entity():pos(),1)
+        Stage = "Models]"
+        setName("[P-C-D]\n[Pasting]\n[Stage "+Cur+"/"+TStep+", "+Stage)
+    }elseif(Cur>This_Step&Cur<This_Step*2){
+        local Pa = Pa[2,string]:explode("!")[Step,string]:explode(",")
+        local Ang = ang(Pa[1,string]:toNumber(),Pa[2,string]:toNumber(),Pa[3,string]:toNumber())
+        P[Step,entity]:setAng(Ang)
+        Stage = "Angles]"
+        setName("[P-C-D]\n[Pasting]\n[Stage "+Cur+"/"+TStep+", "+Stage)
+    }elseif(Cur>This_Step*2&Cur<This_Step*3){
+        local Pa = Pa[3,string]:explode("!")[Step,string]:explode(",")
+        local Pos = vec(Pa[1,string]:toNumber(),Pa[2,string]:toNumber(),Pa[3,string]:toNumber())
+        P[Step,entity]:setPos(Pos)
+        Stage = "Positions]"
+        setName("[P-C-D]\n[Pasting]\n[Stage "+Cur+"/"+TStep+", "+Stage)
+    }
+    if(Step>=This_step){
+        Step = 0
+    }
+    if(Cur>=TStep){
+        stoptimer("paste")
+    }
+    if(ops()>3000){
+        print("Hint limit, cooling down")
+        setName("[P-C-D]\n[Pasting --- Cooldown]\n[Stage "+Cur+"/"+TStep+", "+Stage)
+        Bufd++
+        timer("paste",5000*Bufd)
+    }else{
+        timer("paste",100)
+    }
+}
+#[
+Entity [1509][prop_physics]
