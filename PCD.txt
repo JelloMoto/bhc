@@ -29,6 +29,7 @@ if(first()){
  File = "PLEASE GIVE INPUT"
  setName("[P-C-D]\n[Idling]")
  runOnChat(1)
+ runOnFile(1)
 }
 if(chatClk(owner())){
  local A = owner():lastSaid():lower():explode(" ")
@@ -45,8 +46,14 @@ if(chatClk(owner())){
                     printTable(T)
                 }
             }
-        }elseif(A[2,string]=="preform"){
+        }elseif(A[2,string]=="pre-form"){
             formatForFile()        
-        }     
+        }elseif(A[2,string]=="save"){
+            rightFileSave(A[3,string],F_con)        
+        }elseif(A[2,string]=="load"){
+            rightFileLoad(A[3,string],F_con)
+        }elseif(A[2,string]=="paste"){
+            timer("paste",0)
+        }
     } 
 }
