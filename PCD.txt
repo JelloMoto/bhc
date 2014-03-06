@@ -1,7 +1,7 @@
 @name The simple Prop-Core Duplicator[PCD]
 @persist Step Cur State Bufd This_step
 @persist [P1 P2 P3 Stage F_con]:string
-@persist [S P T]:array
+@persist [S P Pa T]:array
 if(first()){
  #include "bhc/some_function_libaries/fileFuncs"
     function number formatForFile(){
@@ -56,19 +56,23 @@ if(chatClk(owner())){
         }elseif(A[2,string]=="paste"){
             Cur=0
             Bufd=0
+            print(F_con)
             timer("paste",0)
         }
     } 
 }
 if(clk("paste")){
- local Pa = F_con:explode(";")
- This_Step = F_con:explode(";")[1,string]:explode("!"):count()+1
- TStep = F_con:explode(";")[1,string]:explode("!"):count()+1*3
+ Pa = F_con:explode(";")
+ This_Step = Pa[1,string]:explode("!"):count()+1
+ TStep = Pa[1,string]:explode("!"):count()+1*3
  Step++
  Cur++
  setName("[P-C-D]\n[Pasting]\n[Derp?]")
  print(Cur+"#")
  print(Step+"##")
+ printTable(Pa)
+ print(This_Step+"####")
+ print(TStep+"#####")
     if(Cur>0&Cur<This_Step){
         local Model = Pa[1,string]:explode("!")[Step,string]
         P[Step,entity]=propSpawn(Model,entity():pos(),1)

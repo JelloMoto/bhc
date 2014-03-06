@@ -6,11 +6,13 @@ function number rightFileLoad(S:string,S2:string){
     if(fileLoaded()){
         if(fileRead()!=""){
             S2 = fileRead()
+            print(S2)
         }else{
             fileLoad(S)
         }
     }
 }
+#[
 function string rightFileLoad(S:string,){
     runOnFile(1)
     if(fileCanLoad()){
@@ -24,6 +26,7 @@ function string rightFileLoad(S:string,){
         }
     }
 }
+]#
 function number rightFileSave(S:string,S2:string){
     runOnFile(1)
     if(fileCanWrite()){
