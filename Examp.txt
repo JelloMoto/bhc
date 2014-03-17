@@ -1,0 +1,21 @@
+@name Examp
+@persist [A Buf]:array
+@persist S:string
+if(first()){
+    function void array:pruneFor(S:string){
+        local M = This
+        for(I=1,A:count()){
+            if(M[1,entity]:toString():find(S)){
+                Buf[Buf:count()+1,entity]=M[I,entity]
+            }
+            if(I==M:count()){
+                M = Buf
+            }
+        }
+    }
+    function void array:findInSpAndPruneFor(V:vector,S:string,N){
+        findInSphere(V,N)
+        local A = findToArray()
+        A:pruneFor("money_printer")
+    }
+}
