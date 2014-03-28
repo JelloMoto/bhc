@@ -16,6 +16,6 @@ if(first()){
     function void array:findInSpAndPruneFor(V:vector,S:string,N){
         findInSphere(V,N)
         local A = findToArray()
-        A:pruneFor("money_printer")
+        A:pruneFor(S)
     }
 }
