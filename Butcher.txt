@@ -1,0 +1,15 @@
+@name Butcher, a card game
+@inputs [S1 S2 S3]:wirelink
+@persist [Players Data Buttons]:array
+if(first()){
+    function void makeButton(N,S:string){
+        Buttons[Buttons:count(),string]=N+"."+S
+    }
+ #include "bhc/some_function_libaries/fileFuncs"
+ #include "bhc/some_function_libaries/egpFuncs"
+ #include "bhc/some_function_libaries/arrayFuncs"
+ setName("[-Butcher-]\n[-A card game created by friends-]\n[-Coded by Serconker-]\n[-Using shared libaries-]")    
+ Data = array(S1,
+              S2,
+              S3)
+}
