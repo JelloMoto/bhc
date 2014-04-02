@@ -9,12 +9,18 @@ if(first()){
         #N3 is the screen.
         Buttons[Buttons:count(),string]=N+"."+N2+"."+N3+"."+S
     }
+    function void timeOut(S:string){
+        Data[3,number]=Data[3,number]+1
+        timer(S,4000*Data[3,number])
+    }
  #include "bhc/some_function_libaries/fileFuncs"
  #include "bhc/some_function_libaries/egpFuncs"
  #include "bhc/some_function_libaries/arrayFuncs" 
  #Common includes
 
- setName("[-Butcher-]\n[-A card game created by friends-]\n[-Coded by Serconker-]\n[-Using shared libaries-]")    
+ setName("[-Butcher-]\n[-A card game created by friends-]\n[-Coded by Serconker-]\n[-Using shared libaries-]") 
+ Data[1,string]="0r,1r,2r,3r,4r,5r,6r,7r,8r,9r,wr,wr,sr,sr,^r,^r,0y,1y,2y,3y,4y,5y,6y,7y,8y,9y,wy,wy,sy,sy,^y,^y,0b,1b,2b,3b,4b,5b,6b,7b,8b,9b,wb,wb,sb,sb,^b,^b,0g,1g,2g,3g,4g,5g,6g,7g,8g,9g,wg,wg,sg,sg,^g,^g,c,c,c,c,p,p,p,p"
+ #               ^^^ That's a un-shuffled deck ^^^
  Data = array(S1,
               S2,
               S3) #Just something
@@ -22,48 +28,75 @@ if(first()){
         Data[I,wirelink]:egpClear()
     }
  timer("start",0)
+ runOnChat(1)
 }
 if(clk("start")){
-    for(I=1,3){
-        local S = Data
-        S[I,wirelink]:egpBox(1,vec2(256,256),vec2(512,512))
-        S[I,wirelink]:egpBox(7,vec2(256,300),vec2(500,612))
-        S[I,wirelink]:egpBox(8,vec2(256,512-76),vec2(512,240))
-        S[I,wirelink]:egpTriangle(2,
-                                  vec2(0,266),
-                                  vec2(120,266),
-                                  vec2(160,316))
-        S[I,wirelink]:egpTriangle(4,
-                                  vec2(352,316),
-                                  vec2(392,266),
-                                  vec2(512,266))
-        S[I,wirelink]:egpTriangle(5,
-                                  vec2(512,266),
-                                  vec2(352,316),
-                                  vec2(512,316))
-        S[I,wirelink]:egpTriangle(6,
-                                  vec2(0,316),
-                                  vec2(160,316),
-                                  vec2(0,266))
-        S[I,wirelink]:egpPolyOutline(3,
-                                     vec2(0,266),
-                                     vec2(120,266),
-                                     vec2(160,315), #
-                                     vec2(352,315), #
-                                     vec2(392,266),
-                                     vec2(512,266),
-                                     vec2(512,512),
-                                     vec2(0,512))
-        S[I,wirelink]:egpColor(1,vec(70,15,5))
-        S[I,wirelink]:egpColor(2,vec(70,70,100))
-        S[I,wirelink]:egpColor(3,vec(0,0,60))
-        S[I,wirelink]:egpColor(4,vec(70,70,100))
-        S[I,wirelink]:egpColor(5,vec(70,70,100))
-        S[I,wirelink]:egpColor(6,vec(70,70,100))
-        S[I,wirelink]:egpColor(7,vec(20,15,5))
-        S[I,wirelink]:egpColor(8,vec(70,70,100))
-        S[I,wirelink]:egpMaterial(7,"gui/center_gradient")
-        S[I,wirelink]:egpAngle(7,90)
-        S[I,wirelink]:egpSize(3,3)
+    if(Data[1,number]!=1){
+        for(I=1,3){
+            local S = Data
+            S[I,wirelink]:egpBox(1,vec2(256,256),vec2(512,512))
+            S[I,wirelink]:egpBox(7,vec2(256,300),vec2(500,612))
+            S[I,wirelink]:egpBox(8,vec2(256,512-76),vec2(512,240))
+            S[I,wirelink]:egpTriangle(2,
+                                      vec2(0,266),
+                                      vec2(120,266),
+                                      vec2(160,316))
+            S[I,wirelink]:egpTriangle(4,
+                                      vec2(352,316),
+                                      vec2(392,266),
+                                      vec2(512,266))
+            S[I,wirelink]:egpTriangle(5,
+                                      vec2(512,266),
+                                      vec2(352,316),
+                                      vec2(512,316))
+            S[I,wirelink]:egpTriangle(6,
+                                      vec2(0,316),
+                                      vec2(160,316),
+                                      vec2(0,266))
+            S[I,wirelink]:egpPolyOutline(3,
+                                         vec2(0,266),
+                                         vec2(120,266),
+                                         vec2(160,315),
+                                         vec2(352,315),
+                                         vec2(392,266),
+                                         vec2(512,266),
+                                         vec2(512,512),
+                                         vec2(0,512))
+            S[I,wirelink]:egpColor(1,vec(70,15,5))
+            S[I,wirelink]:egpColor(2,vec(70,70,100))
+            S[I,wirelink]:egpColor(3,vec(0,0,60))
+            S[I,wirelink]:egpColor(4,vec(70,70,100))
+            S[I,wirelink]:egpColor(5,vec(70,70,100))
+            S[I,wirelink]:egpColor(6,vec(70,70,100))
+            S[I,wirelink]:egpColor(7,vec(20,15,5))
+            S[I,wirelink]:egpColor(8,vec(70,70,100))
+            S[I,wirelink]:egpMaterial(7,"gui/center_gradient")
+            S[I,wirelink]:egpAngle(7,90)
+            S[I,wirelink]:egpSize(3,3)
+        }
     }
 }
+if(clk("shuff")){
+    local D = Data[1,string]:explode(",")
+    Data[2,number]=Data[2,number]+1
+    if(Data[2,number]!= 73|Data[2,number]<73){
+        if(ops()>3000){
+            timeOut("shuff")
+        }else{
+            timer("shuff",0)
+        }
+    }
+}
+if(chatClk(owner())){
+ local S = owner():lastSaid():lower():explode(" ")
+    if(S[1,string]=="{b"){
+        if(S[2,string]=="shuffle"){
+            print("Oh boy, ths is going to be fun!\nGive me some time!")
+            Data[2,number]=0
+            timer("shuff",0)
+        }
+    }
+}
+#[
+
+In, deck shuffle
