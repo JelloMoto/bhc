@@ -15,7 +15,7 @@
             return 0
         }
     }
-    function number entity:touchingl(W:wirelink,I){
+    function number entity:touchingl(W:wirelink,I){ #For use wth screens that draw from the top left opposed to the centre.
         local Y1 = W:egpPos(I):x()
         local X1 = W:egpPos(I):x()
         local Y2 = W:egpPos(I):y()+W:egpSize(I):y()
