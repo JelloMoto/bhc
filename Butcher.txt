@@ -1,7 +1,7 @@
 @name Butcher, a card game
 @inputs [S1 S2 S3]:wirelink
-@persist [Players Data Buttons]:array
-@persist [Nums]:string
+@persist [Players Data Buttons L]:array
+@persist [Nums B]:string
 if(first()){
     function void makeButton(N,N2,N3,S:string){ #Quick function like 'Souls' core.egp.set.item.button.Index.String command.
         #Does the same thing, indexes the item, t will then be ran through a for-loop to check all buttons with
@@ -25,7 +25,8 @@ if(first()){
  Data = array(S1,
               S2,
               S3) #Just something
- Nums = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72"
+# Nums = ",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,"
+ Nums = ",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,"
     for(I=1,3){
         Data[I,wirelink]:egpClear()
     }
@@ -33,7 +34,8 @@ if(first()){
  runOnChat(1)
 }
 if(clk("start")){
- Data[10,string]="0r,1r,2r,3r,4r,5r,6r,7r,8r,9r,wr,wr,sr,sr,^r,^r,0y,1y,2y,3y,4y,5y,6y,7y,8y,9y,wy,wy,sy,sy,^y,^y,0b,1b,2b,3b,4b,5b,6b,7b,8b,9b,wb,wb,sb,sb,^b,^b,0g,1g,2g,3g,4g,5g,6g,7g,8g,9g,wg,wg,sg,sg,^g,^g,c,c,c,c,p,p,p,p"
+ Data[10,string]=",0r,1r,2r,3r,4r,5r,6r,7r,8r,9r,0r,1r,2r,3r,4r,5r,6r,7r,8r,9r,wr,wr,sr,sr,^r,^r,0y,1y,2y,3y,4y,5y,6y,8y,9y,0y,1y,2y,3y,4y,5y,6y,7y,8y,9y,wy,wy,sy,sy,^y,^y,0b,1b,2b,3b,4b,5b,6b,7b,8b,9b,0b,1b,2b,3b,4b,5b,6b,7b,8b,9b,wb,wb,sb,sb,^b,^b,0g,1g,2g,3g,4g,5g,6g,7g,8g,9g,0g,1g,2g,3g,4g,5g,6g,7g,8g,9g,wg,wg,sg,sg,^g,^g,cc,cc,cc,cc,pc,pc,pc,pc":replace(",,",",")
+ Nums = ",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,"
     if(Data[1,number]!=1){
         for(I=1,3){
             local S = Data
@@ -81,36 +83,25 @@ if(clk("start")){
     }
 }
 if(clk("shuff")){
-    local Per = floor((Data[5,number]/72)*100)
+    Nums:replace(",,",",")
+    local Per = floor((Data[5,number]/122)*100)
     local D = Data[10,string]:explode(",")
     L = Nums:explode(",")
-    local N = randint(1,L:count())
-    if(D[N,string]!=""){
-        if(Data[5,number]!=71){
-            Data[4,string]=Data[4,string]+D[N,string]+","
-            Nums = Nums:replace(","+L[N,string]+",",",")
-            Data[8,string]=Data[8,string]+Nums+"\n"
-            Data[5,number]=Data[5,number]+1 
-            print(Data[5,number]+") ### "+Nums)
-        }else{
-            Data[4,string]=Data[4,string]+D[N,string]
-            Nums = Nums:replace(","+L[N,string]+",",",")
-            Data[8,string]=Data[8,string]+Nums+"\n"
-            Data[5,number]=Data[5,number]+1 
-        }
+    local N = randint(0,L:count())
+    local X = D[ L[N,string]:toNumber() ,string]
+    if(#[Data[4,string]:find(","+X+",")==0 &]# Data[5,number]!=122 & X!=""){
+        Data[4,string]=Data[4,string]+X+","
+        Nums = Nums:replace(","+L[N,string]+",",","):replace(",,",",")
+#        Data[10,string] = Data[10,string]:replace(","+D[N,string]+",",","):replace(",,",",")
+        Data[5,number]=Data[5,number]+1
+        Data[8,string]=Data[8,string]+Nums+",\n"
+        timer("shuff",100)
+    }elseif(Data[5,number]!=122){
+        #print("Dupe!")
+        timer("shuff",100)
     }
-    if(Data[5,number]!= 72|Data[5,number]<72 & Nums:find(","+N+",")){
-        if(ops()>3000){
-            print(4)
-            timeOut("shuff")
-        }else{
-            timer("shuff",0)
-        }
-    }else{
-        setName("[-Butcher-]\n[-A card game created by friends-]\n[-Coded by Serconker-]\n[-Using shared libaries-]\n[-Deck shuffled, waiting to be saved!-]") 
-        print("Your deck is ready, please save it, then load t back up in the future.")
-    }
-    setName("[-Butcher-]\n[-A card game created by friends-]\n[-Coded by Serconker-]\n[-Using shared libaries-]\n[-Shuffing a deck, "+Per+"%-]\n[- "+Data[5,number]+"/72 -]\n[- "+N+" -]") 
+    
+    setName("[-Butcher-]\n[-A card game created by friends-]\n[-Coded by Serconker-]\n[-Using shared libaries-]\n[-Shuffing a deck, "+Per+"%-]\n[- "+Data[5,number]+"/122 -]\n[- "+X+"-"+L[N,string]+" -]") 
 }
 if(chatClk(owner())){
  local S = owner():lastSaid():lower():explode(" ")
@@ -121,7 +112,7 @@ if(chatClk(owner())){
             timer("shuff",0)
         }elseif(S[2,string]=="save"){
             if(S[3,string]=="deck"){
-                rightFileSave(S[4,string],Data[4,string]+"\n###\n"+Data[8,string])
+                rightFileSave(S[4,string],Data[4,string]+"\n###\n"+Data[8,string]+"\n###\n"+Data[11,string]+"\n###\n"+Nums)
             }
         }
     }
@@ -145,3 +136,29 @@ In, deck shuffle
     }
 
 A reminder of how I can over complicate things.
+
+  #[  if(Nums:find(","+N+",")>1&L:count()>4&L[N,string]!=""&Data[4,string]:find(","+D[N,string]+",")==0){
+#        print(Nums:find(","+N+","))
+        if(D[N,string]!=""&Data[4,string]:find(","+D[N,string]+",")==0){
+            Data[5,number]=Data[5,number]+1
+            if(Data[5,number]!=121&Nums:find(","+N+",")!=1){
+                Data[4,string]=Data[4,string]+D[N,string]+",\n"
+                Nums = Nums:replace(","+L[N,string]+",",",")
+                Data[8,string]=Data[8,string]+Nums+",\n"
+                #print(Data[5,number]+") ### "+Nums+" ### "+L[N,string]+" ### "+L:count())
+            }else{
+                Data[4,string]=Data[4,string]+D[N,string]+",\n"
+                Nums = Nums:replace(","+L[N,string]+",",",")
+                Data[8,string]=Data[8,string]+Nums+",\n"
+                #print(Data[5,number]+") ### "+Nums+" ### "+L[N,string]+" ### "+L:count())
+            }
+        }else{
+            print("A dupe found!")
+        }
+    }elseif(L:count()<=3){
+        Data[4,string]=Data[4,string]+D[2,string]+",\n"
+        Nums = ""
+        Data[8,string]=Data[8,string]+Nums+"\n"
+        print(Data[5,number]+") ### "+Nums+" ### "+L[N,string]+" ### "+L:count()+" ### "+D[1,string])
+        stoptimer("shuff")
+    }]## Let's try again!
