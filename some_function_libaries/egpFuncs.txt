@@ -27,3 +27,16 @@
             return 0
         }
     }
+    function number wirelink:egpRBox(N,V:vector2,V2:vector2){ #[Top right drawing.. Things]#
+        This:egpBox(N,vec2(V:x()+(V2:x()/2),V:y()+(V2:y()/2)),V2)
+    }
+    function number wirelink:egpRRoundedBox(N,V:vector2,V2:vector2){
+        This:egpRoundedBox(N,vec2(V:x()+(V2:x()/2),V:y()+(V2:y()/2)),V2)
+    }
+    function number wirelink:egpRCircle(N,V:vector2,V2:vector2){
+        This:egpCircle(N,vec2(V:x()+(V2:x()/2),V:y()+(V2:y()/2)),V2)
+    }
+    function number wirelink:egpRText(N,S:string,V:vector2){
+        This:egpText(N,S,V)
+        This:egpAlign(N,2,0)
+    }

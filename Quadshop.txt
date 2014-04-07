@@ -18,9 +18,9 @@ if(first()){
                 Dir = 1
             }
             if(Dir==1){
-                S:egpPos(N,vec2(P:x(),P:y()+1)#[,S:egpSize(N)]#)
+                S:egpPos(N,vec2(P:x(),P:y()+2)#[,S:egpSize(N)]#)
             }else{
-                S:egpPos(N,vec2(P:x(),P:y()-1)#[,S:egpSize(N)]#)
+                S:egpPos(N,vec2(P:x(),P:y()-2)#[,S:egpSize(N)]#)
             }
         }
     }
@@ -44,52 +44,57 @@ if(first()){
            E6, 
            E7, 
            E8)
-    for(I=1,4){#194 23 
-        local S = S[I,wirelink]
-        S:egpClear()
-        S:egpBox(1,vec2(256,256),vec2(512,512)) #BG
+    function void mui(){
+        for(I=1,4){#194 23 
+            local S = S[I,wirelink]
+            S:egpClear()
+            S:egpBox(1,vec2(256,256),vec2(512,512)) #BG
         
-        #[Bottom/outline]#
-        S:egpTriangle(3,vec2(125,25),vec2(125,125),vec2(25,125))
-        S:egpTriangle(4,vec2(387,25),vec2(387,125),vec2(487,125))
-        S:egpBox(5,vec2(256,75),vec2(262,100))
-        S:egpBox(6,vec2(256,147),vec2(462,45))
+            #[Bottom/outline]#
+            S:egpTriangle(3,vec2(125,25),vec2(125,125),vec2(25,125))
+            S:egpTriangle(4,vec2(387,25),vec2(387,125),vec2(487,125))
+            S:egpBox(5,vec2(256,75),vec2(262,100))
+            S:egpBox(6,vec2(256,147),vec2(462,45))
 
-        #[Side 'tapers']#
-        S:egpTriangle(7,vec2(25,169),vec2(50,169),vec2(50,194))
-        S:egpTriangle(8,vec2(512-25,169),vec2(512-50,169),vec2(512-50,194))
-        S:egpTriangle(9,vec2(27,169),vec2(48,169),vec2(48,190))
-        S:egpTriangle(10,vec2(512-27,169),vec2(512-48,169),vec2(512-48,190))
+            #[Side 'tapers']#
+            S:egpTriangle(7,vec2(25,169),vec2(50,169),vec2(50,194))
+            S:egpTriangle(8,vec2(512-25,169),vec2(512-50,169),vec2(512-50,194))
+            S:egpTriangle(9,vec2(27,169),vec2(48,169),vec2(48,190))
+            S:egpTriangle(10,vec2(512-27,169),vec2(512-48,169),vec2(512-48,190))
 
-        #[The 'light']#
-        S:egpBox(15,vec2(256,170),vec2(448,75))
+            #[The 'light']#
+            S:egpBox(15,vec2(256,170),vec2(448,75))
         
-        #[Inside]#
-        S:egpTriangle(11,vec2(125,27),vec2(125,125),vec2(27,125))
-        S:egpTriangle(12,vec2(387,27),vec2(387,125),vec2(485,125))
-        S:egpBox(13,vec2(256,76),vec2(262,100))
-        S:egpBox(14,vec2(256,147),vec2(458,45))
+            #[Inside]#
+            S:egpTriangle(11,vec2(125,27),vec2(125,125),vec2(27,125))
+            S:egpTriangle(12,vec2(387,27),vec2(387,125),vec2(485,125))
+            S:egpBox(13,vec2(256,76),vec2(262,100))
+            S:egpBox(14,vec2(256,147),vec2(458,45))
         
-        S:egpText(2,"Screen: ["+I+"]",vec2(25,25))
+            S:egpText(2,"Screen: ["+I+"]",vec2(25,25))
+            
+            S:egpColor(1,vec(80,80,120)) #BG
+            S:egpColor(3,vec(20,20,70))
+            S:egpColor(4,S:egpColor(3))
+            S:egpColor(5,S:egpColor(3))
+            S:egpColor(6,S:egpColor(3))
+            S:egpColor(7,S:egpColor(3))
+            S:egpColor(8,S:egpColor(3))
         
-        S:egpColor(1,vec(80,80,120)) #BG
-        S:egpColor(3,vec(20,20,70))
-        S:egpColor(4,S:egpColor(3))
-        S:egpColor(5,S:egpColor(3))
-        S:egpColor(6,S:egpColor(3))
-        S:egpColor(7,S:egpColor(3))
-        S:egpColor(8,S:egpColor(3))
+            S:egpColor(11,vec(70,70,120))
+            S:egpColor(12,S:egpColor(11))
+            S:egpColor(13,S:egpColor(11))
+            S:egpColor(14,S:egpColor(11))
         
-        S:egpColor(11,vec(70,70,120))
-        S:egpColor(12,S:egpColor(11))
-        S:egpColor(13,S:egpColor(11))
-        S:egpColor(14,S:egpColor(11))
+            S:egpColor(15,vec(90,90,220))
         
-        S:egpColor(9,S:egpColor(3)/2) #Left taper
-        S:egpColor(10,S:egpColor(9))#Right taper
+            S:egpColor(9,S:egpColor(3)/2) #Left taper
+            S:egpColor(10,S:egpColor(9))#Right taper
         
-        S:egpMaterial(15,"gui/gradient_down.vtf")
+            S:egpMaterial(15,"gui/gradient_down.vtf")
+        }
     }
+    mui()
     timer("an",0)
 }
 if(clk("an")){
