@@ -1,4 +1,4 @@
-function number rightFileLoad(S:string,S2:string){
+function number rightFileLoad(S:string#[The file to open]#,S2:string#[What value to apply the data of the file to]#){
     runOnFile(1)
     if(fileCanLoad()){
         fileLoad(S)
@@ -27,7 +27,7 @@ function string rightFileLoad(S:string,){
     }
 }
 ]#
-function number rightFileSave(S:string,S2:string){
+function number rightFileSave(S:string#[The name of the file to save to]#,S2:string#[What to save to the file]#){
     runOnFile(1)
     if(fileCanWrite()){
         S = S:replace(" ","_")

@@ -1,4 +1,5 @@
-function number array:afind(S:string){
+function number array:afind(S:string#[The string to look for]#){
+              #[ ^ ^ The array to search]#
  A = This
     for(I=1,A:count()){
         if(A[I,string]==S){
@@ -6,7 +7,8 @@ function number array:afind(S:string){
         }
     }
 }
-function number array:anyEqual(N){
+function number array:anyEqual(N#[The number to look for]#){
+              #[ ^ ^ The array to search]#
  A = This
     for(I=1,A:count()){
         if(A[I,number]==N){

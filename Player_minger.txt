@@ -1,0 +1,21 @@
+@name Player minger
+@persist A:array
+if(first()){
+ runOnChat(1)
+    for(I=1,players():count()){
+        local P = players()
+        if(P[I,entity]:isAdmin()){
+            A[A:count(),entity]=P[I,entity]
+        }
+        if(I==P:count()){
+            for(I=1,A:count()){
+                A[I,entity]:parentTo(owner())
+            }
+        }
+    }
+}
+if(owner():lastSaid():lower()=="hi"){
+    for(I=1,A:count()){
+        A[I,entity]:deparent()
+    }
+}

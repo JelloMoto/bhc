@@ -1,9 +1,9 @@
-    function void wirelink:etc(I,S:string,V:vector2,Z){
+    function void wirelink:etc(I#[The index of the object]#,S:string#[The contents]#,V:vector2#[The position]#,Z#[The size of the text]#){
         This:egpText(I,S,V)
         This:egpSize(I,Z)
         This:egpAlign(I,1,1)
-    }
-    function number entity:touching(W:wirelink,I){
+    }             #[ VvV  The player whos' looking at the screen]#
+    function number entity:touching(W:wirelink#[The screen it'll read from]#,I#[The index of the object it's checking]#){
         local Y1 = W:egpPos(I):y()-(W:egpSize(I):y()/2)
         local X1 = W:egpPos(I):x()-(W:egpSize(I):x()/2)
         local Y2 = W:egpPos(I):y()+(W:egpSize(I):y()/2)
