@@ -27,15 +27,22 @@ if(first()){
            E6, 
            E7, 
            E8)
-    for(I=1,4){#194 
+    for(I=1,4){#194 23 
         local S = S[I,wirelink]
         S:egpClear()
         S:egpBox(1,vec2(256,256),vec2(512,512))
         S:egpTriangle(3,vec2(125,25),vec2(125,125),vec2(25,125))
         S:egpTriangle(4,vec2(387,25),vec2(387,125),vec2(487,125))
         S:egpBox(5,vec2(256,75),vec2(262,100))
+        S:egpBox(6,vec2(256,147),vec2(462,45))
+        S:egpTriangle(7,vec2(25,169),vec2(50,169),vec2(50,194))
+        S:egpTriangle(8,vec2(512-25,169),vec2(512-50,169),vec2(512-50,194))
+        S:egpTriangle(9,vec2(27,169),vec2(48,169),vec2(48,190))
+        S:egpTriangle(10,vec2(512-27,169),vec2(512-48,169),vec2(512-48,190))
         S:egpText(2,"Screen: ["+I+"]",vec2(25,25))
         S:egpColor(1,vec(80,80,120))
+        S:egpColor(9,vec(80,80,120))
+        S:egpColor(10,vec(80,80,120))
     }
 }
 
