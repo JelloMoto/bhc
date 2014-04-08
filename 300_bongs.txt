@@ -1,0 +1,47 @@
+@name 300 bongs
+@inputs 
+@outputs 
+@persist Lines:array I
+if(first()){
+ Lines = array("",
+                  "What the bong did you just fucking say about me,",
+                  "you little stoner?",
+                  "I'll have you know I smoked the most ganja in my class at Washington State University,",
+                  "and I've been involved in numerous secret raids on the fridge when I get the munchies,",
+                  "and I have over 420 confirmed puffs.",
+                  "I am trained in lighting blunts in the rain and I'm the top stoner in the entire city of Seattle.",
+                  "You are nothing to me but just another joint.",
+                  "I will light you up with precision the likes of which has never been seen before on this Earth,",
+                  "mark my fucking words bro.",
+                  "You think you can get away with selling that shit to me over the Internet?",
+                  "Think again, fucker.",
+                  "As we speak I am contacting my secret network of dealers across the USA and",
+                  "your strain is being traced right now so you better prepare for the storm, bro.",
+                  "The storm that wipes out the pathetic little thing you call your crop.",
+                  "You're fucking baked, kid. I can smoke anywhere.",
+                  "Anytime.",
+                  "And I can smoke blunts you in over seven hundred ways,",
+                  "and that's just with my bare hands.",
+                  "Not only am I extensively trained in one-hand smoking,",
+                  "but I have access to the entire hydroponic greenhouse of the Northwest and",
+                  "I will use it to its full extent to get high as a kite.",
+                  "I will spray bong water all over you and you will drown in it.",
+                  "I'm fucking blazed, officer."
+              )
+ runOnChat(1)
+}
+if(chatClk(owner())){
+ local S = owner():lastSaid():lower():explode(" ")
+    if(S[1,string]=="gimmeabong"){
+        timer("l",800)
+    }
+}
+if(clk("l")){
+ concmd("say /y "+Lines[I,string])
+    if(I<=Lines:count()){
+        I++
+        timer("l",2000)
+    }else{
+        I=0
+    }
+}
