@@ -1,10 +1,10 @@
 @name Quadshop
 @inputs [S1 S2 S3 S4 D1 D2 D3 D4]:wirelink 
 @inputs  P1 P2 P3 P4 
-@inputs [E1 E2 E3 E4 E5 E6 E7 E8]:entity
+@inputs [E1 E2 E3 E4 E5 E6 E7 E8 Se1 Se2 Se3 Se4]:entity
 @outputs U1 U2 U3 U4 U5 U6 U7 U8
-@persist [S D E P B]:array
-@persist Dir
+@persist [S Se D E P B]:array
+@persist Dir State
 if(first()){
  #include "bhc/some_function_libaries/fileFuncs"
  #include "bhc/some_function_libaries/egpFuncs"
@@ -24,13 +24,26 @@ if(first()){
             }
         }
     }
-    function number buttonMake(N,S:string){
-        
+    function number buttonMake(N#[Index]#,N2#[Screen]#,N3#[Dataset]#,S:string#[Timer]#){
+        B[B:count()+1,string]=N+"."+N2+"."+N3+"."+S
+        return B:count()
+    }
+    function number buttonsCheckAndRun(E:entity,N){
+        for(I=1,B:count()){
+            local B = B[I,string]:explode(".")
+            if(E:touching(S[N,wirelink],B[1,string]:toNumber())==1){
+                return 1
+            }
+        }
     }
  S = array(S1, 
            S2, 
            S3, 
            S4)
+ Se = array(Se1, 
+           Se2, 
+           Se3, 
+           Se4)
  D = array(D1, 
            D2, 
            D3, 
@@ -76,6 +89,8 @@ if(first()){
         
             S:egpRoundedBox(20,vec2(256,280),vec2(248,82))
             S:egpRoundedBox(21,vec2(256,380),vec2(248,82))
+            
+            S:egpRoundedBox(22,vec2(256,330),vec2(248,180))
     
             #[Inside]#
             S:egpTriangle(11,vec2(125,27),vec2(125,125),vec2(27,125))
@@ -111,6 +126,8 @@ if(first()){
             
             S:egpColor(20,S:egpColor(1)) #Buts
             S:egpColor(21,S:egpColor(1)) #Buts
+            
+            S:egpAlpha(22,0)
         
             S:egpMaterial(15,"gui/gradient_down.vtf")
         }
