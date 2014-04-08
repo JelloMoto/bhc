@@ -1,0 +1,44 @@
+@name 300 kills
+@inputs 
+@outputs 
+@persist Lines:array I
+if(first()){
+ Lines = array("","What did thou just sayest about meself, thou yellow-bellied hound?",
+"I shall inform thee that I am imployed in the top ranks of the Inquisition,",
+"and I have taken part in most numerous cladestine battles against sinners, and",
+" I have slain over 300 heretics.",
+"I am most educated in the knightly ways and the Lord boasts of my ability to kill. ",
+"Thou art naught but a peasant and another heretic in my eyes.",
+"I will slay thee with most deadly force and thy blood shall flow like rain on this Earth,",
+" hark to my words.",
+"Dost thou believe thee can freely send me these letters via messenger on horseback?",
+"Thou would doest well to mull upon it a second time, peasant. As my quill scrabbles on this paper,",
+"I am alerting the Inquistion all over Europe and thou shall be executed accordingly.",
+"Thou would doest well to begin repenting, lad. I can find thee wherever thou goest,",
+"and I can slay thee in a million ways with nothing but my hands.",
+"I am not only most trained in combat with no weapons,",
+"I also have access to thousands of men with extensive training of their own and",
+" I will deploy them with orders to burn and pillage thy village, thou insolent little disease.",
+"If only thou hadst known the wicked requital that thy snide insult was about to bring upon thee,",
+"mayhap thou would hast watched thy foul tongue. Alas, thou did not,",
+"and now, thou shall be punished at the hands of justice,",
+"thou tottering moron. I will defecate mine rage all over thee,",
+"and thou will suffocate in my fury. Thou art as well as executed,",
+"lad.")
+ runOnChat(1)
+}
+if(chatClk(owner())){
+ local S = owner():lastSaid():lower():explode(" ")
+    if(S[1,string]=="uwotm8"){
+        timer("l",2000)
+    }
+}
+if(clk("l")){
+ concmd("say /y "+Lines[I,string])
+    if(I<=Lines:count()){
+        I++
+        timer("l",2000)
+    }else{
+        I=0
+    }
+}
