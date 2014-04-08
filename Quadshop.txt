@@ -124,8 +124,8 @@ if(first()){
             S:egpColor(18,S:egpColor(3))
             S:egpColor(19,S:egpColor(3))
             
-            S:egpColor(20,S:egpColor(1)) #Buts
-            S:egpColor(21,S:egpColor(1)) #Buts
+            S:egpColor(20,vec(70,70,110)) #Buts
+            S:egpColor(21,S:egpColor(20)) #Buts
             
             S:egpAlpha(22,0)
         
@@ -134,8 +134,12 @@ if(first()){
     }
     mui()
     timer("an",0)
+    timer("bu",0)
 }
 if(clk("an")){
  a(15)
  timer("an",500)
+}
+if(clk("bu")){
+
 }
