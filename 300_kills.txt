@@ -3,7 +3,7 @@
 @outputs 
 @persist Lines:array I
 if(first()){
- Lines = array("",
+ Lines = array(
                   "What did thou just sayest about meself, thou yellow-bellied hound?",
                   "I shall inform thee that I am imployed in the top ranks of the Inquisition,",
                   "and I have taken part in most numerous cladestine battles against sinners, and",

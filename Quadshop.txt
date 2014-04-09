@@ -1,7 +1,7 @@
 @name Quadshop
 @inputs [S1 S2 S3 S4 D1 D2 D3 D4]:wirelink 
 @inputs  P1 P2 P3 P4 
-@inputs [E1 E2 E3 E4 E5 E6 E7 E8 Se1 Se2 Se3 Se4]:entity
+@inputs [E1 E2 E3 E4 E5 E6 E7 E8]:entity
 @outputs U1 U2 U3 U4 U5 U6 U7 U8
 @persist [S Se D E P B]:array
 @persist Dir State
@@ -40,10 +40,6 @@ if(first()){
            S2, 
            S3, 
            S4)
- Se = array(Se1, 
-           Se2, 
-           Se3, 
-           Se4)
  D = array(D1, 
            D2, 
            D3, 
@@ -60,9 +56,11 @@ if(first()){
            E6, 
            E7, 
            E8)
-    function void mui(){
-        for(I=1,4){#194 23 
+    function void wirelink:mui(I){
+        if(I==1){
             local S = S[I,wirelink]
+            local See = S:entity()
+            See["1",number] = 1
             S:egpClear()
             S:egpBox(1,vec2(256,256),vec2(512,512)) #BG
         
@@ -90,7 +88,9 @@ if(first()){
             S:egpRoundedBox(20,vec2(256,280),vec2(248,82))
             S:egpRoundedBox(21,vec2(256,380),vec2(248,82))
             
-            S:egpRoundedBox(22,vec2(256,330),vec2(248,180))
+            S:etc(23,"Accounting",S:egpPos(21),40)
+            
+            S:egpRoundedBox(22,vec2(256,330),vec2(348,280)) #Main hbo 1
     
             #[Inside]#
             S:egpTriangle(11,vec2(125,27),vec2(125,125),vec2(27,125))
@@ -127,12 +127,32 @@ if(first()){
             S:egpColor(20,vec(70,70,110)) #Buts
             S:egpColor(21,S:egpColor(20)) #Buts
             
-            S:egpAlpha(22,0)
+            S:egpColor(23,S:egpColor(18)) #Buts
+            
+            S:egpAlpha(22,1)
         
             S:egpMaterial(15,"gui/gradient_down.vtf")
         }
     }
-    mui()
+    function string ac(){
+        findByClass("player")
+        for(I=1,4){
+            local P = findClosest(S[I,wirelink]:entity():pos())
+            local S = S[I,wirelink]:entity()
+            #print(P)
+            #print(S)
+            if(P:pos():distance(S:pos())<60){
+                #print(I)
+                return P:id()+"."+I
+            }
+            if(I==4){
+                return ""
+            }
+        }
+    }
+    for(I=1,4){
+        S[I,wirelink]:mui(1)
+    }
     timer("an",0)
     timer("bu",0)
 }
@@ -141,5 +161,37 @@ if(clk("an")){
  timer("an",500)
 }
 if(clk("bu")){
-
+    local Sc  = ac()
+    local Scr = S[Sc:explode(".")[2,string]:toNumber(),wirelink]
+    local P   = entity(Sc:explode(".")[1,string]:toNumber())
+    if(P:isPlayer()){
+        if(P:touching(Scr,22)==1){
+            if(Scr:entity()["1",number]==1){
+                #print(2)
+                if(P:touching(Scr,20)){
+                    Scr:egpColor(20,vec(50,50,90))
+                    Scr:egpColor(18,vec(90,50,50))
+                }else{
+                    Scr:egpColor(20,vec(70,70,110))
+                    Scr:egpColor(18,vec(20,20,70))
+                }
+                if(P:touching(Scr,21)){
+                    Scr:egpColor(21,vec(50,50,90))
+                    Scr:egpColor(19,vec(90,50,50))
+                }else{
+                    Scr:egpColor(21,vec(70,70,110))
+                    Scr:egpColor(19,vec(20,20,70))
+                }
+            }
+            timer("bu",200)
+        }else{
+            Scr:egpColor(20,vec(70,70,110))
+            Scr:egpColor(21,vec(70,70,110))
+            Scr:egpColor(18,vec(20,20,70))
+            Scr:egpColor(19,vec(20,20,70))
+            timer("bu",1000)
+        }
+    }else{
+        timer("bu",1000)
+    }
 }

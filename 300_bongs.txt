@@ -3,7 +3,8 @@
 @outputs 
 @persist Lines:array I
 if(first()){
- Lines = array("",
+
+ Lines = array(
                   "What the bong did you just fucking say about me,",
                   "you little stoner?",
                   "I'll have you know I smoked the most ganja in my class at Washington State University,",
