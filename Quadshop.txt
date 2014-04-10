@@ -61,29 +61,62 @@ if(first()){
             }
         }
     }
+    function void wirelink:muiTop(I,N){
+        local S = This
+        S:egpBox(1,vec2(256,256),vec2(512,512)) #BG
+        
+        #[Bottom/outline]#
+        S:egpTriangle(3,vec2(125,25),vec2(125,125),vec2(25,125))
+        S:egpTriangle(4,vec2(387,25),vec2(387,125),vec2(487,125))
+        S:egpBox(5,vec2(256,75),vec2(262,100))
+        S:egpBox(6,vec2(256,147),vec2(462,45))
+
+        #[Side 'tapers']#
+        S:egpTriangle(7,vec2(25,169),vec2(50,169),vec2(50,194))
+        S:egpTriangle(8,vec2(512-25,169),vec2(512-50,169),vec2(512-50,194))
+        S:egpTriangle(9,vec2(27,169),vec2(48,169),vec2(48,190))
+        S:egpTriangle(10,vec2(512-27,169),vec2(512-48,169),vec2(512-48,190))
+
+        #[The 'light']#
+        S:egpBox(15,vec2(256,170),vec2(448,75))
+        
+        S:egpColor(1,vec(80,80,120)) #BG
+        S:egpColor(3,vec(20,20,70))
+        S:egpColor(4,S:egpColor(3))
+        S:egpColor(5,S:egpColor(3))
+        S:egpColor(6,S:egpColor(3))
+        S:egpColor(7,S:egpColor(3))
+        S:egpColor(8,S:egpColor(3))
+            
+        S:egpColor(9,S:egpColor(3)/2) #Left taper
+        S:egpColor(10,S:egpColor(9))#Right taper
+        
+        S:egpColor(15,vec(90,90,220))
+        
+        S:egpMaterial(15,"gui/gradient_down.vtf")
+    }
+    function void wirelink:muiBottom(I,N){
+        local S = This
+        #[Inside]#
+        S:egpTriangle(11,vec2(125,27),vec2(125,125),vec2(27,125))
+        S:egpTriangle(12,vec2(387,27),vec2(387,125),vec2(485,125))
+        S:egpBox(13,vec2(256,76),vec2(262,100))
+        S:egpBox(14,vec2(256,147),vec2(458,45))
+        
+        S:egpText(2,"Screen: ["+N+"]",vec2(25,25))
+        
+        S:egpColor(11,vec(70,70,120))
+        S:egpColor(12,S:egpColor(11))
+        S:egpColor(13,S:egpColor(11))
+        S:egpColor(14,S:egpColor(11))
+    }
     function void wirelink:mui(I,N){
+        local S = This
+        local See = S:entity()
         if(I==1){
-            local S = This
-            local See = S:entity()
             See["1",number] = 1
             S:egpClear()
-            S:egpBox(1,vec2(256,256),vec2(512,512)) #BG
-        
-            #[Bottom/outline]#
-            S:egpTriangle(3,vec2(125,25),vec2(125,125),vec2(25,125))
-            S:egpTriangle(4,vec2(387,25),vec2(387,125),vec2(487,125))
-            S:egpBox(5,vec2(256,75),vec2(262,100))
-            S:egpBox(6,vec2(256,147),vec2(462,45))
-
-            #[Side 'tapers']#
-            S:egpTriangle(7,vec2(25,169),vec2(50,169),vec2(50,194))
-            S:egpTriangle(8,vec2(512-25,169),vec2(512-50,169),vec2(512-50,194))
-            S:egpTriangle(9,vec2(27,169),vec2(48,169),vec2(48,190))
-            S:egpTriangle(10,vec2(512-27,169),vec2(512-48,169),vec2(512-48,190))
-
-            #[The 'light']#
-            S:egpBox(15,vec2(256,170),vec2(448,75))
-        
+            S:muiTop(I,N)
             S:egpRoundedBox(16,vec2(256,280),vec2(256,90))
             S:egpRoundedBox(17,vec2(256,380),vec2(256,90))
         
@@ -95,33 +128,7 @@ if(first()){
             
             S:etc(23,"Accounting",S:egpPos(21),40)
             
-            S:egpRoundedBox(22,vec2(256,330),vec2(348,280)) #Main hbo 1
-    
-            #[Inside]#
-            S:egpTriangle(11,vec2(125,27),vec2(125,125),vec2(27,125))
-            S:egpTriangle(12,vec2(387,27),vec2(387,125),vec2(485,125))
-            S:egpBox(13,vec2(256,76),vec2(262,100))
-            S:egpBox(14,vec2(256,147),vec2(458,45))
-        
-            S:egpText(2,"Screen: ["+N+"]",vec2(25,25))
-            
-            S:egpColor(1,vec(80,80,120)) #BG
-            S:egpColor(3,vec(20,20,70))
-            S:egpColor(4,S:egpColor(3))
-            S:egpColor(5,S:egpColor(3))
-            S:egpColor(6,S:egpColor(3))
-            S:egpColor(7,S:egpColor(3))
-            S:egpColor(8,S:egpColor(3))
-            
-            S:egpColor(9,S:egpColor(3)/2) #Left taper
-            S:egpColor(10,S:egpColor(9))#Right taper
-            
-            S:egpColor(11,vec(70,70,120))
-            S:egpColor(12,S:egpColor(11))
-            S:egpColor(13,S:egpColor(11))
-            S:egpColor(14,S:egpColor(11))
-        
-            S:egpColor(15,vec(90,90,220))
+            S:muiBottom(I,N)
             
             S:egpColor(16,vec(50,50,100))
             S:egpColor(17,vec(50,50,100))
@@ -134,10 +141,19 @@ if(first()){
             
             S:egpColor(23,S:egpColor(18)) #Buts
             
+            S:egpRoundedBox(22,vec2(256,330),vec2(348,280)) #Main hbo 1
+            
             S:egpAlpha(22,1)
-        
-            S:egpMaterial(15,"gui/gradient_down.vtf")
+
+        }elseif(I==2){
+            See["1",number] = 2
+            S:egpClear()
+            S:muiTop(I,N)
+            S:muiBottom(I,N)
         }
+    }
+    function void wirelink:accountUI(P:entity){
+        
     }
     function string ac(){
         findByClass("player")
@@ -147,11 +163,11 @@ if(first()){
             local S = S[I,wirelink]:entity()
             #print(P)
             #print(S)
-            if(P:pos():distance(S:pos())<60){
+            if(P:pos():distance(S:pos())<100){
                 #print(I)
                 Pl = Pl+P:id()+"."+I+".1.#"
             }else{
-                Pl = Pl+P:id()+"."+I+".1.#"
+                Pl = Pl+P:id()+"."+I+".0.#"
             }
             if(I==4){
                 return Pl
@@ -175,7 +191,7 @@ if(clk("bu")){
         local P   = entity(Sc:explode(".")[1,string]:toNumber())
         local Ce  = Sc:explode(".")[3,string]:toNumber()
         if(P:isPlayer()){
-            if(P:touching(Scr,22)==1&Ce==1){
+            if((P:touching(Scr,22)==1)&Ce==1){
                 if(Scr:entity()["1",number]==1){
                     #print(2)
                     
@@ -190,6 +206,9 @@ if(clk("bu")){
                     if(P:touching(Scr,21)){ #Accounting
                         Scr:egpColor(21,vec(50,50,90))
                         Scr:egpColor(19,vec(90,50,50))
+                        if(P:keyUse()==1){
+                            Scr:mui(2,I)
+                        }
                     }else{
                         Scr:egpColor(21,vec(70,70,110))
                         Scr:egpColor(19,vec(20,20,70))
@@ -208,3 +227,4 @@ if(clk("bu")){
         }
     }
 }
+
