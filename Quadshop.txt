@@ -4,10 +4,32 @@
 @inputs [E1 E2 E3 E4 E5 E6 E7 E8]:entity
 @outputs U1 U2 U3 U4 U5 U6 U7 U8
 @persist [S Se D E P B]:array
-@persist Dir State
+@persist Dir State Uii
+@persist [Pl]:string
 if(first()){
  #include "bhc/some_function_libaries/fileFuncs"
  #include "bhc/some_function_libaries/egpFuncs"
+
+ S = array(S1, 
+           S2, 
+           S3, 
+           S4)
+ D = array(D1, 
+           D2, 
+           D3, 
+           D4)
+ P = array(P1, 
+           P2, 
+           P3, 
+           P4)
+ E = array(E1, 
+           E2, 
+           E3, 
+           E4, 
+           E5, 
+           E6, 
+           E7, 
+           E8)
     function void a(N){
         for(I=1,4){
             local S = S[I,wirelink]
@@ -34,31 +56,14 @@ if(first()){
             if(E:touching(S[N,wirelink],B[1,string]:toNumber())==1){
                 return 1
             }
+            if(I==B:count()){
+                return 0
+            }
         }
     }
- S = array(S1, 
-           S2, 
-           S3, 
-           S4)
- D = array(D1, 
-           D2, 
-           D3, 
-           D4)
- P = array(P1, 
-           P2, 
-           P3, 
-           P4)
- E = array(E1, 
-           E2, 
-           E3, 
-           E4, 
-           E5, 
-           E6, 
-           E7, 
-           E8)
-    function void wirelink:mui(I){
+    function void wirelink:mui(I,N){
         if(I==1){
-            local S = S[I,wirelink]
+            local S = This
             local See = S:entity()
             See["1",number] = 1
             S:egpClear()
@@ -98,7 +103,7 @@ if(first()){
             S:egpBox(13,vec2(256,76),vec2(262,100))
             S:egpBox(14,vec2(256,147),vec2(458,45))
         
-            S:egpText(2,"Screen: ["+I+"]",vec2(25,25))
+            S:egpText(2,"Screen: ["+N+"]",vec2(25,25))
             
             S:egpColor(1,vec(80,80,120)) #BG
             S:egpColor(3,vec(20,20,70))
@@ -136,6 +141,7 @@ if(first()){
     }
     function string ac(){
         findByClass("player")
+        Pl = ""
         for(I=1,4){
             local P = findClosest(S[I,wirelink]:entity():pos())
             local S = S[I,wirelink]:entity()
@@ -143,15 +149,17 @@ if(first()){
             #print(S)
             if(P:pos():distance(S:pos())<60){
                 #print(I)
-                return P:id()+"."+I
+                Pl = Pl+P:id()+"."+I+".1.#"
+            }else{
+                Pl = Pl+P:id()+"."+I+".1.#"
             }
             if(I==4){
-                return ""
+                return Pl
             }
         }
     }
     for(I=1,4){
-        S[I,wirelink]:mui(1)
+        S[I,wirelink]:mui(1,I)
     }
     timer("an",0)
     timer("bu",0)
@@ -161,37 +169,42 @@ if(clk("an")){
  timer("an",500)
 }
 if(clk("bu")){
-    local Sc  = ac()
-    local Scr = S[Sc:explode(".")[2,string]:toNumber(),wirelink]
-    local P   = entity(Sc:explode(".")[1,string]:toNumber())
-    if(P:isPlayer()){
-        if(P:touching(Scr,22)==1){
-            if(Scr:entity()["1",number]==1){
-                #print(2)
-                if(P:touching(Scr,20)){
-                    Scr:egpColor(20,vec(50,50,90))
-                    Scr:egpColor(18,vec(90,50,50))
-                }else{
-                    Scr:egpColor(20,vec(70,70,110))
-                    Scr:egpColor(18,vec(20,20,70))
+    for(I=1,4){ #Hopefully means all screens are processed each run.
+        local Sc  = ac():explode("#")[I,string]
+        local Scr = S[Sc:explode(".")[2,string]:toNumber(),wirelink]
+        local P   = entity(Sc:explode(".")[1,string]:toNumber())
+        local Ce  = Sc:explode(".")[3,string]:toNumber()
+        if(P:isPlayer()){
+            if(P:touching(Scr,22)==1&Ce==1){
+                if(Scr:entity()["1",number]==1){
+                    #print(2)
+                    
+                    if(P:touching(Scr,20)){ #Store
+                        Scr:egpColor(20,vec(50,50,90))
+                        Scr:egpColor(18,vec(90,50,50))
+                    }else{
+                        Scr:egpColor(20,vec(70,70,110))
+                        Scr:egpColor(18,vec(20,20,70))
+                    }
+                    
+                    if(P:touching(Scr,21)){ #Accounting
+                        Scr:egpColor(21,vec(50,50,90))
+                        Scr:egpColor(19,vec(90,50,50))
+                    }else{
+                        Scr:egpColor(21,vec(70,70,110))
+                        Scr:egpColor(19,vec(20,20,70))
+                    }
                 }
-                if(P:touching(Scr,21)){
-                    Scr:egpColor(21,vec(50,50,90))
-                    Scr:egpColor(19,vec(90,50,50))
-                }else{
-                    Scr:egpColor(21,vec(70,70,110))
-                    Scr:egpColor(19,vec(20,20,70))
-                }
+                timer("bu",200)
+            }else{
+                Scr:egpColor(20,vec(70,70,110))
+                Scr:egpColor(21,vec(70,70,110))
+                Scr:egpColor(18,vec(20,20,70))
+                Scr:egpColor(19,vec(20,20,70))
+                timer("bu",1000)
             }
-            timer("bu",200)
         }else{
-            Scr:egpColor(20,vec(70,70,110))
-            Scr:egpColor(21,vec(70,70,110))
-            Scr:egpColor(18,vec(20,20,70))
-            Scr:egpColor(19,vec(20,20,70))
             timer("bu",1000)
         }
-    }else{
-        timer("bu",1000)
     }
 }

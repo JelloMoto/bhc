@@ -2,6 +2,8 @@ function number rightFileLoad(S:string#[The file to open]#,S2:string#[What value
     runOnFile(1)
     if(fileCanLoad()){
         fileLoad(S)
+    }else{
+        print("Cannot load!")
     }
     if(fileLoaded()){
         if(fileRead()!=""){
@@ -9,7 +11,10 @@ function number rightFileLoad(S:string#[The file to open]#,S2:string#[What value
             print(S2)
         }else{
             fileLoad(S)
+            print("Didn't load!")
         }
+    }else{
+        print("File not loaded?")
     }
 }
 #[
