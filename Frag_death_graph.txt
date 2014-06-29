@@ -18,19 +18,19 @@ if(clk("min")){
     Frags = 0
     for(I=1, A2:count()){
         if(A2[I,entity]:frags() < 0){
-            Deaths-= 2
-            Frags+= 2
+            Deaths-= 1
+            Frags+= 1
         }else{
         
-            Frags = Frags+(A2[I,entity]:frags()*2)
+            Frags = Frags+A2[I,entity]:frags()
         }
-        Deaths = Deaths-(A2[I,entity]:deaths()*2)
+        Deaths = Deaths-A2[I,entity]:deaths()
     }
     if(I >= 128){
         I = 1
     }
     S:egpRemove(299)
-    S:egpLine(I, vec2(A[I,number],256-D), vec2(A[I+1,number],256-Deaths:toString():replace("-",""):toNumber()))
+    S:egpLine(I, vec2(A[I,number],256-D), vec2(A[I+1,number],256-Deaths:toString():replace("-",""):toNumber()*2))
     S:egpCircle(299, vec2(A[I+1,number],256+A2:count()), vec2(10,10))
     S:egpMaterial(299, "hud/leaderboard_dead")
     S:egpSize(I,2)
@@ -41,8 +41,8 @@ if(clk("min")){
     S:egpColor(I+100, vec(0,255,0))
     S:egpColor(I, vec(255,0,0))
     
-    S:egpText(298, "Servers collective kills: "+Frags/2, vec2(A[I,number],266-Frags))
-    S:egpText(297, "Servers collective deaths: "+Deaths:toString():replace("-",""):toNumber()/2, vec2(A[I,number],226-Deaths:toString():replace("-",""):toNumber()))
+    S:egpText(298, "Servers collective kills: "+Frags, vec2(A[I,number],266-Frags))
+    S:egpText(297, "Servers collective deaths: "+Deaths:toString():replace("-",""):toNumber(), vec2(A[I,number],226-Deaths:toString():replace("-",""):toNumber()))
     
     
     
