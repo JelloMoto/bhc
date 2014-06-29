@@ -1,0 +1,22 @@
+@name Nut write
+@persist A B S:string
+if(first()){
+ #include "bhc/some_function_libaries/fileFuncs"
+ A = 0
+ B = 1
+}
+for(I=1,84){
+    A++
+    if(A==15){
+        A = 1
+        B++
+    }
+    if(A>=10){
+        S = S+"nut.anim.SetModelClass('player', 'pmc/pmc_"+B+"/pmc_"+A+"')\n"
+    }else{
+        S = S+"nut.anim.SetModelClass('player', 'pmc/pmc_"+B+"/pmc_0"+A+"')\n"
+    }
+    if(I==84){
+        rightFileSave("Niggerjuice2.txt",S)
+    }
+}

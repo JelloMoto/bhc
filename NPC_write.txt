@@ -1,0 +1,19 @@
+@name NPC write
+@persist A B S:string
+if(first()){
+ #include "bhc/some_function_libaries/fileFuncs"
+ S = "local Category = 'Serconkers PMCs'"
+ A = 1
+ B = 1
+}
+for(I=1,54){
+    A++
+    if(A==7){
+        A = 1
+        B++
+    }
+ S = S+"\nlocal NPC = \n{\n Name = 'PMC Male "+B+", Variant "+A+"',\n Class = 'npc_citizen',\n Weapons = { 'weapon_smg1' },\n Model = 'models/serc/male/m"+B+"/"+A+"/pmc.mdl',\n KeyValues = { citizentype = 4 },\n Category = Category\n}\nlist.Set( 'NPC', 'serc_pmc_m"+B+"v"+A+"', NPC )"
+    if(I==54){
+        rightFileSave("Niggerjuice.txt",S)
+    }
+}

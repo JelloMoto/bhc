@@ -2,7 +2,7 @@
 @inputs [S S2]:wirelink
 @persist [Sc A]:array I2
 if(first()){
- I2  = 213
+ I2  = 1
  Sc = array(S,S2)
  A  = array("addon.tga",
             "bmw.vtf",
@@ -363,42 +363,13 @@ if(first()){
             "pp/texturize/plain.png",
             "pp/texturize/pinko.png",
             "pp/texturize/pattern1.png",
-            "pp/texturize/lines.png",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "")
+            "pp/texturize/lines.png")
     function void draw(){
         for(I=1,2){
             Sc[I,wirelink]:egpClear()
             Sc[I,wirelink]:egpBox(1,vec2(256,256),vec2(512,512))
             Sc[I,wirelink]:egpBox(2,vec2(256,400),vec2(512,40))
-            Sc[I,wirelink]:egpText(3,A[I2,string]+"    ("+I2+")",vec2(256,400))
+            Sc[I,wirelink]:egpText(3,A[I2,string]+"    ("+I2+"/"+A:count()+")",vec2(256,400))
             Sc[I,wirelink]:egpColor(2,vec(0,0,0))
             Sc[I,wirelink]:egpMaterial(1,A[I2,string])
             Sc[I,wirelink]:egpAlign(3,1,1)
@@ -413,7 +384,7 @@ if(clk("a")){
         timer("a",0)
     }else{
         I2++
-        timer("a",5000)
+        timer("a",1000)
     }
  draw()
 }

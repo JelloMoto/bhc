@@ -1,0 +1,8 @@
+@name Boxy
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+interval(500)
+entity():isWeldedTo():applyForce(vec(randint(0,500)))

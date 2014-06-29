@@ -1,0 +1,54 @@
+@name Frag death graph
+@inputs S:wirelink
+@outputs 
+@persist I D E [A A2]:array Deaths Frags
+@trigger 
+
+if(first()){
+    while(A:count() != 128){
+        A[A:count()+1,number] = A:count()*4
+    }
+    A2 = players()
+    S:egpClear()
+    S:egpLine(300,vec2(0, 256), vec2(512, 256))
+    timer("min",0)
+}
+if(clk("min")){
+    Deaths = 0
+    Frags = 0
+    for(I=1, A2:count()){
+        if(A2[I,entity]:frags() < 0){
+            Deaths-= 2
+            Frags+= 2
+        }else{
+        
+            Frags = Frags+(A2[I,entity]:frags()*2)
+        }
+        Deaths = Deaths-(A2[I,entity]:deaths()*2)
+    }
+    if(I >= 128){
+        I = 1
+    }
+    S:egpRemove(299)
+    S:egpLine(I, vec2(A[I,number],256-D), vec2(A[I+1,number],256-Deaths:toString():replace("-",""):toNumber()))
+    S:egpCircle(299, vec2(A[I+1,number],256+A2:count()), vec2(10,10))
+    S:egpMaterial(299, "hud/leaderboard_dead")
+    S:egpSize(I,2)
+
+    S:egpLine(I+100, vec2(A[I,number],256-E), vec2(A[I+1,number],256-Frags))
+    S:egpSize(I+100,2)
+    
+    S:egpColor(I+100, vec(0,255,0))
+    S:egpColor(I, vec(255,0,0))
+    
+    S:egpText(298, "Servers collective kills: "+Frags/2, vec2(A[I,number],266-Frags))
+    S:egpText(297, "Servers collective deaths: "+Deaths:toString():replace("-",""):toNumber()/2, vec2(A[I,number],226-Deaths:toString():replace("-",""):toNumber()))
+    
+    
+    
+    D = Deaths:toString():replace("-",""):toNumber()
+    E = Frags
+    I++
+    timer("min",30000)
+    #timer("min",1000)
+}

@@ -61,9 +61,8 @@ if(first()){
             }
         }
     }
-    function void wirelink:muiTop(I,N){
+    function void wirelink:muiTop(I){
         local S = This
-        S:egpBox(1,vec2(256,256),vec2(512,512)) #BG
         
         #[Bottom/outline]#
         S:egpTriangle(3,vec2(125,25),vec2(125,125),vec2(25,125))
@@ -80,7 +79,6 @@ if(first()){
         #[The 'light']#
         S:egpBox(15,vec2(256,170),vec2(448,75))
         
-        S:egpColor(1,vec(80,80,120)) #BG
         S:egpColor(3,vec(20,20,70))
         S:egpColor(4,S:egpColor(3))
         S:egpColor(5,S:egpColor(3))
@@ -116,7 +114,8 @@ if(first()){
         if(I==1){
             See["1",number] = 1
             S:egpClear()
-            S:muiTop(I,N)
+            S:egpBox(1,vec2(256,256),vec2(512,512)) #BG
+            S:muiTop(I)
             S:egpRoundedBox(16,vec2(256,280),vec2(256,90))
             S:egpRoundedBox(17,vec2(256,380),vec2(256,90))
         
@@ -130,6 +129,7 @@ if(first()){
             
             S:muiBottom(I,N)
             
+            S:egpColor(1,vec(80,80,120)) #BG
             S:egpColor(16,vec(50,50,100))
             S:egpColor(17,vec(50,50,100))
             
@@ -148,11 +148,31 @@ if(first()){
         }elseif(I==2){
             See["1",number] = 2
             S:egpClear()
-            S:muiTop(I,N)
-            S:muiBottom(I,N)
+            S:egpBox(1,vec2(256,256),vec2(512,512)) #BG
+            
+            S:egpColor(1,vec(80,80,120)) #BG
         }
     }
-    function void wirelink:accountUI(P:entity){
+    function void wirelink:accountUI(P:entity,I,N){
+        local S = This
+        S:mui(2,N)
+        S:egpBox(26,vec2(256,347),vec2(404,404))
+        S:egpBox(27,vec2(256,347),vec2(402,402))
+        S:egpBox(28,vec2(256,347),vec2(400,400))
+        S:muiTop(I)
+        S:muiBottom(I,N)
+        S:etc(24,"Welcome, "+P:name()+", what do you wish to do?",vec2(257,128),20)
+        S:etc(25,"Welcome, "+P:name()+", what do you wish to do?",vec2(256,127),20)
+        
+        
+        #S:egpText(26,"",vec2(256,200))
+        
+        S:egpColor(24,vec(50,50,90))
+        S:egpColor(25,vec(110,110,150))
+        
+        S:egpColor(26,vec(110,110,150))
+        S:egpColor(27,vec(50,50,50))
+        S:egpColor(28,vec(110,110,150))
         
     }
     function string ac(){
@@ -207,14 +227,14 @@ if(clk("bu")){
                         Scr:egpColor(21,vec(50,50,90))
                         Scr:egpColor(19,vec(90,50,50))
                         if(P:keyUse()==1){
-                            Scr:mui(2,I)
+                            Scr:accountUI(P,2,I)
                         }
                     }else{
                         Scr:egpColor(21,vec(70,70,110))
                         Scr:egpColor(19,vec(20,20,70))
                     }
                 }
-                timer("bu",200)
+                timer("bu",400)
             }else{
                 Scr:egpColor(20,vec(70,70,110))
                 Scr:egpColor(21,vec(70,70,110))

@@ -1,0 +1,53 @@
+@name Line trace stuff
+@inputs S:wirelink
+@outputs 
+@persist [A P]:array
+@trigger 
+#include "bhc/some_function_libaries/miscFuncs"
+if(first()){
+ S:egpClear()
+ timer("str",0)
+}
+
+if(clk("str")){
+ findByClass("player")
+ local E = findClosest(entity():pos())
+    if(E:keyUse() & S:egpCursor(E)){
+        if(P:count() < 2){
+            P[P:count()+1,vector2] = S:egpCursor(E)
+            print(P:count())
+            print(S:egpCursor(E))
+        }
+    }
+ local Gradient = whatsLargerv(P[1,vector2], P[2,vector2]) - whatsSmallerv(P[1,vector2], P[2,vector2])
+
+
+ local X = round(whatsLarger(P[1,vector2]:x(), P[2,vector2]:x()) - whatsSmaller(P[1,vector2]:x(), P[2,vector2]:x()))
+ local Y = round(whatsLarger(P[1,vector2]:y(), P[2,vector2]:y()) - whatsSmaller(P[1,vector2]:y(), P[2,vector2]:y()))
+ local Z = round(sqrt(( X )^2+( Y )^2))
+
+
+ S:egpLine(1, P[1,vector2], P[2,vector2])
+ S:egpLine(3, P[1,vector2], vec2(P[1,vector2]:x(), P[2,vector2]:y()))
+ S:egpLine(4, vec2(P[1,vector2]:x(), P[2,vector2]:y()), P[2,vector2])
+
+ S:egpText(2, "Line gradiant "+Gradient:toString(), vec2(0,0))
+ S:egpText(5, "X gradiant: "+round(Gradient:x()), vec2((P[1,vector2]:x()/2), P[2,vector2]:y()))
+ S:egpText(6, "Y gradiant: "+round(Gradient:y()), vec2(P[1,vector2]:x(), P[2,vector2]:y()/2))
+
+ S:egpText(7, "Z length:  "+Z+" func round(sqrt(( X )^2+( Y )^2))", vec2(P[1,vector2]:x()+20, P[2,vector2]:y()/2))
+ S:egpText(8, "X length:  "+X+" ", vec2(P[1,vector2]:x()+20, (P[2,vector2]:y()/2)+15))
+ S:egpText(9, "Y length:  "+Y+" ", vec2(P[1,vector2]:x()+20, (P[2,vector2]:y()/2)+30))
+
+ S:egpAlign(5, 1, 1)
+ S:egpAlign(6, 1, 1)
+
+ S:egpColor(1, vec(255,0,0)) 
+ S:egpColor(3, vec(0,255,0)) 
+ S:egpColor(4, vec(0,0,255)) 
+
+ S:egpColor(7, vec(255,0,0)) 
+ S:egpColor(9, vec(0,255,0)) 
+ S:egpColor(8, vec(0,0,255)) 
+ timer("str",1000)
+}

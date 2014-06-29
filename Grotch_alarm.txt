@@ -1,0 +1,21 @@
+@name Grotch alarm
+@inputs 
+@outputs 
+@persist P:array
+@trigger 
+interval(1000)
+if(changed(players():count())){
+ P = players()
+ print(P:count())
+ print(P[P:count(),entity]:name()+": "+P[P:count(),entity]:steamID())
+    for(I=1, P:count()){
+        if(P[I,entity]:steamID() == "STEAM_0:1:59767375 "){
+            timer("al",10000)
+            owner():soundPlay(1,0,"ambient/alarms/doomsday_lift_alarm.wav")
+            #concmd("say /ooc Laddies and gentalmen, Grotch has entered the server!")
+        }
+    }
+}
+if(clk("al")){
+ selfDestruct()
+}

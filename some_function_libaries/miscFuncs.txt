@@ -11,10 +11,26 @@ function number whatsLarger(N,N2){
         return N2
     }
 }
+
+function vector2 whatsLargerv(N:vector2,N2:vector2){    
+    if(N:x()>=N2:x() & N:y() >= N2:y()){
+        return N
+    }elseif(N2:x()>=N:x() & N2:y() >= N:y()){
+        return N2
+    }
+}
+
 function number whatsSmaller(N,N2){
     if(N<=N2){
         return N
     }elseif(N2<=N){
+        return N2
+    }
+}
+function vector2 whatsSmallerv(N:vector2,N2:vector2){    
+    if(N:x()<=N2:x() & N:y() <= N2:y()){
+        return N
+    }elseif(N2:x()<=N:x() & N2:y() <= N:y()){
         return N2
     }
 }

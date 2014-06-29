@@ -1,0 +1,31 @@
+@name Prop shield
+@inputs 
+@outputs 
+@persist [P1 P2]:vector
+@trigger 
+if(first()){
+ runOnChat(1)
+}
+if(clk("a")){
+ findByClass("prop_physics")
+ local A = findToArray()
+    for(I=1,A:count()){
+        local P = A[I,entity]
+        if(inrange(P:pos(),P1,P2)&P:owner():isAdmin() != 1){
+            P:propDelete()
+        }
+    }
+ timer("a",1000)
+}
+if(chatClk(owner())){
+    local S = owner():lastSaid():lower():explode(" ")
+    if(S[1,string]=="{ps"){
+        if(S[2,string]=="p1"){
+            P1 = owner():aimPos()
+        }elseif(S[2,string]=="p2"){
+            P2 = owner():aimPos()
+        }elseif(S[2,string]=="start"){
+            timer("a",0)
+        }
+    }
+}
