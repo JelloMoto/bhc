@@ -46,7 +46,7 @@ if(clk("min")){
     
     
     
-    D = Deaths:toString():replace("-",""):toNumber()
+    D = Deaths:toString():replace("-",""):toNumber()*2
     E = Frags
     I++
     timer("min",30000)
