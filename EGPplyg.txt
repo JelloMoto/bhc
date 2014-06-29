@@ -20,7 +20,7 @@ if(clk("min")){
     S:egpMaterial(129, "hud/leaderboard_dead")
     S:egpSize(I,2)
     I++
-    if(D > A2:count()*2){
+    if(D > A2:count()){
         S:egpColor(I-1,vec(255,0,0))
     }elseif(D < A2:count()*2){
         S:egpColor(I-1,vec(0,255,0))
