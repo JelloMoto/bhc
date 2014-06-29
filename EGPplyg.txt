@@ -15,7 +15,7 @@ if(first()){
 if(clk("min")){
     A2 = players()
     S:egpRemove(129)
-    S:egpLine(I, vec2(A[I,number],256-D), vec2(A[I+1,number],256-(A2:count()*2)))
+    S:egpLine(I, vec2(A[I,number],256-D), vec2(A[I+1,number],256-(A2:count())))
     S:egpCircle(129, vec2(A[I+1,number],256+A2:count()), vec2(10,10))
     S:egpMaterial(129, "hud/leaderboard_dead")
     S:egpSize(I,2)
@@ -30,7 +30,7 @@ if(clk("min")){
     if(I >= 128){
         I = 1
     }
-    D = A2:count()*2
+    D = A2:count()
     timer("min",30000)
     #timer("min",1000)
 }

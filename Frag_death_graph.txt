@@ -39,7 +39,7 @@ if(clk("min")){
     S:egpMaterial(I, "hud/leaderboard_dead")
     
     #S:egpLine(I+100, vec2(A[I,number],256-E), vec2(A[I+1,number],256-Frags))
-    S:egpCircle(I+100, vec2(A[I,number],256-E), vec2(5,5))
+    S:egpCircle(I+100, vec2(A[I,number],256-E*2), vec2(5,5))
     S:egpMaterial(I+100, "hud/leaderboard_dead")
     S:egpSize(I+100,2)
     
@@ -54,6 +54,6 @@ if(clk("min")){
     D = Deaths:toString():replace("-",""):toNumber()*2
     E = Frags
     I++
-    timer("min",1000)
+    timer("min",30000)
     #timer("min",1000)
 }
