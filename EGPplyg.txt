@@ -22,7 +22,7 @@ if(clk("min")){
     I++
     if(D > A2:count()){
         S:egpColor(I-1,vec(255,0,0))
-    }elseif(D < A2:count()*2){
+    }elseif(D < A2:count()){
         S:egpColor(I-1,vec(0,255,0))
     }else{
         S:egpColor(I-1,vec(0,0,255))
